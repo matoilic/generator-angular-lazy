@@ -1,0 +1,26 @@
+{
+  "name": "generator-angular-async",
+  "version": "0.0.1",
+  "description": "Yeoman generator for creating AngularJS applications which lazy load components as needed on runtime. Based on SystemJS, JSPM, Babel and Gulp.",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/matoilic/generator-angular-lazy.git"
+  },
+  "keywords": [
+    "yeoman-generator",
+    "angular",
+    "angularjs",
+    "systemjs",
+    "app",
+    "scaffold"
+  ],
+  "author": "Mato Ilic <info@matoilic.ch>",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/matoilic/generator-angular-lazy/issues"
+  },
+  "homepage": "https://github.com/matoilic/generator-angular-lazy#readme",
+  "dependencies": {
+    "babel-core": "^5.8.23"
+  }
+}
