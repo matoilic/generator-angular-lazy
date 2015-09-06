@@ -11,6 +11,7 @@
     "angular",
     "angularjs",
     "systemjs",
+    "jspm",
     "app",
     "scaffold"
   ],
