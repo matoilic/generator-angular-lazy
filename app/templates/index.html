@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <base href="/">
+        <meta charset="UTF-8">
+        <title><%= _.humanize(appName) %></title>
+    </head>
+    <body>
+        <div id="applicationContainer"></div>
+
+        <script src="jspm_packages/system.src.js"></script>
+        <script>
+            System.config({
+                baseURL: '/build/'
+            });
+        </script>
+        <script src="config/systemjs.conf.js"></script>
+        <script>
+            System.import('index').catch(console.error.bind(console));
+        </script>
+    </body>
+</html>

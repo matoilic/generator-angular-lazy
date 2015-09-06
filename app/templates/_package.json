@@ -1,0 +1,68 @@
+{
+  "name": "<%= _.slugify(_.humanize(appName)) %>",
+  "version": "0.0.0",
+  "jspm": {
+    "directories": {
+      "baseURL": "build",
+      "lib": "build",
+      "packages": "jspm_packages"
+    },
+    "configFile": "config/systemjs.conf.js",
+    "dependencies": {
+      "angular": "npm:angular@^1.4.0",
+      "angular-mocks": "npm:angular-mocks@^1.4.0",
+      "angular-resource": "npm:angular-resource@^1.4.0",
+      "angular-ui-router": "npm:angular-ui-router@^0.2.15",
+      "css": "github:systemjs/plugin-css@^0.1.11",
+      "json": "github:systemjs/plugin-json@^0.1.0",
+      "oclazyload": "npm:oclazyload@^0.6.3",
+      "text": "github:systemjs/plugin-text@^0.0.2",
+      "ui-router-extras": "npm:ui-router-extras@^0.0.13"
+    },
+    "devDependencies": {
+      "babel": "npm:babel-core@^5.8.22",
+      "babel-runtime": "npm:babel-runtime@^5.8.20",
+      "core-js": "npm:core-js@^1.1.0"
+    }
+  },
+  "devDependencies": {
+    "babel": "^5.1.11",
+    "babel-eslint": "^4.1.1",
+    "eslint-config-airbnb": "0.0.8",
+    "gulp": "^3.8.11",
+    "gulp-autoprefixer": "^2.3.1",
+    "gulp-babel": "^5.2.0",
+    "gulp-connect": "^2.2.0",
+    "gulp-htmlhint": "^0.1.1",
+    "gulp-jshint": "^1.10.0",
+    "gulp-load-plugins": "^0.10.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-plumber": "^1.0.0",
+    "gulp-protractor": "^1.0.0",
+    "gulp-sass": "^2.0.1",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-sync": "^0.1.4",
+    "htmlhint": "^0.9.7",
+    "jasmine-core": "^2.2.0",
+    "jshint": "^2.7.0",
+    "jshint-stylish": "^1.0.1",
+    "karma": "^0.12.31",
+    "karma-chrome-launcher": "^0.1.8",
+    "karma-coverage": "^0.3.1",
+    "karma-firefox-launcher": "^0.1.4",
+    "karma-jasmine": "^0.3.5",
+    "karma-jspm": "^2.0.1",
+    "karma-phantomjs-launcher": "^0.1.4",
+    "phantomjs-polyfill": "0.0.1",
+    "protractor": "^2.0.0",
+    "when": "^3.7.2"
+  },
+  "dependencies": {
+
+  },
+  "scripts": {
+    "setup": "npm install -g gulp karma-cli protractor jspm && npm install && jspm install",
+    "test": "gulp test",
+    "test-e2e": "gulp test-e2e"
+  }
+}

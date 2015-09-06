@@ -1,0 +1,10 @@
+function errorHandlingConfig($rootScope) {
+    $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
+        console.error(`error occurred while transitioning to ${toState.name}: ${error}`);
+    });
+}
+
+export default [
+    '$rootScope',
+    errorHandlingConfig
+];
