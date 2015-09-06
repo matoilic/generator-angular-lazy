@@ -17,9 +17,9 @@ module.exports = generators.NamedBase.extend({
     },
 
     writing: {
-        component: function() {
+        state: function() {
             var stateName = this._normalizeStateName(this.name);
-            var url = this._normalizeUrl(stateName, this.arguments.url || stateName.split('.').pop());
+            var url = this._normalizeUrl(stateName, this.options.url || stateName.split('.').pop());
             var componentName = stateName.replace(/\./g, '-') + '-state';
             var routeFileName = componentName.slice(0, -6) + '-route';
             var context = {
@@ -75,7 +75,7 @@ module.exports = generators.NamedBase.extend({
             .join('.');
     },
 
-    _normalizeUrl: function(url, stateName) {
+    _normalizeUrl: function(stateName, url) {
         var leadingSlashRequired = stateName.indexOf('.') > -1;
         var hasLeadingSlash = url[0] === '/';
 
