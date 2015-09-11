@@ -18,38 +18,37 @@ module.exports = generators.NamedBase.extend({
 
     writing: {
         state: function() {
-            var stateName = this._normalizeStateName(this.name);
-            var url = this._normalizeUrl(stateName, this.options.url || stateName.split('.').pop());
-            var componentName = stateName.replace(/\./g, '-') + '-state';
-            var routeFileName = componentName.slice(0, -6) + '-route';
-            var context = {
-                componentName: componentName,
-                stateName: stateName,
-                url: url,
-                controllerName: _.classify(componentName) + 'Controller',
-                controllerFileName: componentName + '-controller',
-                controllerInstanceName: _.camelize(componentName) + 'Controller',
-                routeName: _.camelize(routeFileName),
-                routeFileName: routeFileName,
-                templateName: componentName,
-                _: _
-            };
+            var context = this._createContext();
 
-            this._copyFile(componentName, 'controller', context.controllerFileName, '.js', context);
-            this._copyFile(componentName, 'index', 'index', '.js', context);
-            this._copyFile(componentName, 'route', context.routeFileName, '.js', context);
-            this._copyFile(componentName, 'stylesheet', componentName, '.scss', context);
-            this._copyFile(componentName, 'template', componentName, '.html', context);
+            this._copyFile(context.componentName, 'controller', context.controllerFileName, '.js', context);
+            this._copyFile(context.componentName, 'index', 'index', '.js', context);
+            this._copyFile(context.componentName, 'route', context.routeFileName, '.js', context);
+            this._copyFile(context.componentName, 'stylesheet', context.componentName, '.scss', context);
+            this._copyFile(context.componentName, 'template', context.componentName, '.html', context);
 
             var routesFile = this.destinationPath('src/components/application/config/routes.json');
             var routes = this.fs.readJSON(routesFile);
             routes.push({
-                name: 'app.' + stateName,
-                url: url,
+                name: 'app.' + context.stateName,
+                url: context.url,
                 type: 'load',
-                src: 'components/' + componentName + '/index'
+                src: 'components/' + context.componentName + '/index'
             });
             this.fs.writeJSON(routesFile, routes);
+        },
+        i18n: function() {
+            if(!this.config.get('i18n')) {
+                return;
+            }
+
+            var context = this._createContext();
+            var _this = this;
+
+            this._copyFile(context.componentName, 'translations', 'i18n/translations', '.js', context);
+            context.locales.forEach(function(locale) {
+                context.locale = locale;
+                _this._copyFile(context.componentName, 'language', 'i18n/' + _.slugify(locale), '.js', context);
+            });
         }
     },
 
@@ -90,5 +89,25 @@ module.exports = generators.NamedBase.extend({
         }
 
         return url;
+    },
+
+    _createContext: function() {
+        var stateName = this._normalizeStateName(this.name);
+        var url = this._normalizeUrl(stateName, this.options.url || stateName.split('.').pop());
+        var componentName = stateName.replace(/\./g, '-') + '-state';
+        var routeFileName = componentName.slice(0, -6) + '-route';
+
+        return _.merge({
+            componentName: componentName,
+            stateName: stateName,
+            url: url,
+            controllerName: _.classify(componentName) + 'Controller',
+            controllerFileName: componentName + '-controller',
+            controllerInstanceName: _.camelize(componentName) + 'Controller',
+            routeName: _.camelize(routeFileName),
+            routeFileName: routeFileName,
+            templateName: componentName,
+            _: _
+        }, this.config.getAll());
     }
 });

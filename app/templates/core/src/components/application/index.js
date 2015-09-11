@@ -5,6 +5,7 @@ import uiRouter from 'angular-ui-router';
 import 'ui-router-extras';
 import 'oclazyload';<% if(i18n) { %>
 import angularTranslate from 'angular-translate';
+import translationsModule from './i18n/translations';
 import defaultLocaleConfig from './config/default-locale';<% } %>
 import routingConfig from './config/routing';
 import errorHandlingConfig from './config/error-handling';
@@ -17,7 +18,8 @@ const dependencies = [
     'oc.lazyLoad',
     'ct.ui.router.extras',
     'ct.ui.router.extras.future'<% if(i18n) { %>,
-    angularTranslate<% } %>
+    angularTranslate,
+    translationsModule.name<% } %>
 ];
 
 const app = angular
