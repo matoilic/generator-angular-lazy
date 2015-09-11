@@ -8,10 +8,27 @@ var s = require('underscore.string');
 
 _.mixin(s.exports());
 
+function whenI18nActive(answers) {
+    return answers.i18n;
+}
+
 module.exports = generators.Base.extend({
+    constructor: function() {
+        generators.Base.apply(this, arguments);
+
+        this.context = {_: _};
+
+        this.option('skip-install', {
+            desc: 'Do not install dependencies',
+            type: Boolean,
+            defaults: false
+        });
+    },
+
     prompting: {
         app: function() {
             var done = this.async();
+            var _this = this;
 
             this.prompt([
                 {
@@ -31,9 +48,7 @@ module.exports = generators.Base.extend({
                     name: 'locales',
                     message: 'What locales do you want to support (comma separated list)?',
                     default: null,
-                    when: function(answers) {
-                        return answers.i18n;
-                    },
+                    when: whenI18nActive,
                     filter: function(answer) {
                         return answer
                             .split(',')
@@ -41,48 +56,96 @@ module.exports = generators.Base.extend({
                                 return locale.trim();
                             });
                     }
+                },
+                {
+                    type: 'list',
+                    name: 'defaultLocale',
+                    message: 'Which should be the default locale?',
+                    choices: function(answers) {
+                        return answers.locales;
+                    },
+                    when: whenI18nActive
                 }
             ], function (answers) {
-                this.context = answers;
+                _this.context = _.merge(_this.context, answers);
+                done();
             });
         }
     },
 
-    writing: {
-        app: function() {
-            var context = _.merge(this.context, {
-                appName: this.name || path.basename(process.cwd()),
-                _: _
-            });
+    configuring: {
+        save: function() {
+            this.config.set('appName', this.context.appName);
+            this.config.set('i18n', this.context.i18n);
+            this.config.set('locales', this.context.locales);
+            this.config.set('defaultLocale', this.context.defaultLocale);
+            this.config.save();
+        }
+    },
 
+    writing: {
+        core: function() {
             var templatePathLength = this.templatePath().length + 1;
             var _this = this;
 
             glob
-                .sync(this.templatePath('**/*'), {nodir: true})
+                .sync(this.templatePath('core/**/*'), {nodir: true})
                 .map(function(filepath) {
                     return filepath.slice(templatePathLength);
                 })
                 .forEach(function(filepath) {
-                    var dirname = path.dirname(filepath);
+                    var dirname = path.dirname(filepath).slice(5);
                     var srcFilename =  path.basename(filepath);
                     var destFilename = srcFilename[0] === '_' ? srcFilename.slice(1) : srcFilename;
 
                     _this.fs.copyTpl(
                         _this.templatePath(filepath),
-                        _this.destinationPath(dirname + '/' + destFilename),
-                        context
+                        _this.destinationPath(path.join(dirname, destFilename)),
+                        _this.context
                     );
                 });
+        },
+        i18n: function() {
+            if(!this.context.i18n) {
+                return;
+            }
+
+            this.fs.copyTpl(
+                this.templatePath('i18n/translations.js'),
+                this.destinationPath('src/components/application/i18n/translations.js'),
+                this.context
+            );
+
+            this.fs.copyTpl(
+                this.templatePath('i18n/default-locale-config.js'),
+                this.destinationPath('src/components/application/config/default-locale.js'),
+                {defaultLocale: this.context.defaultLocale}
+            );
+
+            var _this = this;
+            this.context.locales.forEach(function(locale) {
+                _this.fs.copyTpl(
+                    _this.templatePath('i18n/language.js'),
+                    _this.destinationPath('src/components/application/i18n/' + _.slugify(locale) + '.js'),
+                    {
+                        _: _,
+                        locale: locale
+                    }
+                );
+            });
         }
     },
 
     install: {
         npm: function() {
-            this.npmInstall();
+            if(!this.options['skip-install']) {
+                this.runInstall('npm');
+            }
         },
         jspm: function() {
-            this.runInstall('jspm', [], ['-y'])
+            if(!this.options['skip-install']) {
+                this.runInstall('jspm');
+            }
         }
     }
 });
