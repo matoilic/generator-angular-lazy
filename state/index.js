@@ -11,6 +11,13 @@ module.exports = generators.NamedBase.extend({
         generators.NamedBase.apply(this, arguments);
 
         this.argument('url', {
+            desc: 'Url relative to the parent state. Same as state name by default.',
+            type: String,
+            required: false
+        });
+
+        this.option('target', {
+            desc: 'Name of the target ui-view within the parent state.',
             type: String,
             required: false
         });
@@ -98,11 +105,17 @@ module.exports = generators.NamedBase.extend({
         var url = this._normalizeUrl(stateName, this.options.url || stateName.split('.').pop());
         var componentName = stateName.replace(/\./g, '-') + '-state';
         var routeFileName = componentName.slice(0, -6) + '-route';
+        var target = this.options.target;
+
+        if(!target && stateName.indexOf('.') === -1) {
+            target = 'application';
+        }
 
         return _.merge({
             componentName: componentName,
             stateName: stateName,
             url: url,
+            target: target,
             controllerName: _.classify(componentName) + 'Controller',
             controllerFileName: componentName + '-controller',
             controllerInstanceName: _.camelize(componentName) + 'Controller',
