@@ -17,7 +17,10 @@ module.exports = function(config) {
                 'build/**/*-spec.js'
             ],
             serveFiles: [
-                'build/**/*.*',
+                'build/**/!(*-spec).js',
+                'build/**/*.css',
+                'build/**/*.json',
+                'build/**/*.html',
                 'jspm_packages/**/*.js',
                 'jspm_packages/**/*.css'
             ]
@@ -35,7 +38,9 @@ module.exports = function(config) {
 
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-        preprocessors: { },
+        preprocessors: {
+            'build/**/!(*-spec).js': ['coverage']
+        },
 
         // test results reporter to use
         // possible values: 'dots', 'progress'
