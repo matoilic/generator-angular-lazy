@@ -24,6 +24,7 @@ module.exports = generators.NamedBase.extend({
             this._copyFile(context.componentName, 'index', 'index', '.js', context);
             this._copyFile(context.componentName, 'route', context.routeFileName, '.js', context);
             this._copyFile(context.componentName, 'spec', context.componentName + '-spec', '.js', context);
+            this._copyFile(context.componentName, 'test', context.componentName + '-test', '.js', context);
             this._copyFile(context.componentName, 'stylesheet', context.componentName, '.scss', context);
             this._copyFile(context.componentName, 'template', context.componentName, '.html', context);
 

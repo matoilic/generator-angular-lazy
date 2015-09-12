@@ -1,3 +1,11 @@
+var browsers = ['Chrome', 'Firefox'];
+
+if(process.platform === 'win32') {
+    browsers.push('IE');
+} else if(process.platform === 'darwin') {
+    browsers.push('Safari');
+}
+
 module.exports = function(config) {
     config.set({
         // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -12,7 +20,7 @@ module.exports = function(config) {
 
         jspm: {
             baseURL: '/base/build/',
-            config: 'config/systemjs.conf.js',
+            config: 'config/system.js',
             loadFiles: [
                 'build/**/*-spec.js'
             ],
@@ -62,7 +70,7 @@ module.exports = function(config) {
 
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-        browsers: ['PhantomJS', 'Chrome', 'Firefox'],
+        browsers: browsers,
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits

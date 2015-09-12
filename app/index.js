@@ -16,7 +16,11 @@ module.exports = generators.Base.extend({
     constructor: function() {
         generators.Base.apply(this, arguments);
 
-        this.context = {_: _};
+        this.context = {
+            windows: process.platform === 'win32',
+            darwin: process.platform === 'darwin',
+            _: _
+        };
 
         this.option('skip-install', {
             desc: 'Do not install dependencies',

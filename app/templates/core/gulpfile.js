@@ -75,53 +75,52 @@ gulp.task('build', [
 
 gulp.task('test', ['build'], function(done) {
     new KarmaServer({
-        configFile: __dirname + '/config/karma.conf.js',
+        configFile: __dirname + '/config/karma.js',
         singleRun: true
     }, function() {
         done();
     }).start();
 });
 
-gulp.task('webdriver-update', g.protractor.webdriver_update);
+gulp.task('webdriver-update', function(done) {
+    var browsers = ['chrome'];
+
+    if(process.platform === 'win32') {
+        browsers.push('ie');
+    }
+
+    g.protractor.webdriver_update({browsers: browsers}, done);
+});
 
 gulp.task('webdriver-standalone', g.protractor.webdriver_standalone);
 
 gulp.task('test-e2e', ['build', 'webdriver-update'], function(done) {
     var params = process.argv;
     var args = params.length > 3 ? [params[3], params[4]] : [];
-    var serverStarted = false;
 
-    if(args.indexOf('--baseUrl') === -1) {
-        g.connect.server({
-            port: serverPortTest,
-            root: ['.']
-        });
+    g.connect.server({
+        port: serverPortTest,
+        root: ['.']
+    });
 
-        args.push(
-            '--baseUrl',
-            'http://localhost:' + serverPortTest
-        );
-
-        serverStarted = true;
-    }
+    args.push(
+        '--baseUrl',
+        'http://localhost:' + serverPortTest
+    );
 
     gulp
-        .src(path.join(paths.build.outputTest + '/e2e/**/*Test.js'))
+        .src(path.join(paths.build.output + '/**/*-test.js'))
         .pipe(g.protractor.protractor({
-            configFile: __dirname + '/config/protractor.conf.js',
+            configFile: __dirname + '/config/protractor.js',
             args: args
         }))
         .on('error', function (err) {
-            if(serverStarted) {
-                g.connect.serverClose();
-            }
+            g.connect.serverClose();
 
             throw err;
         })
         .on('end', function () {
-            if(serverStarted) {
-                g.connect.serverClose();
-            }
+            g.connect.serverClose();
 
             done();
         });
