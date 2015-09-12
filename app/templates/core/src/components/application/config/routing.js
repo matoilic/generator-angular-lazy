@@ -1,17 +1,11 @@
 import futureRoutes from './routes.json!';
 
-function routingConfig($locationProvider, $urlRouterProvider, $httpProvider, $stateProvider, $futureStateProvider) {
+function routingConfig($locationProvider, $urlRouterProvider, $httpProvider, $futureStateProvider) {
     $futureStateProvider.stateFactory('load', ['$q', '$ocLazyLoad', 'futureState', function($q, $ocLazyLoad, futureState) {
         const def = $q.defer();
 
-        System.import(futureState.src).then(loaded => {
-            let newModule = loaded;
-            if (!loaded.name) {
-                var key = Object.keys(loaded);
-                newModule = loaded[key[0]];
-            }
-
-            $ocLazyLoad.load(newModule).then(function() {
+        System.import(futureState.src).then(loadedModule => {
+            $ocLazyLoad.inject(loadedModule.name).then(function() {
                 def.resolve();
             });
         });
@@ -33,7 +27,6 @@ export default [
     '$locationProvider',
     '$urlRouterProvider',
     '$httpProvider',
-    '$stateProvider', 
     '$futureStateProvider',
     routingConfig
 ];
