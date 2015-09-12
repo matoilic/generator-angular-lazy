@@ -1,5 +1,5 @@
 import './stylesheets/application.css!';
-import 'babel-core/external-helpers';
+import 'babel/external-helpers';
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import 'ui-router-extras';
@@ -23,7 +23,7 @@ const dependencies = [
 ];
 
 const app = angular
-    .module('application', dependencies)
+    .module('application-component', dependencies)
     .controller('ApplicationController', ApplicationController)
     .config(routingConfig)
     .config(applicationRoute)<% if(i18n) { %>

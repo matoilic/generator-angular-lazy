@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var g = require('gulp-load-plugins')();
 var gulpSync = require('gulp-sync')(gulp);
-var karma = require('karma').server;
+var KarmaServer = require('karma').Server;
 var path = require('path');
 
 var paths = {
@@ -39,7 +39,6 @@ gulp.task('compile-source', function() {
     return gulp
         .src(paths.sources)
         .pipe(g.plumber())
-        .pipe(g.changed(paths.build.output, { extension: '.js' }))
         .pipe(g.sourcemaps.init())
         .pipe(g.babel())
         .pipe(g.sourcemaps.write('.'))
@@ -75,12 +74,12 @@ gulp.task('build', [
 ]);
 
 gulp.task('test', ['build'], function(done) {
-    karma.start({
+    new KarmaServer({
         configFile: __dirname + '/config/karma.conf.js',
         singleRun: true
     }, function() {
         done();
-    });
+    }).start();
 });
 
 gulp.task('webdriver-update', g.protractor.webdriver_update);
