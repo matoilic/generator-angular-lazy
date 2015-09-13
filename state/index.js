@@ -3,6 +3,7 @@
 var generators = require('yeoman-generator');
 var _ = require('lodash');
 var s = require('underscore.string');
+var fs = require('fs');
 
 _.mixin(s.exports());
 
@@ -21,6 +22,50 @@ module.exports = generators.NamedBase.extend({
             type: String,
             required: false
         });
+    },
+
+    prompting: {
+        targetView: function() {
+            var targetComponentName = this._determineParentComponent(this.name);
+            var targetTemplate = this.destinationPath('src/components/' + targetComponentName + '/' + targetComponentName + '.html');
+
+            if(this.options.target || !fs.existsSync(targetTemplate)) {
+                return;
+            }
+
+            var templateContent = fs.readFileSync(targetTemplate);
+            var views = [];
+            var viewMatcher = /(?:\sui-view="([^"]+)"|<ui-view name="([^"]+)">)/g;
+            var view;
+            var index = 0;
+
+            while(view = viewMatcher.exec(templateContent)) {
+                views.push(view[1] || view[2]);
+                index = view.index;
+            }
+
+            if(views.length < 2) {
+                if(views.length === 1) {
+                    this.options.target = views[0];
+                }
+
+                return;
+            }
+
+            var _this = this;
+            var done = this.async();
+            this.prompt([
+                {
+                    type: 'list',
+                    name: 'target',
+                    message: "Which is the target ui-view?",
+                    choices: views
+                }
+            ], function(answers) {
+                _this.options.target = answers.target;
+                done();
+            })
+        }
     },
 
     writing: {
@@ -100,10 +145,14 @@ module.exports = generators.NamedBase.extend({
         return url;
     },
 
+    _stateToComponentName: function(stateName) {
+        return stateName.replace(/\./g, '-') + '-state';
+    },
+
     _createContext: function() {
         var stateName = this._normalizeStateName(this.name);
         var url = this._normalizeUrl(stateName, this.options.url || stateName.split('.').pop());
-        var componentName = stateName.replace(/\./g, '-') + '-state';
+        var componentName = this._stateToComponentName(stateName);
         var routeFileName = componentName.slice(0, -6) + '-route';
         var target = this.options.target;
 
@@ -124,5 +173,17 @@ module.exports = generators.NamedBase.extend({
             templateName: componentName,
             _: _
         }, this.config.getAll());
+    },
+
+    _determineParentComponent: function(stateName) {
+        stateName = this._normalizeStateName(stateName);
+
+        if(stateName.indexOf('.') === -1) {
+            return 'application';
+        }
+
+        return this._stateToComponentName(
+            stateName.slice(0, stateName.lastIndexOf('.'))
+        );
     }
 });
