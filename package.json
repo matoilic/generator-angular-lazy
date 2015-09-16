@@ -21,6 +21,11 @@
     "url": "https://github.com/matoilic/generator-angular-lazy/issues"
   },
   "homepage": "https://github.com/matoilic/generator-angular-lazy#readme",
+  "files": [
+  	"app",
+  	"component",
+  	"state"
+  ],
   "dependencies": {
     "glob": "^5.0.14",
     "lodash": "^3.10.1",
