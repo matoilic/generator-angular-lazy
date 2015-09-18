@@ -1,14 +1,17 @@
 'use strict';
 
-var generators = require('yeoman-generator');
+var Base = require('../Base');
 var _ = require('lodash');
 var s = require('underscore.string');
 
 _.mixin(s.exports());
 
-module.exports = generators.NamedBase.extend({
+module.exports = Base.extend({
     constructor: function() {
-        generators.NamedBase.apply(this, arguments);
+        Base.apply(this, arguments);
+
+        this._requireName();
+        this._enablePrefix();
     },
 
     writing: {
@@ -39,14 +42,6 @@ module.exports = generators.NamedBase.extend({
         }
     },
 
-    _copyFile: function(componentName, src, dest, extension, context) {
-        this.fs.copyTpl(
-            this.templatePath(src + extension),
-            this.destinationPath('src/components/' + componentName + '/' + dest + extension),
-            context
-        );
-    },
-
     _createContext: function() {
         var componentName = _.slugify(_.humanize(this.name));
 
@@ -56,8 +51,7 @@ module.exports = generators.NamedBase.extend({
             controllerFileName: componentName + '-controller',
             controllerInstanceName: _.camelize(componentName) + 'Controller',
             directiveName: _.camelize(componentName) + 'Directive',
-            directiveFileName: componentName + '-directive',
-            _: _
-        }, this.config.getAll());
+            directiveFileName: componentName + '-directive'
+        }, Base.prototype._createContext.apply(this, arguments));
     }
 });

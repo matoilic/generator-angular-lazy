@@ -1,17 +1,20 @@
 'use strict';
 
-var generators = require('yeoman-generator');
+var Base = require('../Base');
 var _ = require('lodash');
 var s = require('underscore.string');
 var fs = require('fs');
 
 _.mixin(s.exports());
 
-module.exports = generators.NamedBase.extend({
+module.exports = Base.extend({
     constructor: function() {
-        generators.NamedBase.apply(this, arguments);
+        Base.apply(this, arguments);
 
-        this.argument('url', {
+        this._requireName();
+        this._enablePrefix();
+
+        this.option('url', {
             desc: 'Url relative to the parent state. Same as state name by default.',
             type: String,
             required: false
@@ -27,7 +30,7 @@ module.exports = generators.NamedBase.extend({
     prompting: {
         targetView: function() {
             var targetComponentName = this._determineParentComponent(this.name);
-            var targetTemplate = this.destinationPath('src/components/' + targetComponentName + '/' + targetComponentName + '.html');
+            var targetTemplate = this._componentDestinationPath(targetComponentName, targetComponentName + '.html');
 
             if(this.options.target || !fs.existsSync(targetTemplate)) {
                 return;
@@ -106,14 +109,6 @@ module.exports = generators.NamedBase.extend({
         }
     },
 
-    _copyFile: function(componentName, src, dest, extension, context) {
-        this.fs.copyTpl(
-            this.templatePath(src + extension),
-            this.destinationPath('src/components/' + componentName + '/' + dest + extension),
-            context
-        );
-    },
-
     _normalizeStateName: function(stateName) {
         if(stateName.indexOf('app.') === 0) {
             stateName = stateName.slice(4);
@@ -170,8 +165,7 @@ module.exports = generators.NamedBase.extend({
             routeName: _.camelize(routeFileName),
             routeFileName: routeFileName,
             templateName: componentName,
-            _: _
-        }, this.config.getAll());
+        }, Base.prototype._createContext.apply(this, arguments));
     },
 
     _determineParentComponent: function(stateName) {

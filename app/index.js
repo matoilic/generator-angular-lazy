@@ -1,6 +1,6 @@
 'use strict';
 
-var generators = require('yeoman-generator');
+var Base = require('../Base');
 var glob = require('glob');
 var path = require('path');
 var _ = require('lodash');
@@ -12,15 +12,9 @@ function whenI18nActive(answers) {
     return answers.i18n;
 }
 
-module.exports = generators.Base.extend({
+module.exports = Base.extend({
     constructor: function() {
-        generators.Base.apply(this, arguments);
-
-        this.context = {
-            windows: process.platform === 'win32',
-            darwin: process.platform === 'darwin',
-            _: _
-        };
+        Base.apply(this, arguments);
 
         this.option('skip-install', {
             desc: 'Do not install dependencies',
@@ -71,7 +65,7 @@ module.exports = generators.Base.extend({
                     when: whenI18nActive
                 }
             ], function (answers) {
-                _this.context = _.merge(_this.context, answers);
+                _this.context = _.merge(_this._createContext(), answers);
                 done();
             });
         }
@@ -116,13 +110,13 @@ module.exports = generators.Base.extend({
 
             this.fs.copyTpl(
                 this.templatePath('i18n/translations.js'),
-                this.destinationPath('src/components/application/i18n/translations.js'),
+                this._componentDestinationPath('application', 'i18n', 'translations.js'),
                 this.context
             );
 
             this.fs.copyTpl(
                 this.templatePath('i18n/default-locale-config.js'),
-                this.destinationPath('src/components/application/config/default-locale.js'),
+                this._componentDestinationPath('application', 'config', 'default-locale.js'),
                 {defaultLocale: this.context.defaultLocale}
             );
 
@@ -130,7 +124,7 @@ module.exports = generators.Base.extend({
             this.context.locales.forEach(function(locale) {
                 _this.fs.copyTpl(
                     _this.templatePath('i18n/language.js'),
-                    _this.destinationPath('src/components/application/i18n/' + _.slugify(locale) + '.js'),
+                    _this._componentDestinationPath('application', 'i18n', _.slugify(locale) + '.js'),
                     {
                         _: _,
                         locale: locale
