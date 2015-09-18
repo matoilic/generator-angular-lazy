@@ -115,7 +115,6 @@ module.exports = generators.NamedBase.extend({
     },
 
     _normalizeStateName: function(stateName) {
-        var stateName = this.name;
         if(stateName.indexOf('app.') === 0) {
             stateName = stateName.slice(4);
         }
