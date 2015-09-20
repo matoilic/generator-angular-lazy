@@ -7,5 +7,6 @@ System.config({
             'runtime',
             'optimisation.modules.system'
         ]
-    }
+    },
+    buildCSS: false
 });
