@@ -4,7 +4,7 @@ import angular from 'angular';
 import uiRouter from 'angular-ui-router';
 import 'ui-router-extras';
 import ocLazyLoad from 'oclazyload/dist/modules/ocLazyLoad.core';<% if(i18n) { %>
-import 'angular-translate';
+import angularTranslate from 'angular-translate';
 import translationsModule from './i18n/translations';
 import defaultLocaleConfig from './config/default-locale';<% } %>
 import routingConfig from './config/routing';
