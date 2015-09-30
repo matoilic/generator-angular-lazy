@@ -3,9 +3,7 @@
   "version": "0.0.0",
   "jspm": {
     "directories": {
-      "baseURL": "build",
-      "lib": "build",
-      "packages": "jspm_packages"
+      "lib": "build"
     },
     "configFile": "config/system.js",
     "dependencies": {

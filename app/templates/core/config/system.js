@@ -1,5 +1,6 @@
 System.config({
     defaultJSExtensions: true,
+    buildCSS: false,
     transpiler: 'babel',
     babelOptions: {
         externalHelpers: true,
@@ -8,5 +9,7 @@ System.config({
             'optimisation.modules.system'
         ]
     },
-    buildCSS: false
+    paths: {
+        '*': 'build/*'
+    }
 });
