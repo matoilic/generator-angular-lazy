@@ -16,8 +16,11 @@
   // Define globals exposed by Node.js.
   "node": true,
 
+  // Define Jasmine framework functions
+  "jasmine": true,
+
   // Globals defined by libraries
-  "predef": ["angular", "System"],
+  "predef": ["System", "browser", "by", "element", "webdriver"],
 
   /*
    * ENFORCING OPTIONS
