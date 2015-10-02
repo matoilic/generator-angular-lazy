@@ -3,10 +3,8 @@
 var Base = require('../Base');
 var glob = require('glob');
 var path = require('path');
-var _ = require('lodash');
-var s = require('underscore.string');
-
-_.mixin(s.exports());
+var _ = require('../extended-lodash');
+var stateUtils = require('../state-utils');
 
 function whenI18nActive(answers) {
     return answers.i18n;
@@ -63,9 +61,20 @@ module.exports = Base.extend({
                         return answers.locales;
                     },
                     when: whenI18nActive
+                },
+                {
+                    type: 'input',
+                    name: 'indexRouteName',
+                    message: "How should the default state be called?",
+                    default: 'home'
                 }
             ], function (answers) {
+                var index = stateUtils.normalizeStateName(answers.indexRouteName);
+
                 _this.context = _.merge(_this._createContext(), answers);
+                _this.context.indexUrl = stateUtils.normalizeUrl(index, index);
+                _this.context.indexComponent = stateUtils.stateToComponentName(index);
+
                 done();
             });
         }
@@ -145,5 +154,14 @@ module.exports = Base.extend({
                 this.runInstall('jspm');
             }
         }
+    },
+
+    end: function() {
+        this.composeWith('angular-lazy:state', {
+            arguments: [this.context.indexRouteName],
+            options: {
+                force: true
+            }
+        });
     }
 });

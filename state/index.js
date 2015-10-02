@@ -1,11 +1,9 @@
 'use strict';
 
 var Base = require('../Base');
-var _ = require('lodash');
-var s = require('underscore.string');
+var _ = require('../extended-lodash');
 var fs = require('fs');
-
-_.mixin(s.exports());
+var stateUtils = require('../state-utils');
 
 module.exports = Base.extend({
     constructor: function() {
@@ -29,7 +27,7 @@ module.exports = Base.extend({
 
     prompting: {
         targetView: function() {
-            var targetComponentName = this._determineParentComponent(this.name);
+            var targetComponentName = stateUtils.determineParentComponent(this.name);
             var targetTemplate = this._componentDestinationPath(targetComponentName, targetComponentName + '.html');
 
             if(this.options.target || !fs.existsSync(targetTemplate)) {
@@ -109,44 +107,10 @@ module.exports = Base.extend({
         }
     },
 
-    _normalizeStateName: function(stateName) {
-        if(stateName.indexOf('app.') === 0) {
-            stateName = stateName.slice(4);
-        }
-
-        return stateName
-            .split('.')
-            .map(function(part) {
-                return _.slugify(_.humanize(part))
-            })
-            .join('.');
-    },
-
-    _normalizeUrl: function(stateName, url) {
-        var leadingSlashRequired = stateName.indexOf('.') > -1;
-        var hasLeadingSlash = url[0] === '/';
-
-        if(leadingSlashRequired && !hasLeadingSlash) {
-            url = '/' + url;
-        } else if(!leadingSlashRequired && hasLeadingSlash) {
-            url = url.slice(1);
-        }
-
-        if(url.slice(-1) === '/') {
-            url = url.slice(0, -1);
-        }
-
-        return url;
-    },
-
-    _stateToComponentName: function(stateName) {
-        return stateName.replace(/\./g, '-') + '-state';
-    },
-
     _createContext: function() {
-        var stateName = this._normalizeStateName(this.name);
-        var url = this._normalizeUrl(stateName, this.options.url || stateName.split('.').pop());
-        var componentName = this._stateToComponentName(stateName);
+        var stateName = stateUtils.normalizeStateName(this.name);
+        var url = stateUtils.normalizeUrl(stateName, this.options.url || stateName.split('.').pop());
+        var componentName = stateUtils.stateToComponentName(stateName);
         var routeFileName = componentName.slice(0, -6) + '-route';
         var target = this.options.target;
 
@@ -166,17 +130,5 @@ module.exports = Base.extend({
             routeFileName: routeFileName,
             templateName: componentName,
         }, Base.prototype._createContext.apply(this, arguments));
-    },
-
-    _determineParentComponent: function(stateName) {
-        stateName = this._normalizeStateName(stateName);
-
-        if(stateName.indexOf('.') === -1) {
-            return 'application';
-        }
-
-        return this._stateToComponentName(
-            stateName.slice(0, stateName.lastIndexOf('.'))
-        );
     }
 });

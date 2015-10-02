@@ -1,4 +1,4 @@
-import './<%= componentName %>.css!'
+import './<%= componentName %>.css!';
 import angular from 'angular';
 import uiRouter from 'angular-ui-router';<% if(i18n) { %>
 import angularTranslate from 'angular-translate';

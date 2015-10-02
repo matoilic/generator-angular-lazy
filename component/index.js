@@ -1,10 +1,7 @@
 'use strict';
 
 var Base = require('../Base');
-var _ = require('lodash');
-var s = require('underscore.string');
-
-_.mixin(s.exports());
+var _ = require('../extended-lodash');
 
 module.exports = Base.extend({
     constructor: function() {
