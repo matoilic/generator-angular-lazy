@@ -22,9 +22,9 @@
   },
   "homepage": "https://github.com/matoilic/generator-angular-lazy#readme",
   "files": [
-  	"app",
-  	"component",
-  	"state"
+    "app",
+    "component",
+    "state"
   ],
   "dependencies": {
     "glob": "^5.0.14",

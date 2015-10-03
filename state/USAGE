@@ -1,0 +1,7 @@
+Description:
+    Generates a simple state component. If you want to create a child for an existing state use the dot notation known
+    from UI Router.
+
+Example:
+    yo angular-lazy state-name [--prefix=]
+    yo angular-lazy parent-state.child-state [--prefix=]

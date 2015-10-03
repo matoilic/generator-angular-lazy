@@ -26,7 +26,7 @@ module.exports = generators.Base.extend({
 
     _enablePrefix: function() {
         this.option('prefix', {
-            desc: 'Path where the component will be written to',
+            desc: 'Write component files to a subdirectory.',
             type: String,
             required: false
         });

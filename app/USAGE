@@ -1,0 +1,5 @@
+Description:
+    Generates the project structure including the application component and the index state.
+
+Example:
+    yo angular-lazy [--skip-install]
