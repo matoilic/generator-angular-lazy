@@ -24,7 +24,11 @@
   "files": [
     "app",
     "component",
-    "state"
+    "state",
+    "base.js",
+    "extended-lodash.js",
+    "readme.md",
+    "state-utils.js"
   ],
   "dependencies": {
     "glob": "^5.0.14",

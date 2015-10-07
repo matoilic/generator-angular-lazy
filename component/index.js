@@ -1,6 +1,6 @@
 'use strict';
 
-var Base = require('../Base');
+var Base = require('../base');
 var _ = require('../extended-lodash');
 
 module.exports = Base.extend({

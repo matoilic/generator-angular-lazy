@@ -1,6 +1,6 @@
 'use strict';
 
-var Base = require('../Base');
+var Base = require('../base');
 var glob = require('glob');
 var path = require('path');
 var _ = require('../extended-lodash');
