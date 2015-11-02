@@ -89,7 +89,7 @@ If you choose to activate `i18n` while generating the application, each componen
 
 ### Application component
 
-> $: yo angular-lazy
+> $: yo [angular-lazy](https://github.com/matoilic/generator-angular-lazy/blob/master/app/USAGE)
 
 ```text
 +src
@@ -156,7 +156,7 @@ This file contains our application controller which is accessible for all compon
 This file contains the application state. This is only an abstract state and each other state within our application should be a direct or indirect descendant of it. This enables us to load application wide data before any of the actual states get loaded.
 
 ### State component
-> $: yo angular-lazy:state name
+> $: yo [angular-lazy:state](https://github.com/matoilic/generator-angular-lazy/blob/master/state/USAGE) name
 > $: yo angular-lazy:state parent.child
 
 ```text
@@ -182,7 +182,7 @@ This file contains the state definition for UI Router. If you change the URL or 
 This file contains the controller for the newly generated state.
 
 ### General component
-> $: yo angular-lazy:component name
+> $: yo [angular-lazy:component](https://github.com/matoilic/generator-angular-lazy/blob/master/component/USAGE) name
 
 ```text
 +src
