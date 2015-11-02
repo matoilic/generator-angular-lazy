@@ -14,6 +14,18 @@
     - [Application component](#application-component)
     - [State component](#state-component)
     - [General component](#general-component)
+- [Gulp tasks](#gulp-tasks)
+    - [default](#default)
+    - [build](#build)
+    - [serve](#serve)
+    - [watch](#watch)
+    - [test](#test)
+    - [test-e2e](#test-e2e)
+    - [compile-source](#compile-source)
+    - [compile-stylesheets](#compile-stylesheets)
+    - [htmlhint](#htmlhint)
+    - [jshint](#jshint)
+
 
 ## What's included?
 These are the main tools and libraries the project stack relies on.
@@ -38,17 +50,26 @@ UI Router Extras adds even more functionality to the router on top of UI Router.
 ### [ocLazyLoad](https://oclazyload.readme.io)
 By default Angular requires us to load all application code upfront before it boots the application. That works well for smaller applications. For large scale applications this introduces long loading times an impacts the user experience negatively. ocLazyLoad allows us to add modules to Angular applications at runtime.
 
-### Angular Translate
-TODO
+### [Angular Translate](https://angular-translate.github.io/)
+If you choose to activate `i18n` while generating the application, the project will include Angular Translate to handle translations. Angular has no support for i18n and l10n, so we need to include this package.
 
-### Karma
-TODO
+### [Karma](https://karma-runner.github.io)
+Karma is a test runner created by the Angular team, specifically to ease the testing of Angular applications. It is only a test runner and not a test framework. To actually write our tests we're going to use Jasmine.
 
-### Protractor
-TODO
+### [Jasmine](https://jasmine.github.io)
+Jasmine is the actual test framework we're using to write our tests. It's integrated into Karma through the `karma-jasmine` package.
 
-### SASS
-TODO
+### [Protractor](https://www.protractortest.org)
+Protractor's main focus is to ease the end-to-end testing of Angular applications. Under the hood it uses [Selenium WebDriver](http://www.seleniumhq.org/projects/webdriver) which is an established tool for automated browser testing. Like with Karma, we can also use Jasmine to write our tests which protractor should run.
+
+### [SASS](http://sass-lang.com)
+Writing stylesheets in plain CSS for large applications is a pain in the ass. That's why Angular Lazy comes with SASS preconfigured as CSS preprocessor. Under the hood it uses [node-sass](https://github.com/sass/node-sass) which itself uses [libsass](http://sass-lang.com/libsass), a C implementation of SASS. We're not using the Ruby SASS implementation because it's much slower than libsass and it would require us to install Ruby next to Node.
+
+### [Babel](http://babeljs.io/)
+Not all ES2015 features are yet supported across major browsers. Babel allows us to take advantage of all new language features by transpiling then into equivalent ES5 code.
+
+### [Gulp](http://gulpjs.com)
+Angular Lazy uses Gulp for task automation and comes preconfigured with all [essential tasks](#gulp-tasks) to get started.
 
 ## Structure
 Angular Lazy follows a component based approach. Everything is a component, even the application itself. Components should be self-contained and should be easily reusable for multiple projects. Of course there will be cases where a component is very specific to a project and might not be reusable. But always have the goal of reusability in focus.
@@ -171,3 +192,65 @@ This file contains the controller for the newly generated state.
 ```
 
 By default a component corresponds to a directive within AngularJS. Accordingly, if you run the component generator it will create a directive.
+
+## Gulp tasks
+
+### default
+
+> $: gulp
+
+Alias for [build](#build) ➔ [watch](#watch) ➔ [serve](#serve)
+
+### build
+
+> $: gulp build
+
+Alias for [copy-static](#copy-static) ➔ [compile-source](#compile-source) ➔ [compile-stylesheets](#compile-stylesheets)
+
+### serve
+
+> $: gulp serve
+
+Starts a connect based server on port `8088` which can be used during application development. Will perform a [build](#build) before starting the server.
+
+### watch
+
+> $: gulp watch
+
+Starts a file system watcher which rebuilds our code as we change it.
+
+### test
+
+> $: gulp test
+
+Starts the Karma server and run all unit tests (*-spec.js). The configuration for the test runner can be found in `config/karma.js`. Will perform a [build](#build) before running the tests.
+
+### test-e2e
+
+> $: gulp test-e2e
+
+Starts a connect server on port `8089` and runs all e2e tests (*-test.js) against that server. Will perform a [build](#build) and an update of the necessary web drivers before running the tests.
+
+### compile-source
+
+> $: gulp compile-source
+
+Transpiles our JavaScript source code from ES2015 to ES5 using Babel.
+
+### compile-stylesheets
+
+> $: gulp compile-stylesheets
+
+Compiles our SASS stylesheets and uses [Autoprefixer](https://github.com/postcss/autoprefixer) to automatically add vendor prefixes for the most common browsers.
+
+### htmlhint
+
+> $: gulp htmlhint
+
+Runs a code quality analysis for all HTML templates using [HTMLHint](http://htmlhint.com).
+
+### jshint
+
+> $: gulp jshint
+
+Runs a code quality analysis for all JavaScript code using [JSHint](http://jshint.com).
