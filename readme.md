@@ -157,7 +157,6 @@ This file contains the application state. This is only an abstract state and eac
 
 ### State component
 > $: yo [angular-lazy:state](https://github.com/matoilic/generator-angular-lazy/blob/master/state/USAGE) name
-> $: yo angular-lazy:state parent.child
 
 ```text
 +src
