@@ -2,4 +2,4 @@ Description:
     Generates a simple component.
 
 Example:
-    yo angular-lazy component-name [--prefix=]
+    yo angular-lazy:component component-name [--prefix=]
