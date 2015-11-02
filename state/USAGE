@@ -3,5 +3,5 @@ Description:
     from UI Router.
 
 Example:
-    yo angular-lazy state-name [--prefix=]
-    yo angular-lazy parent-state.child-state [--prefix=]
+    yo angular-lazy:state state-name [--prefix=]
+    yo angular-lazy:state parent-state.child-state [--prefix=]
