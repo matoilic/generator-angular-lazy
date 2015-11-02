@@ -25,7 +25,7 @@
     - [compile-stylesheets](#compile-stylesheets)
     - [htmlhint](#htmlhint)
     - [jshint](#jshint)
-
+- [TODO](#todo)
 
 ## What's included?
 These are the main tools and libraries the project stack relies on.
@@ -254,3 +254,7 @@ Runs a code quality analysis for all HTML templates using [HTMLHint](http://html
 > $: gulp jshint
 
 Runs a code quality analysis for all JavaScript code using [JSHint](http://jshint.com).
+
+## TODO
+- [ ] Add ESLint
+- [ ] Integrate resource bundling for production
