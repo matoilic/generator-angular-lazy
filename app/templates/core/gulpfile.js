@@ -40,7 +40,12 @@ gulp.task('compile-source', function() {
         .src(paths.sources)
         .pipe(g.plumber())
         .pipe(g.sourcemaps.init())
-        .pipe(g.babel())
+        .pipe(g.babel({
+            presets: [
+                'es2015',
+                'stage-2'
+            ]
+        }))
         .pipe(g.sourcemaps.write('.'))
         .pipe(gulp.dest(paths.build.output));
 });
