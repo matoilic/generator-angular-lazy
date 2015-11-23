@@ -3,7 +3,8 @@
 > Opinionated Yeoman generator for creating Angular applications which lazy load components as needed at runtime.
 
 ## Table of contents
-- [What's included](#what-s-included-)
+- [Getting started](#getting-started)
+- [What's included](#what-s-included)
     - [SystemJS](#systemjs)
     - [JSPM](#jspm)
     - [AngularJS](#angularjs)
@@ -33,6 +34,28 @@
     - [htmlhint](#htmlhint)
     - [jshint](#jshint)
 - [TODO](#todo)
+
+## Getting started
+
+To get started you'll need to install the Yeoman, JSPM, Gulp and Protractor CLI tools globally.
+
+```bash
+$: npm install -g yo jspm gulp protractor
+```
+
+Then, of course, you need to install the Angular Lazy generator itself.
+
+```bash
+$: npm install -g generator-angular-lazy
+```
+
+Finally, make sure you set GitHub as default registry. A lot of packages don't declare their dependencies properly. For example, UI Router doesn't declare a dependency to Angular in it's package.json. Same with Bootstrap, which doesn't have a dependency to jQuery. This leads to errors when loading such libraries as their dependencies don't get loaded. JSPM's GitHub repository fixes this by adding the missing information. Have a look at the [JSPM Registry documentation](https://github.com/jspm/registry) for more details about package.json overrides.
+
+```bash
+$: jspm config defaultRegistry github
+```
+
+Now you can start using the generators described in the [structure section](#structure).
 
 ## What's included?
 These are the main tools and libraries the project stack relies on.
