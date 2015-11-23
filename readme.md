@@ -263,4 +263,3 @@ Runs a code quality analysis for all JavaScript code using [JSHint](http://jshin
 
 ## TODO
 - [ ] Add ESLint
-- [ ] Integrate resource bundling for production

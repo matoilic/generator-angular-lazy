@@ -3,6 +3,7 @@ var g = require('gulp-load-plugins')();
 var gulpSync = require('gulp-sync')(gulp);
 var KarmaServer = require('karma').Server;
 var path = require('path');
+var Bundler = require('angular-lazy-bundler');
 
 var paths = {
     build: {
@@ -77,6 +78,41 @@ gulp.task('build', [
     'compile-source',
     'compile-stylesheets'
 ]);
+
+gulp.task('bundle', ['build'], function(done) {
+    var bundler = new Bundler({
+        systemJsConfig: 'config/system.js'
+    });
+
+    bundler
+        .bundleComponents()
+        .then(function()  {
+            // these are the main dependencies required at application startup
+            return bundler.bundleDependencies(
+                [
+                    'angular',
+                    'angular-ui-router',
+                    'ui-router-extras',
+                    'oclazyload',<% if(i18n) { %>
+                    'angular-translate',<% } %>
+                    'css',
+                    'json',
+                    'text'
+                ],
+                'main-vendors'
+            );
+        })
+        .then(function() {
+            return bundler.bundlePackageDependencies()
+        })
+        .then(function() {
+            return bundler.saveConfig();
+        })
+        .then(function() {
+            done();
+        })
+        .catch(done)
+});
 
 gulp.task('test', ['build'], function(done) {
     new KarmaServer({
