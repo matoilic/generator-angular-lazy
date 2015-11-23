@@ -7,17 +7,17 @@
     },
     "configFile": "config/system.js",
     "dependencies": {
-      "angular": "npm:angular@^1.4.5",
-      "angular-mocks": "npm:angular-mocks@^1.4.4",
-      "angular-ui-router": "npm:angular-ui-router@^0.2.15",<% if(i18n) { %>
-      "angular-translate": "npm:angular-translate@^2.7.2",<% } %>
+      "angular": "github:angular/bower-angular@^1.4.5",<% if(i18n) { %>
+      "angular-translate": "github:angular-translate/bower-angular-translate@^2.7.2",<% } %>
+      "angular-ui-router": "github:angular-ui/ui-router@^0.2.15",
       "css": "github:systemjs/plugin-css@^0.1.16",
       "json": "github:systemjs/plugin-json@^0.1.0",
-      "oclazyload": "npm:oclazyload@^1.0.5",
+      "oclazyload": "github:ocombe/oclazyload@^1.0.5",
       "text": "github:systemjs/plugin-text@^0.0.2",
-      "ui-router-extras": "npm:ui-router-extras@^0.0.14"
+      "ui-router-extras": "github:christopherthielen/ui-router-extras@^0.0.14"
     },
     "devDependencies": {
+      "angular-mocks": "github:angular/bower-angular-mocks@^1.4.4",
       "babel": "npm:babel-core@^5.8.24",
       "babel-runtime": "npm:babel-runtime@^5.8.20",
       "core-js": "npm:core-js@^1.1.4"

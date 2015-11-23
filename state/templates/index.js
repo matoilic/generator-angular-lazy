@@ -1,14 +1,14 @@
 import './<%= componentName %>.css!';
 import angular from 'angular';
-import uiRouter from 'angular-ui-router';<% if(i18n) { %>
-import angularTranslate from 'angular-translate';
+import 'angular-ui-router';<% if(i18n) { %>
+import 'angular-translate';
 import translationsModule from './i18n/translations';<% } %>
 import <%= controllerName %> from './<%= controllerFileName %>';
 import <%= routeName %>Config from './<%= routeFileName %>';
 
 let dependencies = [
-    uiRouter<% if(i18n) { %>,
-    angularTranslate,
+    'ui.router'<% if(i18n) { %>,
+    'pascalprecht.translate',
     translationsModule.name<% } %>
 ];
 

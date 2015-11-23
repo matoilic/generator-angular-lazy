@@ -1,9 +1,9 @@
 import angular from 'angular';
-import angularTranslate from 'angular-translate';
+import 'angular-translate';
 <% locales.forEach(function(locale) { %>import <%= _.camelize(_.slugify(locale)) %> from './<%= _.slugify(locale) %>';
 <% }) %>
 const dependencies = [
-    angularTranslate
+    'pascalprecht.translate'
 ];
 
 export default angular

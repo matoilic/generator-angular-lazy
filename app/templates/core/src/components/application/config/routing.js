@@ -5,7 +5,7 @@ function routingConfig($locationProvider, $urlRouterProvider, $httpProvider, $fu
         const def = $q.defer();
 
         System.import(futureState.src).then(loadedModule => {
-            $ocLazyLoad.inject(loadedModule.name).then(function() {
+            $ocLazyLoad.inject(loadedModule.name || loadedModule.default.name || loadedModule).then(function() {
                 def.resolve();
             });
         });

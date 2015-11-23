@@ -1,12 +1,12 @@
 import './<%= componentName %>.css!'
 import angular from 'angular';<% if(i18n) { %>
-import angularTranslate from 'angular-translate';
+import 'angular-translate';
 import translationsModule from './i18n/translations';<% } %>
 import <%= controllerName %> from './<%= controllerFileName %>';
 import <%= directiveName %> from './<%= directiveFileName %>';
 
 let dependencies = [
-<% if(i18n) { %>    angularTranslate,
+<% if(i18n) { %>    'pascalprecht.translate',
     translationsModule.name<% } %>
 ];
 

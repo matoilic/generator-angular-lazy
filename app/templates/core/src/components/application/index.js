@@ -1,10 +1,10 @@
 import './stylesheets/application.css!';
 import 'babel/external-helpers';
 import angular from 'angular';
-import uiRouter from 'angular-ui-router';
+import 'angular-ui-router';
 import 'ui-router-extras';
-import ocLazyLoad from 'oclazyload/dist/modules/ocLazyLoad.core';<% if(i18n) { %>
-import angularTranslate from 'angular-translate';
+import ocLazyLoad from 'oclazyload';<% if(i18n) { %>
+import 'angular-translate';
 import translationsModule from './i18n/translations';
 import defaultLocaleConfig from './config/default-locale';<% } %>
 import routingConfig from './config/routing';
@@ -14,11 +14,11 @@ import ApplicationController from './application-controller';
 import applicationRoute from './application-route';
 
 const dependencies = [
-    uiRouter,
+    'ui.router',
     ocLazyLoad,
     'ct.ui.router.extras',
     'ct.ui.router.extras.future'<% if(i18n) { %>,
-    angularTranslate,
+    'pascalprecht.translate',
     translationsModule.name<% } %>
 ];
 
