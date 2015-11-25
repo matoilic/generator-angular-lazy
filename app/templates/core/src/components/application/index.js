@@ -3,7 +3,8 @@ import 'babel/external-helpers';
 import angular from 'angular';
 import 'angular-ui-router';
 import 'ui-router-extras';
-import ocLazyLoad from 'oclazyload';<% if(i18n) { %>
+import ocLazyLoad from 'oclazyload';
+import ngLazy from 'angular-lazy';<% if(i18n) { %>
 import 'angular-translate';
 import translationsModule from './i18n/translations';
 import defaultLocaleConfig from './config/default-locale';<% } %>
@@ -17,7 +18,8 @@ const dependencies = [
     'ui.router',
     ocLazyLoad,
     'ct.ui.router.extras',
-    'ct.ui.router.extras.future'<% if(i18n) { %>,
+    'ct.ui.router.extras.future',
+    ngLazy.name,<% if(i18n) { %>,
     'pascalprecht.translate',
     translationsModule.name<% } %>
 ];
