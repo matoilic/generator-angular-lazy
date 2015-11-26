@@ -103,7 +103,7 @@ gulp.task('bundle', ['build'], function(done) {
             );
         })
         .then(function() {
-            return bundler.bundlePackageDependencies()
+            return bundler.bundlePackageDependencies();
         })
         .then(function() {
             return bundler.saveConfig();
@@ -111,7 +111,7 @@ gulp.task('bundle', ['build'], function(done) {
         .then(function() {
             done();
         })
-        .catch(done)
+        .catch(done);
 });
 
 gulp.task('test', ['build'], function(done) {
