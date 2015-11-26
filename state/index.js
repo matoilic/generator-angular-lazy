@@ -125,10 +125,10 @@ module.exports = Base.extend({
             target: target,
             controllerName: _.classify(componentName) + 'Controller',
             controllerFileName: componentName + '-controller',
-            controllerInstanceName: _.camelize(componentName) + 'Controller',
+            controllerInstanceName: _.camelize(componentName),
             routeName: _.camelize(routeFileName),
             routeFileName: routeFileName,
-            templateName: componentName,
+            templateName: componentName
         }, Base.prototype._createContext.apply(this, arguments));
     }
 });

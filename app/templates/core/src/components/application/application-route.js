@@ -8,7 +8,7 @@ function applicationRouteConfig($stateProvider) {
             views: {
                 page: {
                     template: template,
-                    controller: 'ApplicationController as appController'
+                    controller: 'ApplicationController as application'
                 }
             }
         });

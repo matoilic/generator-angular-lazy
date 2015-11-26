@@ -46,7 +46,7 @@ module.exports = Base.extend({
             componentName: componentName,
             controllerName: _.classify(componentName) + 'Controller',
             controllerFileName: componentName + '-controller',
-            controllerInstanceName: _.camelize(componentName) + 'Controller',
+            controllerInstanceName: _.camelize(componentName),
             directiveName: _.camelize(componentName) + 'Directive',
             directiveFileName: componentName + '-directive'
         }, Base.prototype._createContext.apply(this, arguments));
