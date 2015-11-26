@@ -11,6 +11,8 @@
     - [UI Router](#ui-router)
     - [UI Router Extras](#ui-router-extras)
     - [ocLazyLoad](#oclazyload)
+    - [Angular Lazy](#angular-lazy)
+    - [Angular Lazy Bundler](#angular-lazy-bundler)
     - [Angular Translate](#angular-translate)
     - [Karma](#karma)
     - [Jasmine](#jasmine)
@@ -79,6 +81,12 @@ UI Router Extras adds even more functionality to the router on top of UI Router.
 
 ### [ocLazyLoad](https://oclazyload.readme.io)
 By default Angular requires us to load all application code upfront before it boots the application. That works well for smaller applications. For large scale applications this introduces long loading times an impacts the user experience negatively. ocLazyLoad allows us to add modules to Angular applications at runtime.
+
+### [Angular Lazy](https://github.com/matoilic/angular-lazy)
+The Angular Lazy package is the glues UI Router Extras and ocLazyLoad together, so that we can easily lazy load our states. It also provides a component loader which makes it possible to load additional components at any time in the code.
+
+### [Angular Lazy Bundler](https://github.com/matoilic/angular-lazy-bundler)
+You will realise, that you end up with a lot of small files when you use the angular-lazy generator. To reduce the number of network requests required to load a component we want to bundle those files together where possible. 
 
 ### [Angular Translate](https://angular-translate.github.io/)
 If you choose to activate `i18n` while generating the application, the project will include Angular Translate to handle translations. Angular has no support for i18n and l10n, so we need to include this package.
