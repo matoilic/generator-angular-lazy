@@ -19,7 +19,7 @@ module.exports = function(config) {
         files: [],
 
         jspm: {
-            baseURL: '/base/build/',
+            baseURL: '/base',
             config: 'config/system.js',
             loadFiles: [
                 'build/**/*-spec.js'
@@ -36,8 +36,7 @@ module.exports = function(config) {
 
         proxies: {
             '/base/components/': '/base/build/components/',
-            '/node_modules/': '/base/node_modules/',
-            '/jspm_packages/': '/base/jspm_packages/'
+            '/base/build/build/': '/base/build/'
         },
 
 
