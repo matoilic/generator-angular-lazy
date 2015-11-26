@@ -6,7 +6,9 @@
         <title><%= _.humanize(appName) %></title>
     </head>
     <body>
-        <div id="applicationContainer"></div>
+        <div id="applicationContainer" ng-app="application-component" ng-strict-di="true">
+            <ui-view name="page"></ui-view>
+        </div>
 
         <script src="jspm_packages/system.src.js"></script>
         <script>
