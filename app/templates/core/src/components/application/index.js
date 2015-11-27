@@ -19,7 +19,7 @@ const dependencies = [
     ocLazyLoad,
     'ct.ui.router.extras',
     'ct.ui.router.extras.future',
-    ngLazy.name,<% if(i18n) { %>,
+    ngLazy.name,<% if(i18n) { %>
     'pascalprecht.translate',
     translationsModule.name<% } %>
 ];

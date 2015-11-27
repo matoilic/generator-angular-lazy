@@ -6,7 +6,7 @@ import translationsModule from './i18n/translations';<% } %>
 import <%= controllerName %> from './<%= controllerFileName %>';
 import <%= routeName %>Config from './<%= routeFileName %>';
 
-let dependencies = [
+const dependencies = [
     'ui.router'<% if(i18n) { %>,
     'pascalprecht.translate',
     translationsModule.name<% } %>

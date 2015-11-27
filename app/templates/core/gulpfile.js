@@ -1,11 +1,11 @@
-var gulp = require('gulp');
-var g = require('gulp-load-plugins')();
-var gulpSync = require('gulp-sync')(gulp);
-var KarmaServer = require('karma').Server;
-var path = require('path');
-var Bundler = require('angular-lazy-bundler');
+const gulp = require('gulp');
+const g = require('gulp-load-plugins')();
+const gulpSync = require('gulp-sync')(gulp);
+const KarmaServer = require('karma').Server;
+const path = require('path');
+const Bundler = require('angular-lazy-bundler');
 
-var paths = {
+const paths = {
     build: {
         output: 'build'
     },
@@ -33,8 +33,8 @@ var paths = {
     ]
 };
 
-var serverPort = 8088;
-var serverPortTest = 8089;
+const serverPort = 8088;
+const serverPortTest = 8089;
 
 gulp.task('compile-source', function() {
     return gulp
@@ -80,13 +80,13 @@ gulp.task('build', [
 ]);
 
 gulp.task('bundle', ['build'], function(done) {
-    var bundler = new Bundler({
+    const bundler = new Bundler({
         systemJsConfig: 'config/system.js'
     });
 
     bundler
         .bundleComponents()
-        .then(function()  {
+        .then(function() {
             // these are the main dependencies required at application startup
             return bundler.bundleDependencies(
                 [
@@ -124,7 +124,7 @@ gulp.task('test', ['build'], function(done) {
 });
 
 gulp.task('webdriver-update', function(done) {
-    var browsers = ['chrome'];
+    const browsers = ['chrome'];
 
     if(process.platform === 'win32') {
         browsers.push('ie');
@@ -136,8 +136,8 @@ gulp.task('webdriver-update', function(done) {
 gulp.task('webdriver-standalone', g.protractor.webdriver_standalone);
 
 gulp.task('test-e2e', ['build', 'webdriver-update'], function(done) {
-    var params = process.argv;
-    var args = params.length > 3 ? [params[3], params[4]] : [];
+    const params = process.argv;
+    const args = params.length > 3 ? [params[3], params[4]] : [];
 
     g.connect.server({
         port: serverPortTest,
@@ -155,19 +155,19 @@ gulp.task('test-e2e', ['build', 'webdriver-update'], function(done) {
             configFile: __dirname + '/config/protractor.js',
             args: args
         }))
-        .on('error', function (err) {
+        .on('error', function(err) {
             g.connect.serverClose();
 
             throw err;
         })
-        .on('end', function () {
+        .on('end', function() {
             g.connect.serverClose();
 
             done();
         });
 });
 
-gulp.task('htmlhint', function () {
+gulp.task('htmlhint', function() {
     return gulp
         .src(paths.html)
         .pipe(g.htmlhint('.htmlhintrc'))
@@ -175,12 +175,18 @@ gulp.task('htmlhint', function () {
         .pipe(g.htmlhint.failReporter());
 });
 
-gulp.task('jshint', function () {
+gulp.task('eslint', function() {
     return gulp
         .src(paths.scripts)
-        .pipe(g.jshint('.jshintrc'))
-        .pipe(g.jshint.reporter('jshint-stylish'))
-        .pipe(g.jshint.reporter('fail'));
+        .pipe(g.eslint({
+            extends: 'eslint-config-airbnb/base',
+            rules: {
+                indent: [2, 4],
+                'comma-dangle': [2, 'never'],
+                'func-names': 0
+            }
+        }))
+        .pipe(g.eslint.format());
 });
 
 gulp.task('notify-recompiled', function() {
@@ -196,7 +202,7 @@ gulp.task('watch', function() {
     gulp.watch(paths.static, gulpSync.sync(['copystatic', 'notify-recompiled']));
 });
 
-gulp.task('serve', ['build'], function(){
+gulp.task('serve', ['build'], function() {
     g.connect.server({
         port: serverPort,
         root: ['.']

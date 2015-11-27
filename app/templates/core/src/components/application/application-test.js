@@ -6,7 +6,7 @@ describe('Application Component', function() {
         driver.wait(driver.isElementPresent(by.css('ui-view[name="application"]')), 20000);
     });
 
-    afterEach(function () {
+    afterEach(function() {
         browser.executeScript('window.sessionStorage.clear();');
         browser.executeScript('window.localStorage.clear();');
     });
