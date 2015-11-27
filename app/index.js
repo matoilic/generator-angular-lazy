@@ -46,11 +46,13 @@ module.exports = Base.extend({
                     default: null,
                     when: whenI18nActive,
                     filter: function(answer) {
-                        return answer
-                            .split(',')
-                            .map(function(locale) {
-                                return locale.trim();
-                            });
+                        return _.uniq(
+                            answer
+                                .split(',')
+                                .map(function(locale) {
+                                    return locale.trim();
+                                })
+                        );
                     }
                 },
                 {
