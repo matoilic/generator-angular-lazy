@@ -9,7 +9,8 @@
     "dependencies": {
       "angular": "github:angular/bower-angular@^1.4.5",
       "angular-lazy": "github:matoilic/angular-lazy@^0.1.0",<% if(i18n) { %>
-      "angular-translate": "github:angular-translate/bower-angular-translate@^2.7.2",<% } %>
+      "angular-translate": "github:angular-translate/bower-angular-translate@^2.7.2",<% } %><% if(bootstrapJs) { %>
+      "angular-ui-bootstrap": "npm:angular-ui-bootstrap@^0.14.3",<% } %>
       "angular-ui-router": "github:angular-ui/ui-router@^0.2.15",
       "css": "github:systemjs/plugin-css@^0.1.16",
       "json": "github:systemjs/plugin-json@^0.1.0",
@@ -30,7 +31,8 @@
     "babel-core": "^6.0.0",
     "babel-preset-es2015": "^6.0.0",
     "babel-preset-stage-2": "^6.0.0",
-    "babel-eslint": "^4.1.1",
+    "babel-eslint": "^4.1.1",<% if(bootstrapCss) { %>
+    "bootstrap-sass": "^3.3.6",<% } %>
     "eslint-config-airbnb": "0.0.8",
     "gulp": "^3.8.11",
     "gulp-autoprefixer": "^3.0.1",

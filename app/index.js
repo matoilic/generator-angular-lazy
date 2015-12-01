@@ -65,6 +65,18 @@ module.exports = Base.extend({
                     when: whenI18nActive
                 },
                 {
+                    type: 'confirm',
+                    name: 'bootstrapCss',
+                    message: 'Do you want to include the Bootstrap CSS components?',
+                    default: true
+                },
+                {
+                    type: 'confirm',
+                    name: 'bootstrapJs',
+                    message: 'Do you want to include the Bootstrap JavaScript components?',
+                    default: true
+                },
+                {
                     type: 'input',
                     name: 'indexRouteName',
                     message: "How should the default state be called?",

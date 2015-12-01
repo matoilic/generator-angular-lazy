@@ -59,7 +59,8 @@ gulp.task('compile-stylesheets', function() {
         .pipe(g.sass({
             outputStyle: 'expanded',
             includePaths: [
-                path.resolve('src')
+                path.resolve('src')<% if(bootstrapCss) { %>,
+                path.resolve('node_modules/bootstrap-sass/assets/stylesheets')<% } %>
             ]
         }))
         .pipe(g.autoprefixer())
@@ -171,8 +172,7 @@ gulp.task('htmlhint', function() {
     return gulp
         .src(paths.html)
         .pipe(g.htmlhint('.htmlhintrc'))
-        .pipe(g.htmlhint.reporter())
-        .pipe(g.htmlhint.failReporter());
+        .pipe(g.htmlhint.reporter());
 });
 
 gulp.task('eslint', function() {
@@ -197,7 +197,7 @@ gulp.task('notify-recompiled', function() {
 
 gulp.task('watch', function() {
     gulp.watch(paths.stylesheets, gulpSync.sync(['compile-stylesheets', 'notify-recompiled']));
-    gulp.watch(paths.scripts, gulpSync.sync(['compile-source', 'jshint', 'notify-recompiled']));
+    gulp.watch(paths.scripts, gulpSync.sync(['compile-source', 'eslint', 'notify-recompiled']));
     gulp.watch(paths.html, gulpSync.sync(['copystatic', 'htmlhint', 'notify-recompiled']));
     gulp.watch(paths.static, gulpSync.sync(['copystatic', 'notify-recompiled']));
 });
