@@ -86,7 +86,7 @@ By default Angular requires us to load all application code upfront before it bo
 The Angular Lazy package is the glues UI Router Extras and ocLazyLoad together, so that we can easily lazy load our states. It also provides a component loader which makes it possible to load additional components at any time in the code.
 
 ### [Angular Lazy Bundler](https://github.com/matoilic/angular-lazy-bundler)
-You will realise, that you end up with a lot of small files when you use the angular-lazy generator. To reduce the number of network requests required to load a component we want to bundle those files together where possible. 
+You will realise, that you end up with a lot of small files when you use the angular-lazy generator. To reduce the number of network requests required to load a component we want to bundle those files together where possible.
 
 ### [Angular Translate](https://angular-translate.github.io/)
 If you choose to activate `i18n` while generating the application, the project will include Angular Translate to handle translations. Angular has no support for i18n and l10n, so we need to include this package.
@@ -130,8 +130,8 @@ If you choose to activate `i18n` while generating the application, each componen
 |  |  |  |  constants.json
 |  |  |  |  default-locale.js
 |  |  |  |  error-handling.js
-|  |  |  |  routes.json
 |  |  |  |  routing.js
+|  |  |  |  states.json
 |  |  |  i18n
 |  |  |  stylesheets
 |  |  |  application.html
@@ -152,7 +152,7 @@ In here, the default locale is configured. This file will only be present if you
 #### error-handling.js
 By default, this file only contains a small code piece which logs state transition errors. UI Router swallows transition error by default and we're left on our own to figure out what happened. This file can  be extend with additional error handling functionality as needed, e.g. network errors.
 
-#### routes.json
+#### states.json
 This is where we define our lazy loaded routes. For the Future States feature from UI Router Extras work properly, we need to tell it what routes exist and where they can be loaded from.
 
 ```javascript
@@ -172,10 +172,10 @@ This is where we define our lazy loaded routes. For the Future States feature fr
 ]
 ```
 
-The name and url properties must match those we use in the `$stateProvider.state(...)` call. If a route is not yet loaded, UI Router Extras will catch the `$stateNotFound` event and look it up in the list of routes defined in `routes.json`. If it finds a match it will load the specific component and then resume the state transition. The type property is a helper to distinguish state types. Abstract states must be defined here too, like the `app` state in the example above. There is only one value `load` by default. It is used within `routing.js` to know which states should be handled by the default loader. If we have states which need to be handled specially, we can introduce new types and loaders. In most cases the default loader will be sufficient. And finally, the `src` property tells the loader where to load the state component from. This is always relative to the `baseURL` configured within SystemJS.
+The name and url properties must match those we use in the `$stateProvider.state(...)` call. If a route is not yet loaded, UI Router Extras will catch the `$stateNotFound` event and look it up in the list of states defined in `states.json`. If it finds a match it will load the specific component and then resume the state transition. The type property is a helper to distinguish state types. Abstract states must be defined here too, like the `app` state in the example above. There is only one value `load` by default. It is used within `routing.js` to know which states should be handled by the default loader. If we have states which need to be handled specially, we can introduce new types and loaders. In most cases the default loader will be sufficient. And finally, the `src` property tells the loader where to load the state component from. This is always relative to the `baseURL` configured within SystemJS.
 
 #### routing.js
-This file contains the configuration for the state factory which lazy loads our code based on the definitions in `routes.json`.
+This file contains the configuration for the state factory which lazy loads our code based on the definitions in `states.json`.
 
 #### application.html
 This is the template for our basic layout, common for all states. By default it only contains a `ui-view` element.
@@ -203,10 +203,10 @@ This file contains the application state. This is only an abstract state and eac
 |  |  |  index.js
 ```
 
-When running the state component generator it will automatically add the new state to `routes.json` within the application component.
+When running the state component generator it will automatically add the new state to `states.json` within the application component.
 
 #### [name]-route.js
-This file contains the state definition for UI Router. If you change the URL or the state name at some point in time don't forget to also update it in `routes.json`. Otherwise the state will not be loaded properly when lazy loaded.
+This file contains the state definition for UI Router. If you change the URL or the state name at some point in time don't forget to also update it in `states.json`. Otherwise the state will not be loaded properly when lazy loaded.
 
 #### [name]-state-controller.js
 This file contains the controller for the newly generated state.

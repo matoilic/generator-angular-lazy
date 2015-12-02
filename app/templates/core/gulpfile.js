@@ -176,6 +176,8 @@ gulp.task('htmlhint', function() {
 });
 
 gulp.task('eslint', function() {
+    // TODO keywords followed by ( should not require a space
+
     return gulp
         .src(paths.scripts)
         .pipe(g.eslint({

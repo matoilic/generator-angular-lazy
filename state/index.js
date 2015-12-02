@@ -81,7 +81,7 @@ module.exports = Base.extend({
             this._copyFile(context.componentName, 'stylesheet', context.componentName, '.scss', context);
             this._copyFile(context.componentName, 'template', context.componentName, '.html', context);
 
-            var routesFile = this.destinationPath('src/components/application/config/routes.json');
+            var routesFile = this.destinationPath('src/components/application/config/states.json');
             var routes = this.fs.readJSON(routesFile);
             routes.push({
                 name: 'app.' + context.stateName,

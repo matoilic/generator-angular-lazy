@@ -1,7 +1,7 @@
-import futureRoutes from './routes.json!';
+import futureStates from './states.json!';
 
 function routingConfig($locationProvider, $urlRouterProvider, $httpProvider, $futureStateProvider) {
-    futureRoutes.forEach(function(r) {
+    futureStates.forEach(function(r) {
         $futureStateProvider.futureState(r);
     });
 
