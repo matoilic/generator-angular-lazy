@@ -35,6 +35,9 @@
     - [compile-stylesheets](#compile-stylesheets)
     - [htmlhint](#htmlhint)
     - [jshint](#jshint)
+- [Troubleshooting](#troubleshooting)
+    - [Missing dependencies](#missing-dependencies)
+    - [Incompatible Angular modules](#incompatible-angular-modules)
 - [TODO](#todo)
 
 ## Getting started
@@ -49,12 +52,6 @@ Then, of course, you need to install the Angular Lazy generator itself.
 
 ```bash
 $: npm install -g generator-angular-lazy
-```
-
-Finally, make sure you set GitHub as default registry. A lot of packages don't declare their dependencies properly. For example, UI Router doesn't declare a dependency to Angular in it's package.json. Same with Bootstrap, which doesn't have a dependency to jQuery. This leads to errors when loading such libraries as their dependencies don't get loaded. JSPM's GitHub repository fixes this by adding the missing information. Have a look at the [JSPM Registry documentation](https://github.com/jspm/registry) for more details about package.json overrides.
-
-```bash
-$: jspm config defaultRegistry github
 ```
 
 Now you can start using the generators described in the [structure section](#structure).
@@ -291,6 +288,18 @@ Runs a code quality analysis for all HTML templates using [HTMLHint](http://html
 > $: gulp jshint
 
 Runs a code quality analysis for all JavaScript code using [JSHint](http://jshint.com).
+
+## Troubleshooting
+
+### Missing dependencies
+
+A lot of packages don't declare their dependencies properly. For example, UI Router doesn't declare a dependency to Angular in it's package.json. Same with Bootstrap, which doesn't have a dependency to jQuery. This leads to errors when loading such libraries as their dependencies don't get loaded. If you encounter such issues search for special distribution build of the package on it's GitHub page, e.g. [github.com/angular/bower-angular-animate](https://github.com/angular/bower-angular-animate) for angular-animate. In that case try installing the package from there.
+
+Another possibility is to amend the missing information in `config/system.js` as already done by JSPM when it finds dependency declarations in package.json or in the JSPM registry itself.
+
+### Incompatible Angular modules
+
+[ocLazyLoad's FAQ](https://oclazyload.readme.io/docs/faq) mentions some Angular modules which cannot be lazy loaded. If we want to use one of those, e.g. `angular-animate`, we need to import them in the application component and make them a dependency of it. And then do the same in the component where they are effectively required.
 
 ## TODO
 - [ ] Add ESLint
