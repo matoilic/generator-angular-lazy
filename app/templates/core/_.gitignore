@@ -1,5 +1,6 @@
 .DS_Store
 .idea
+build
 jspm_packages
 test-coverage
 node_modules
