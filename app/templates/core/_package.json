@@ -71,6 +71,7 @@
     "test-e2e": "gulp test-e2e"
   },
   "engines": {
-    "node": ">=4.1.0"
+    "node": ">=4.2.0",
+    "npm": "3.0.0"
   }
 }
