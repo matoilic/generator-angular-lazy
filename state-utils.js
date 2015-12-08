@@ -1,7 +1,4 @@
-var _ = require('lodash');
-var s = require('underscore.string');
-
-_.mixin(s.exports());
+const _ = require('./extended-lodash');
 
 module.exports = {
     determineParentComponent: function(stateName) {
@@ -11,7 +8,7 @@ module.exports = {
             return 'application';
         }
 
-        return this.stateToComponentName(
+        return this.conststateToComponentName(
             stateName.slice(0, stateName.lastIndexOf('.'))
         );
     },
@@ -23,15 +20,13 @@ module.exports = {
 
         return stateName
             .split('.')
-            .map(function(part) {
-                return _.slugify(_.humanize(part))
-            })
+            .map((part) => _.slugify(_.humanize(part)))
             .join('.');
     },
 
     normalizeUrl: function(stateName, url) {
-        var leadingSlashRequired = stateName.indexOf('.') > -1;
-        var hasLeadingSlash = url[0] === '/';
+        const leadingSlashRequired = stateName.indexOf('.') > -1;
+        const hasLeadingSlash = url[0] === '/';
 
         if(leadingSlashRequired && !hasLeadingSlash) {
             url = '/' + url;
@@ -49,4 +44,4 @@ module.exports = {
     stateToComponentName: function(stateName) {
         return stateName.replace(/\./g, '-') + '-state';
     }
-}
+};

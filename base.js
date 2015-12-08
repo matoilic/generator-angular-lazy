@@ -1,19 +1,11 @@
 'use strict';
 
-var generators = require('yeoman-generator');
-var _ = require('lodash');
-var s = require('underscore.string');
-var path = require('path');
+const generators = require('yeoman-generator');
+const _ = require('./extended-lodash');
 
-_.mixin(s.exports());
-
-module.exports = generators.Base.extend({
-    constructor: function() {
-        generators.Base.apply(this, arguments);
-    },
-
-    _componentDestinationPath: function() {
-        var dest = ['src', 'components'];
+class GeneratorBase extends generators.Base {
+    _componentDestinationPath() {
+        let dest = ['src', 'components'];
 
         if(this.options.prefix) {
             dest.push(this.options.prefix);
@@ -22,36 +14,38 @@ module.exports = generators.Base.extend({
         dest = dest.concat(Array.prototype.slice.apply(arguments));
 
         return generators.Base.prototype.destinationPath.apply(this, dest);
-    },
+    }
 
-    _enablePrefix: function() {
+    _enablePrefix() {
         this.option('prefix', {
             desc: 'Write component files to a subdirectory.',
             type: String,
             required: false
         });
-    },
+    }
 
-    _requireName: function() {
+    _requireName() {
         this.argument('name', {
             type: String,
             required: true
         });
-    },
+    }
 
-    _createContext: function() {
+    _createContext() {
         return _.merge({
             windows: process.platform === 'win32',
             darwin: process.platform === 'darwin',
-            _: _
+            _
         }, this.config.getAll());
-    },
+    }
 
-    _copyFile: function(componentName, src, dest, extension, context) {
+    _copyFile(componentName, src, dest, extension, context) {
         this.fs.copyTpl(
             this.templatePath(src + extension),
             this._componentDestinationPath(componentName, dest + extension),
             context
         );
     }
-});
+}
+
+module.exports = GeneratorBase;
