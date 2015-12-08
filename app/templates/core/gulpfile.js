@@ -180,14 +180,7 @@ gulp.task('eslint', function() {
 
     return gulp
         .src(paths.scripts)
-        .pipe(g.eslint({
-            extends: 'eslint-config-airbnb/base',
-            rules: {
-                indent: [2, 4],
-                'comma-dangle': [2, 'never'],
-                'func-names': 0
-            }
-        }))
+        .pipe(g.eslint())
         .pipe(g.eslint.format());
 });
 
