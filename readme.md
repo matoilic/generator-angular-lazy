@@ -38,6 +38,7 @@
 - [Troubleshooting](#troubleshooting)
     - [Missing dependencies](#missing-dependencies)
     - [Incompatible Angular modules](#incompatible-angular-modules)
+    - [Protractor and Safari](#protractor-and-safari)
 - [TODO](#todo)
 
 ## Getting started
@@ -300,6 +301,9 @@ Another possibility is to amend the missing information in `config/system.js` as
 ### Incompatible Angular modules
 
 [ocLazyLoad's FAQ](https://oclazyload.readme.io/docs/faq) mentions some Angular modules which cannot be lazy loaded. If we want to use one of those, e.g. `angular-animate`, we need to import them in the application component and make them a dependency of it. And then do the same in the component where they are effectively required.
+
+### Protractor and Safari
+The Safari Selenium Driver cannot be installed automatically. You need to [install it manually](https://code.google.com/p/selenium/wiki/SafariDriver) before you can run any Protractor tests against it. Safari 9.0.1 has a bug where it's only possible to install the plugin in safe mode. Hold the shift key while booting to start in safe mode.
 
 ## TODO
 - [ ] Add ESLint
