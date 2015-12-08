@@ -86,11 +86,13 @@ gulp.task('bundle', ['build'], function(done) {
     });
 
     bundler
-        .bundleComponents()
-        .then(function() {
-            // these are the main dependencies required at application startup
-            return bundler.bundleDependencies(
-                [
+        .bundle(
+            {
+                components: [
+                    'application',
+                    '<%= indexComponent %>'
+                ],
+                packages: [
                     'angular',
                     'angular-ui-router',
                     'ui-router-extras',
@@ -99,20 +101,15 @@ gulp.task('bundle', ['build'], function(done) {
                     'css',
                     'json',
                     'text'
-                ],
-                'main-vendors'
-            );
-        })
-        .then(function() {
-            return bundler.bundlePackageDependencies();
-        })
-        .then(function() {
-            return bundler.saveConfig();
-        })
-        .then(function() {
-            done();
-        })
-        .catch(done);
+                ]
+            },
+            'main'
+        )
+        .then(() => bundler.bundleRemainingComponents())
+        .then(() => bundler.bundleRemainingPackages())
+        .then(() => bundler.saveConfig())
+        .then(() => done())
+        .catch((err) => done(err));
 });
 
 gulp.task('test', ['build'], function(done) {
