@@ -128,30 +128,21 @@ gulp.task('webdriver-update', function(done) {
         browsers.push('ie');
     }
 
-    g.protractor.webdriver_update({browsers: browsers}, done);
+    g.protractor.webdriver_update({ browsers: browsers }, done);
 });
 
 gulp.task('webdriver-standalone', g.protractor.webdriver_standalone);
 
 gulp.task('test-e2e', ['build', 'webdriver-update'], function(done) {
-    const params = process.argv;
-    const args = params.length > 3 ? [params[3], params[4]] : [];
-
     g.connect.server({
         port: serverPortTest,
         root: ['.']
     });
 
-    args.push(
-        '--baseUrl',
-        'http://localhost:' + serverPortTest
-    );
-
     gulp
         .src(path.join(paths.build.output + '/**/*-test.js'))
         .pipe(g.protractor.protractor({
-            configFile: __dirname + '/config/protractor.js',
-            args: args
+            configFile: __dirname + '/config/protractor.js'
         }))
         .on('error', function(err) {
             g.connect.serverClose();

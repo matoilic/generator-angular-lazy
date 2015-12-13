@@ -1,7 +1,7 @@
-var protractorBase = __dirname + '/../node_modules/protractor/';
-var webdriverVersions = require(protractorBase + 'config.json').webdriverVersions;
+const protractorBase = __dirname + '/../node_modules/protractor/';
+const webdriverVersions = require(protractorBase + 'config.json').webdriverVersions;
 
-var capabilities = [
+const capabilities = [
     {
         browserName: 'chrome',
         chromeOptions: {
@@ -28,7 +28,7 @@ if(process.platform === 'win32') {
 module.exports.config = {
     multiCapabilities: capabilities,
     seleniumServerJar: protractorBase + 'selenium/selenium-server-standalone-' + webdriverVersions.selenium + '.jar',
-    baseUrl: 'http://localhost:8089/index.html',
+    baseUrl: 'http://localhost:8089/index.html#',
     rootElement: '#applicationContainer',
     framework: 'jasmine2',
     specs: ['../build/**/*-test.js'],
@@ -36,4 +36,4 @@ module.exports.config = {
     jasmineNodeOpts: {
         defaultTimeoutInterval: 360000
     }
-}
+};
