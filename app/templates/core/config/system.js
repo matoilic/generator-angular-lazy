@@ -1,6 +1,6 @@
 System.config({
     defaultJSExtensions: true,
-    buildCSS: false,
+    buildCSS: true,
     transpiler: 'babel',
     babelOptions: {
         externalHelpers: true,
