@@ -124,6 +124,8 @@ gulp.task('webdriver-update', function (done) {
 
     if (process.platform === 'win32') {
         browsers.push('ie');
+    } else if (process.platform === 'darwin') {
+        browsers.push('safari');
     }
 
     g.protractor.webdriver_update({ browsers: browsers }, done);
