@@ -277,6 +277,12 @@ Transpiles our JavaScript source code from ES2015 to ES5 using Babel.
 
 Compiles our SASS stylesheets and uses [Autoprefixer](https://github.com/postcss/autoprefixer) to automatically add vendor prefixes for the most common browsers.
 
+### bundle
+
+> $: gulp bundle
+
+Uses [Angular Lazy Bundler](https://github.com/matoilic/angular-lazy-bundler) to bundle every component and 3rd-party package of our application into one file. This reduces the number of HTTP requests to load the individual parts. You can configure it further to combine multiple components which should be loaded together.
+
 ### htmlhint
 
 > $: gulp htmlhint
