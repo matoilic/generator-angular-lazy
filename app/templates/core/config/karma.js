@@ -1,12 +1,12 @@
-var browsers = ['Chrome', 'Firefox'];
+const browsers = ['Chrome', 'Firefox'];
 
-if(process.platform === 'win32') {
+if (process.platform === 'win32') {
     browsers.push('IE');
-} else if(process.platform === 'darwin') {
+} else if (process.platform === 'darwin') {
     browsers.push('Safari');
 }
 
-module.exports = function(config) {
+module.exports = function (config) {
     config.set({
         // base path that will be used to resolve all patterns (eg. files, exclude)
         basePath: __dirname + '/../',

@@ -32,7 +32,7 @@ const app = angular
     .config(defaultLocaleConfig)<% } %>
     .run(errorHandlingConfig);
 
-Object.keys(constants).forEach(function(constantName) {
+Object.keys(constants).forEach((constantName) => {
     app.constant(constantName, constants[constantName]);
 });
 

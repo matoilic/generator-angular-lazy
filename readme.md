@@ -284,11 +284,11 @@ Compiles our SASS stylesheets and uses [Autoprefixer](https://github.com/postcss
 
 Runs a code quality analysis for all HTML templates using [HTMLHint](http://htmlhint.com).
 
-### jshint
+### eslint
 
-> $: gulp jshint
+> $: gulp eslint
 
-Runs a code quality analysis for all JavaScript code using [JSHint](http://jshint.com).
+Runs a code quality analysis for all JavaScript code using [ESLint](http://eslint.org).
 
 ## Troubleshooting
 
@@ -304,6 +304,3 @@ Another possibility is to amend the missing information in `config/system.js` as
 
 ### Protractor and Safari
 The Safari Selenium Driver cannot be installed automatically. We need to [install it manually](https://code.google.com/p/selenium/wiki/SafariDriver) before we can run any Protractor tests against it. Safari 9.0.1 has a bug where it's only possible to install the plugin in safe mode. Hold the shift key while booting to start in safe mode.
-
-## TODO
-- [ ] Add ESLint

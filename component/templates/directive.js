@@ -10,7 +10,7 @@ function <%= directiveName %>() {
 
         },
         bindToController: true
-    }
+    };
 }
 
 export default[

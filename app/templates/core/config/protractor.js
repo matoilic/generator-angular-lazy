@@ -13,13 +13,13 @@ const capabilities = [
     }
 ];
 
-if(process.platform === 'win32') {
+if (process.platform === 'win32') {
     capabilities.push({
         browserName: 'internet explorer',
         platform: 'ANY',
         version: '11'
     });
-} else if(process.platform === 'darwin') {
+} else if (process.platform === 'darwin') {
     capabilities.push({
         browserName: 'safari'
     });

@@ -1,10 +1,7 @@
 import futureStates from './states.json!';
 
 function routingConfig($locationProvider, $urlRouterProvider, $httpProvider, $futureStateProvider) {
-    futureStates.forEach(function(r) {
-        $futureStateProvider.futureState(r);
-    });
-
+    futureStates.forEach((state) => $futureStateProvider.futureState(state));
     $httpProvider.useApplyAsync(true);
     $locationProvider.html5Mode(false);
     $urlRouterProvider.otherwise('/<%= indexUrl %>');

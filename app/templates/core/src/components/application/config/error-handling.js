@@ -1,6 +1,6 @@
 function errorHandlingConfig($rootScope) {
-    $rootScope.$on('$stateChangeError', function(event, toState, toParams, fromState, fromParams, error) {
-        console.error(`error occurred while transitioning to ${toState.name}: ${error}`);
+    $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
+        throw new Error(`error occurred while transitioning to ${toState.name}: ${error}`);
     });
 }
 
