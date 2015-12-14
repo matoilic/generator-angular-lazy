@@ -27,11 +27,11 @@ class StateGenerator extends Base {
 
     get prompting() {
         return {
-            targetView: function() {
+            targetView: function () {
                 const targetComponentName = stateUtils.determineParentComponent(this.name);
                 const targetTemplate = this._componentDestinationPath(targetComponentName, targetComponentName + '.html');
 
-                if(this.options.target || !fs.existsSync(targetTemplate)) {
+                if (this.options.target || !fs.existsSync(targetTemplate)) {
                     return;
                 }
 
@@ -46,8 +46,8 @@ class StateGenerator extends Base {
                     index = view.index;
                 }
 
-                if(views.length < 2) {
-                    if(views.length === 1) {
+                if (views.length < 2) {
+                    if (views.length === 1) {
                         this.options.target = views[0];
                     }
 
@@ -73,7 +73,7 @@ class StateGenerator extends Base {
 
     get writing() {
         return {
-            state: function() {
+            state: function () {
                 const context = this._createContext();
 
                 this._copyFile(context.componentName, 'controller', context.controllerFileName, '.js', context);
@@ -95,8 +95,8 @@ class StateGenerator extends Base {
                 this.fs.writeJSON(routesFile, routes);
             },
 
-            i18n: function() {
-                if(!this.config.get('i18n')) {
+            i18n: function () {
+                if (!this.config.get('i18n')) {
                     return;
                 }
 
@@ -119,7 +119,7 @@ class StateGenerator extends Base {
         const routeFileName = componentName.slice(0, -6) + '-route';
         let target = this.options.target;
 
-        if(!target && stateName.indexOf('.') === -1) {
+        if (!target && stateName.indexOf('.') === -1) {
             target = 'application';
         }
 

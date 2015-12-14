@@ -13,7 +13,7 @@ class ComponentGenerator extends Base {
 
     get writing() {
         return {
-            component: function() {
+            component: function () {
                 const context = this._createContext();
 
                 this._copyFile(context.componentName, 'controller', context.controllerFileName, '.js', context);
@@ -25,8 +25,8 @@ class ComponentGenerator extends Base {
                 this._copyFile(context.componentName, 'template', context.componentName, '.html', context);
             },
 
-            i18n: function() {
-                if(!this.config.get('i18n')) {
+            i18n: function () {
+                if (!this.config.get('i18n')) {
                     return;
                 }
 

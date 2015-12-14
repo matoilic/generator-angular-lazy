@@ -21,7 +21,7 @@ class ApplicationGenerator extends Base {
 
     get prompting() {
         return {
-            app: function() {
+            app: function () {
                 const done = this.async();
                 const locales = this.config.get('locales') ? this.config.get('locales').join(',') : null;
 
@@ -91,7 +91,7 @@ class ApplicationGenerator extends Base {
 
     get configuring() {
         return {
-            save: function() {
+            save: function () {
                 this.config.set('appName', this.context.appName);
                 this.config.set('i18n', this.context.i18n);
                 this.config.set('locales', this.context.locales);
@@ -106,7 +106,7 @@ class ApplicationGenerator extends Base {
 
     get writing() {
         return {
-            core: function() {
+            core: function () {
                 const templatePathLength = this.templatePath().length + 1;
 
                 glob
@@ -125,8 +125,8 @@ class ApplicationGenerator extends Base {
                     });
             },
 
-            i18n: function() {
-                if(!this.context.i18n) {
+            i18n: function () {
+                if (!this.context.i18n) {
                     return;
                 }
 
@@ -155,14 +155,14 @@ class ApplicationGenerator extends Base {
 
     get install() {
         return {
-            npm: function() {
-                if(!this.options['skip-install']) {
+            npm: function () {
+                if (!this.options['skip-install']) {
                     this.runInstall('npm');
                 }
             },
 
-            jspm: function() {
-                if(!this.options['skip-install']) {
+            jspm: function () {
+                if (!this.options['skip-install']) {
                     this.runInstall('jspm');
                 }
             }

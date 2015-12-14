@@ -4,7 +4,7 @@ import angular from 'angular';
 import 'angular-ui-router';
 import 'ui-router-extras';
 import ocLazyLoad from 'oclazyload';
-import ngLazy from 'angular-lazy';<% if(i18n) { %>
+import ngLazy from 'angular-lazy';<% if (i18n) { %>
 import 'angular-translate';
 import translationsModule from './i18n/translations';
 import defaultLocaleConfig from './config/default-locale';<% } %>
@@ -19,7 +19,7 @@ const dependencies = [
     ocLazyLoad,
     'ct.ui.router.extras',
     'ct.ui.router.extras.future',
-    ngLazy.name,<% if(i18n) { %>
+    ngLazy.name,<% if (i18n) { %>
     'pascalprecht.translate',
     translationsModule.name<% } %>
 ];
@@ -28,7 +28,7 @@ const app = angular
     .module('application-component', dependencies)
     .controller('ApplicationController', ApplicationController)
     .config(routingConfig)
-    .config(applicationRoute)<% if(i18n) { %>
+    .config(applicationRoute)<% if (i18n) { %>
     .config(defaultLocaleConfig)<% } %>
     .run(errorHandlingConfig);
 

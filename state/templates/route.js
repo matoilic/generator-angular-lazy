@@ -4,7 +4,7 @@ function <%= routeName %>Config($stateProvider) {
     $stateProvider
         .state('app.<%= stateName %>', {
             url: '<%= url %>',
-            <% if(target) { %>views: {
+            <% if (target) { %>views: {
                 <%= target %>: {
                     template: template,
                     controller: '<%= controllerName %> as <%= controllerInstanceName %>'

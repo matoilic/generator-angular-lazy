@@ -60,7 +60,7 @@ gulp.task('compile-stylesheets', function () {
         .pipe(g.sass({
             outputStyle: 'expanded',
             includePaths: [
-                path.resolve('src')<% if(bootstrapCss) { %>,
+                path.resolve('src')<% if (bootstrapCss) { %>,
                 path.resolve('node_modules/bootstrap-sass/assets/stylesheets')<% } %>
             ]
         }))
@@ -96,7 +96,7 @@ gulp.task('bundle', ['build'], function (done) {
                 'angular',
                 'angular-ui-router',
                 'ui-router-extras',
-                'oclazyload',<% if(i18n) { %>
+                'oclazyload',<% if (i18n) { %>
                 'angular-translate',<% } %>
                 'css',
                 'json',

@@ -7,7 +7,7 @@ class GeneratorBase extends generators.Base {
     _componentDestinationPath() {
         let dest = ['src', 'components'];
 
-        if(this.options.prefix) {
+        if (this.options.prefix) {
             dest.push(this.options.prefix);
         }
 
