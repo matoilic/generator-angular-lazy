@@ -34,12 +34,11 @@
     - [compile-source](#compile-source)
     - [compile-stylesheets](#compile-stylesheets)
     - [htmlhint](#htmlhint)
-    - [jshint](#jshint)
+    - [eslint](#eslint)
 - [Troubleshooting](#troubleshooting)
     - [Missing dependencies](#missing-dependencies)
     - [Incompatible Angular modules](#incompatible-angular-modules)
     - [Protractor and Safari](#protractor-and-safari)
-- [TODO](#todo)
 
 ## Getting started
 
