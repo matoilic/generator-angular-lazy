@@ -34,7 +34,7 @@
     "babel-preset-stage-2": "^6.3.0",
     "babel-eslint": "^4.1.1",<% if(bootstrapCss) { %>
     "bootstrap-sass": "^3.3.6",<% } %>
-    "eslint-config-angular-lazy": "0.1.0",
+    "eslint-config-angular-lazy": "^0.1.0",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-babel": "^6.1.0",

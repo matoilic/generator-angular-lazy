@@ -6,8 +6,8 @@ const fs = require('fs');
 const stateUtils = require('../state-utils');
 
 class StateGenerator extends Base {
-    constructor() {
-        super(...arguments);
+    constructor(args, options) {
+        super(args, options);
 
         this._requireName();
         this._enablePrefix();

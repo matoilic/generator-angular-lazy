@@ -9,8 +9,8 @@ const stateUtils = require('../state-utils');
 const whenI18nActive = (answers) => answers.i18n;
 
 class ApplicationGenerator extends Base {
-    constructor() {
-        super(...arguments);
+    constructor(args, options) {
+        super(args, options);
 
         this.option('skip-install', {
             desc: 'Do not install dependencies',

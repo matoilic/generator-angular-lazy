@@ -4,8 +4,8 @@ const Base = require('../base');
 const _ = require('../extended-lodash');
 
 class ComponentGenerator extends Base {
-    constructor() {
-        super(...arguments);
+    constructor(args, options) {
+        super(args, options);
 
         this._requireName();
         this._enablePrefix();
