@@ -36,6 +36,11 @@
     "underscore.string": "^3.2.2",
     "yeoman-generator": "^0.20.3"
   },
+  "peerDependencies": {
+    "gulp": ">=3.5.0",
+    "jspm": ">=0.16.15",
+    "yo": ">=1.4.0"
+  },
   "engines": {
     "node": ">=4.2.0",
     "npm": ">=3.0.0"
