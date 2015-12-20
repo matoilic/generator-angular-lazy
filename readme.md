@@ -164,12 +164,16 @@ This is where we define our lazy loaded routes. For the Future States feature fr
     "name": "home",
     "url": "home",
     "type": "load",
+    "prefetch": [
+        "components/login-form/index",
+        "angular-ui-bootstrap"
+    ]
     "src": "components/home-state/index"
   }
 ]
 ```
 
-The name and url properties must match those we use in the `$stateProvider.state(...)` call. If a route is not yet loaded, UI Router Extras will catch the `$stateNotFound` event and look it up in the list of states defined in `states.json`. If it finds a match it will load the specific component and then resume the state transition. The type property is a helper to distinguish state types. Abstract states must be defined here too, like the `app` state in the example above. There is only one value `load` by default. It is used within `routing.js` to know which states should be handled by the default loader. If we have states which need to be handled specially, we can introduce new types and loaders. In most cases the default loader will be sufficient. And finally, the `src` property tells the loader where to load the state component from. This is always relative to the `baseURL` configured within SystemJS.
+The name and url properties must match those we use in the `$stateProvider.state(...)` call. If a route is not yet loaded, UI Router Extras will catch the `$stateNotFound` event and look it up in the list of states defined in `states.json`. If it finds a match it will load the specific component and then resume the state transition. The type property is a helper to distinguish state types. Abstract states must be defined here too, like the `app` state in the example above. There is only one value `load` by default. It is used by the future state provider in the [angular-lazy](https://github.com/matoilic/angular-lazy) package to know which states should be handled by the default loader. If we have states which need to be handled specially, we can introduce new types and loaders. In most cases the default loader will be sufficient. The `src` property tells the loader where to load the state component from. This is always relative to the `baseURL` configured within SystemJS. And finally, there is an optional `prefetch` property where we can define components which should be fetched right after the state has been loaded. This allows us to load parts of an application which are highly likely to be accessed by the user. By prefetching them we can reduce eventual wait times.
 
 #### routing.js
 This file contains the configuration for the state factory which lazy loads our code based on the definitions in `states.json`.
