@@ -112,7 +112,7 @@ class StateGenerator extends Base {
     }
 
     _createContext() {
-        const baseContext = super._createContext(...arguments);
+        const baseContext = super._createContext();
         const stateName = stateUtils.normalizeStateName(this.name);
         const url = stateUtils.normalizeUrl(stateName, this.options.url || stateName.split('.').pop());
         const componentName = stateUtils.stateToComponentName(stateName);

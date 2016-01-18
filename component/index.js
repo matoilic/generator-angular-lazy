@@ -42,7 +42,7 @@ class ComponentGenerator extends Base {
     }
 
     _createContext() {
-        const baseContext = super._createContext(...arguments);
+        const baseContext = super._createContext();
         const componentName = _.slugify(_.humanize(this.name));
 
         return _.merge({
