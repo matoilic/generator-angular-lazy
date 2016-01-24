@@ -27,6 +27,7 @@
 - [Gulp tasks](#gulp-tasks)
     - [default](#default)
     - [build](#build)
+    - [bundle](#bundle)
     - [serve](#serve)
     - [watch](#watch)
     - [test](#test)
@@ -35,6 +36,7 @@
     - [compile-stylesheets](#compile-stylesheets)
     - [htmlhint](#htmlhint)
     - [eslint](#eslint)
+- [Preparing for production](#preparing-for-production)
 - [Troubleshooting](#troubleshooting)
     - [Missing dependencies](#missing-dependencies)
     - [Incompatible Angular modules](#incompatible-angular-modules)
@@ -245,6 +247,10 @@ Alias for [build](#build) ➔ [watch](#watch) ➔ [serve](#serve)
 
 Alias for [copy-static](#copy-static) ➔ [compile-source](#compile-source) ➔ [compile-stylesheets](#compile-stylesheets)
 
+### bundle
+
+Runs [Angular Lazy Bundler](https://github.com/matoilic/angular-lazy-bundler) and optimizes the loading process of our application in production.
+
 ### serve
 
 > $: gulp serve
@@ -298,6 +304,12 @@ Runs a code quality analysis for all HTML templates using [HTMLHint](http://html
 > $: gulp eslint
 
 Runs a code quality analysis for all JavaScript code using [ESLint](http://eslint.org).
+
+## Preparing for production
+
+Before our appllication goes into production we want to run the [`bundle`](#bundle) Gulp task to reduce the amount of network requests needed to load everything that's needed to show the first screen to the user. The `bundle` task combines files into logical bundles so that resources which always must be loaded together sit in one file. Also, it updates SystemJS' configuration so that the loader knows it should load the bundled resources instead of the individual files. You don't need to change anything in your code to take advantage of the optimized loading process.
+
+ Before running the `bundle` task we want to commit everything and revert the changes made by the bundler after the application is deployed. Otherwise SystemJS would also load the bundled resources in development. We would then have to run the `bundle` task everytime we change some thing whie developing. This would slow down the development since bundling takes quite some time. For more information on bundling see the [Angular Lazy Bundler](https://github.com/matoilic/angular-lazy-bundler#readme) and [SystemJS](https://github.com/systemjs/systemjs/blob/master/docs/config-api.md#bundle) documentations.
 
 ## Troubleshooting
 
