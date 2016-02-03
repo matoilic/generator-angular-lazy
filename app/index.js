@@ -169,13 +169,17 @@ class ApplicationGenerator extends Base {
         return {
             npm: function () {
                 if (!this.options['skip-install']) {
-                    this.runInstall('npm');
+                    this.runInstall('npm', null, {
+                        cwd: this.getRootPath() || '.'
+                    });
                 }
             },
 
             jspm: function () {
                 if (!this.options['skip-install']) {
-                    this.runInstall('jspm');
+                    this.runInstall('jspm', null, {
+                        cwd: this.getRootPath() || '.'
+                    });
                 }
             }
         }
