@@ -23,6 +23,14 @@ class ApplicationGenerator extends Base {
             type: String,
             defaults: null
         });
+
+        this.config.defaults({
+            appName: path.basename(process.cwd()),
+            i18n: true,
+            bootstrapCss: false,
+            bootstrapJs: false,
+            indexRouteName: 'index'
+        });
     }
 
     get prompting() {
@@ -36,13 +44,13 @@ class ApplicationGenerator extends Base {
                         type: 'input',
                         name: 'appName',
                         message: "What's the name of the App?",
-                        default: this.config.get('appName') || path.basename(process.cwd())
+                        default: this.config.get('appName')
                     },
                     {
                         type: 'confirm',
                         name: 'i18n',
                         message: 'Do you want to include angular-translate for i18n?',
-                        default: this.config.get('i18n') || true
+                        default: this.config.get('i18n')
                     },
                     {
                         type: 'input',
@@ -60,7 +68,7 @@ class ApplicationGenerator extends Base {
                         type: 'list',
                         name: 'defaultLocale',
                         message: 'Which should be the default locale?',
-                        default: this.config.get('defaultLocale') || true,
+                        default: this.config.get('defaultLocale'),
                         choices: (answers) => answers.locales,
                         when: whenI18nActive
                     },
@@ -68,19 +76,19 @@ class ApplicationGenerator extends Base {
                         type: 'confirm',
                         name: 'bootstrapCss',
                         message: 'Do you want to include the Bootstrap CSS components?',
-                        default: !!this.config.get('bootstrapCss')
+                        default: this.config.get('bootstrapCss')
                     },
                     {
                         type: 'confirm',
                         name: 'bootstrapJs',
                         message: 'Do you want to include the Bootstrap JavaScript componentsconst ?',
-                        default: !!this.config.get('bootstrapJs')
+                        default: this.config.get('bootstrapJs')
                     },
                     {
                         type: 'input',
                         name: 'indexRouteName',
                         message: "How should the default state be called?",
-                        default: this.config.get('indexRouteName') || 'index'
+                        default: this.config.get('indexRouteName')
                     }
                 ], (answers) => {
                     answers.root = this.config.get('root') || this.options['root'];
@@ -177,9 +185,18 @@ class ApplicationGenerator extends Base {
 
             jspm: function () {
                 if (!this.options['skip-install']) {
-                    this.runInstall('jspm', null, {
-                        cwd: this.getRootPath() || '.'
-                    });
+                    this.env.runLoop.add('install', (done) => {
+                        this.emit('jspmInstall');
+                        this
+                            .spawnCommand('jspm', ['install'], {
+                                cwd: this.getRootPath() || '.',
+                                stdio: 'inherit'
+                            })
+                            .on('exit', () => {
+                                this.emit('jspmInstall:end');
+                                done();
+                            });
+                    }, { run: false });
                 }
             }
         }
