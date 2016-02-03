@@ -65,7 +65,9 @@
 
   },
   "scripts": {
-    "setup": "npm install -g gulp karma-cli protractor jspm && npm install && jspm install",
+    "setup": "npm install -g gulp jspm && npm install && jspm install",
+    "build": "gulp build",
+    "dist": "gulp dist",
     "test": "gulp test",
     "test-e2e": "gulp test-e2e"
   },

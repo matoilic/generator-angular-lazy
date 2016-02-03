@@ -75,12 +75,6 @@ gulp.task('copystatic', function () {
         .pipe(gulp.dest(paths.build.output));
 });
 
-gulp.task('build', [
-    'copystatic',
-    'compile-source',
-    'compile-stylesheets'
-]);
-
 gulp.task('bundle', ['build'], function (done) {
     const bundler = new Bundler({
         systemJsConfig: 'config/system.js'
@@ -190,4 +184,16 @@ gulp.task('serve', ['build'], function () {
     });
 });
 
-gulp.task('default', ['build', 'watch', 'serve']);
+gulp.task('default', [
+    'build',
+    'watch',
+    'serve'
+]);
+
+gulp.task('build', [
+    'copystatic',
+    'compile-source',
+    'compile-stylesheets'
+]);
+
+gulp.task('dist', ['bundle']);
