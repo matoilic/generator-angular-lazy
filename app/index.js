@@ -17,6 +17,12 @@ class ApplicationGenerator extends Base {
             type: Boolean,
             defaults: false
         });
+
+        this.option('root', {
+            desc: 'Use a subfolder as root directory for the project instead of the current working directory',
+            type: String,
+            defaults: null
+        });
     }
 
     get prompting() {
@@ -74,9 +80,13 @@ class ApplicationGenerator extends Base {
                         type: 'input',
                         name: 'indexRouteName',
                         message: "How should the default state be called?",
-                        default: this.config.get('indexRouteName') || 'home'
+                        default: this.config.get('indexRouteName') || 'index'
                     }
                 ], (answers) => {
+                    answers.root = this.config.get('root') || this.options['root'];
+
+                    this.setRootPath(answers.root);
+
                     this.context = _.merge(this._createContext(), answers);
 
                     let index = stateUtils.normalizeStateName(answers.indexRouteName);
@@ -99,6 +109,8 @@ class ApplicationGenerator extends Base {
                 this.config.set('indexRouteName', this.context.indexRouteName);
                 this.config.set('bootstrapCss', this.context.bootstrapCss);
                 this.config.set('bootstrapJs', this.context.bootstrapJs);
+                this.config.set('root', this.context.root);
+
                 this.config.save();
             }
         }
@@ -119,7 +131,7 @@ class ApplicationGenerator extends Base {
 
                         this.fs.copyTpl(
                             this.templatePath(filepath),
-                            this.destinationPath(path.join(dirname, destFilename)),
+                            this.rootedDestinationPath(path.join(dirname, destFilename)),
                             this.context
                         );
                     });
