@@ -1,0 +1,5 @@
+Description:
+    Generates a simple component.
+
+Example:
+    yo angular-lazy:component component-name [--prefix=]

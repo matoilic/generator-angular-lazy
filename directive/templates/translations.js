@@ -7,5 +7,5 @@ const dependencies = [
 ];
 
 export default angular
-    .module('<%= tagName %>-component-translations', dependencies)<% locales.forEach(function (locale) { %>
+    .module('<%= componentName %>-component-translations', dependencies)<% locales.forEach(function (locale) { %>
     .config(<%= _.camelize(_.slugify(locale)) %>)<% }) %>;

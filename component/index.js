@@ -16,13 +16,13 @@ class ComponentGenerator extends Base {
             component: function () {
                 const context = this._createContext();
 
-                this._copyFile(context.componentName, 'controller', context.controllerFileName, '.js', context);
-                this._copyFile(context.componentName, 'directive', context.directiveFileName, '.js', context);
-                this._copyFile(context.componentName, 'index', 'index', '.js', context);
-                this._copyFile(context.componentName, 'spec', context.componentName + '-spec', '.js', context);
-                this._copyFile(context.componentName, 'test', context.componentName + '-test', '.js', context);
-                this._copyFile(context.componentName, 'stylesheet', context.componentName, '.scss', context);
-                this._copyFile(context.componentName, 'template', context.componentName, '.html', context);
+                this._copyFile(context.tagName, 'controller', context.controllerFileName, '.js', context);
+                this._copyFile(context.tagName, 'component', context.componentFileName, '.js', context);
+                this._copyFile(context.tagName, 'index', 'index', '.js', context);
+                this._copyFile(context.tagName, 'spec', context.tagName + '-component-spec', '.js', context);
+                this._copyFile(context.tagName, 'test', context.tagName + '-component-test', '.js', context);
+                this._copyFile(context.tagName, 'stylesheet', context.tagName + '-component', '.scss', context);
+                this._copyFile(context.tagName, 'template', context.tagName + '-component', '.html', context);
             },
 
             i18n: function () {
@@ -32,10 +32,10 @@ class ComponentGenerator extends Base {
 
                 const context = this._createContext();
 
-                this._copyFile(context.componentName, 'translations', 'i18n/translations', '.js', context);
+                this._copyFile(context.tagName, 'translations', 'i18n/translations', '.js', context);
                 context.locales.forEach((locale) => {
                     context.locale = locale;
-                    this._copyFile(context.componentName, 'language', 'i18n/' + _.slugify(locale), '.js', context);
+                    this._copyFile(context.tagName, 'language', 'i18n/' + _.slugify(locale), '.js', context);
                 });
             }
         }
@@ -43,15 +43,14 @@ class ComponentGenerator extends Base {
 
     _createContext() {
         const baseContext = super._createContext();
-        const componentName = _.slugify(_.humanize(this.name));
+        const tagName = _.slugify(_.humanize(this.name));
 
         return _.merge({
-            controllerName: _.classify(componentName) + 'Controller',
-            controllerFileName: componentName + '-controller',
-            controllerInstanceName: _.camelize(componentName),
-            directiveName: _.camelize(componentName) + 'Directive',
-            directiveFileName: componentName + '-directive',
-            componentName
+            controllerName: _.classify(tagName) + 'ComponentController',
+            controllerFileName: tagName + '-component-controller',
+            componentName: _.camelize(tagName) + 'Component',
+            componentFileName: tagName + '-component',
+            tagName
         }, baseContext);
     }
 }

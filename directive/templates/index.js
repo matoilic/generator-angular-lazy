@@ -1,9 +1,9 @@
-import './<%= tagName %>-component.css!';
+import './<%= componentName %>.css!';
 import angular from 'angular';<% if (i18n) { %>
 import 'angular-translate';
 import translationsModule from './i18n/translations';<% } %>
 import <%= controllerName %> from './<%= controllerFileName %>';
-import <%= componentName %> from './<%= componentFileName %>';
+import <%= directiveName %> from './<%= directiveFileName %>';
 
 const dependencies = [
 <% if (i18n) { %>    'pascalprecht.translate',
@@ -11,6 +11,6 @@ const dependencies = [
 ];
 
 export default angular
-    .module('<%= tagName %>-component', dependencies)
+    .module('<%= componentName %>-component', dependencies)
     .controller('<%= controllerName %>', <%= controllerName %>)
-    .component('<%= _.camelize(tagName) %>', <%= componentName %>);
+    .directive('<%= _.camelize(componentName) %>', <%= directiveName %>);
