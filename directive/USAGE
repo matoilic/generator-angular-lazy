@@ -1,5 +1,5 @@
 Description:
-    Generates a simple component.
+    Generates a simple attribute directive.
 
 Example:
-    yo angular-lazy:component component-name [--prefix=]
+    yo angular-lazy:directive directive-name [--prefix=]

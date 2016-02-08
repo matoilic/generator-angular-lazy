@@ -3,7 +3,7 @@
 const Base = require('../base');
 const _ = require('../extended-lodash');
 
-class ComponentGenerator extends Base {
+class DirectiveGenerator extends Base {
     constructor(args, options) {
         super(args, options);
 
@@ -19,10 +19,8 @@ class ComponentGenerator extends Base {
                 this._copyFile(context.componentName, 'controller', context.controllerFileName, '.js', context);
                 this._copyFile(context.componentName, 'directive', context.directiveFileName, '.js', context);
                 this._copyFile(context.componentName, 'index', 'index', '.js', context);
-                this._copyFile(context.componentName, 'spec', context.componentName + '-spec', '.js', context);
-                this._copyFile(context.componentName, 'test', context.componentName + '-test', '.js', context);
-                this._copyFile(context.componentName, 'stylesheet', context.componentName, '.scss', context);
-                this._copyFile(context.componentName, 'template', context.componentName, '.html', context);
+                this._copyFile(context.componentName, 'spec', context.componentName + '-directive-spec', '.js', context);
+                this._copyFile(context.componentName, 'test', context.componentName + '-directive-test', '.js', context);
             },
 
             i18n: function () {
@@ -43,17 +41,18 @@ class ComponentGenerator extends Base {
 
     _createContext() {
         const baseContext = super._createContext();
-        const componentName = _.slugify(_.humanize(this.name));
+        const componentName = _.slugify(_.humanize(this.name)) + '-directive';
 
         return _.merge({
             controllerName: _.classify(componentName) + 'Controller',
             controllerFileName: componentName + '-controller',
             controllerInstanceName: _.camelize(componentName),
-            directiveName: _.camelize(componentName) + 'Directive',
-            directiveFileName: componentName + '-directive',
+            directiveName: _.camelize(componentName),
+            directiveFileName: componentName,
+            attributeName: _.slugify(_.humanize(this.name)),
             componentName
         }, baseContext);
     }
 }
 
-module.exports = ComponentGenerator;
+module.exports = DirectiveGenerator;

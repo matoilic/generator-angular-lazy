@@ -1,4 +1,3 @@
-import './<%= componentName %>.css!';
 import angular from 'angular';<% if (i18n) { %>
 import 'angular-translate';
 import translationsModule from './i18n/translations';<% } %>
@@ -13,4 +12,4 @@ const dependencies = [
 export default angular
     .module('<%= componentName %>-component', dependencies)
     .controller('<%= controllerName %>', <%= controllerName %>)
-    .directive('<%= _.camelize(componentName) %>', <%= directiveName %>);
+    .directive('<%= _.camelize(attributeName) %>', <%= directiveName %>);
