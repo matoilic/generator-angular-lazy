@@ -235,6 +235,8 @@ By default a component corresponds to a directive within AngularJS. Accordingly,
 
 ## Gulp tasks
 
+Each Gulp task sits in its own file. This makes it easier to navigate to the source of an individual task and it's clearer which task depends on which libraries. Thus, it also makes the tasks better maintainable.
+
 ### default
 
 > $: gulp
