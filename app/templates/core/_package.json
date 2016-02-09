@@ -8,7 +8,7 @@
     "configFile": "config/system.js",
     "dependencies": {
       "angular": "github:angular/bower-angular@^1.5.0",
-      "angular-lazy": "github:matoilic/angular-lazy@^0.2.0",<% if(i18n) { %>
+      "angular-lazy": "github:matoilic/angular-lazy@^0.2.2",<% if(i18n) { %>
       "angular-translate": "github:angular-translate/bower-angular-translate@^2.9.0",<% } %><% if(bootstrapJs) { %>
       "angular-ui-bootstrap": "npm:angular-ui-bootstrap@^1.1.2",<% } %>
       "angular-ui-router": "github:angular-ui/ui-router@^0.2.18",
@@ -27,7 +27,7 @@
     }
   },
   "devDependencies": {
-    "angular-lazy-bundler": "^0.2.1",
+    "angular-lazy-bundler": "^0.2.3",
     "babel": "^6.5.0",
     "babel-core": "^6.5.0",
     "babel-preset-es2015": "^6.5.0",
