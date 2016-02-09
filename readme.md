@@ -7,6 +7,7 @@
 - [Structure](#structure)
     - [Application component](#application-component)
     - [State component](#state-component)
+    - [Directive component](#directive-component)
     - [General component](#general-component)
 - [What's included](#what-s-included)
     - [SystemJS](#systemjs)
