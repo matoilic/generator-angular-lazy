@@ -19,8 +19,8 @@ class DirectiveGenerator extends Base {
                 this._copyFile(context.componentName, 'controller', context.controllerFileName, '.js', context);
                 this._copyFile(context.componentName, 'directive', context.directiveFileName, '.js', context);
                 this._copyFile(context.componentName, 'index', 'index', '.js', context);
-                this._copyFile(context.componentName, 'spec', context.componentName + '-directive-spec', '.js', context);
-                this._copyFile(context.componentName, 'test', context.componentName + '-directive-test', '.js', context);
+                this._copyFile(context.componentName, 'spec', context.componentName + '-spec', '.js', context);
+                this._copyFile(context.componentName, 'test', context.componentName + '-test', '.js', context);
             },
 
             i18n: function () {
