@@ -1,6 +1,9 @@
+/*eslint-disable */
 'use strict';
+/*eslint-enable */
 
 const connect = require('gulp-connect');
+const path = require('path');
 const protractor = require('gulp-protractor');
 
 module.exports = (gulp, config) => {

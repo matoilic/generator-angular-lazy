@@ -4,7 +4,7 @@ module.exports = {
             output: 'build'
         },
         sources: ['src/**/*.js'],
-        configs: ['config/**/!(system).js', 'gulpfile.js'],
+        configs: ['config/**/!(system).js', 'gulp-tasks/**/*.js', 'gulpfile.js'],
         stylesheets: ['src/**/*.scss'],
         scripts: [
             'src/**/*.js',

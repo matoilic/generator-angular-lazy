@@ -1,4 +1,6 @@
+/*eslint-disable */
 'use strict';
+/*eslint-enable */
 
 const autoprefixer = require('gulp-autoprefixer');
 const path = require('path');
@@ -18,7 +20,7 @@ module.exports = (gulp, config) => {
                     path.resolve('src')<% if (bootstrapCss) { %>,
                     path.resolve('node_modules/bootstrap-sass/assets/stylesheets')<% } %>
                 ]
-             }))
+            }))
             .pipe(autoprefixer())
             .pipe(sourcemaps.write('.'))
             .pipe(gulp.dest(config.paths.build.output));

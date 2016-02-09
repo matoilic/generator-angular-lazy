@@ -1,4 +1,6 @@
+/*eslint-disable */
 'use strict';
+/*eslint-enable */
 
 module.exports = (gulp, config) => {
     gulp.task('copy-static', function () {

@@ -1,4 +1,6 @@
+/*eslint-disable */
 'use strict';
+/*eslint-enable */
 
 const config = require('./config/gulp');
 const glob = require('glob');
