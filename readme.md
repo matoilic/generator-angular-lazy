@@ -4,6 +4,10 @@
 
 ## Table of contents
 - [Getting started](#getting-started)
+- [Structure](#structure)
+    - [Application component](#application-component)
+    - [State component](#state-component)
+    - [General component](#general-component)
 - [What's included](#what-s-included)
     - [SystemJS](#systemjs)
     - [JSPM](#jspm)
@@ -20,10 +24,6 @@
     - [SASS](#sass)
     - [Babel](#babel)
     - [Gulp](#gulp)
-- [Structure](#structure)
-    - [Application component](#application-component)
-    - [State component](#state-component)
-    - [General component](#general-component)
 - [Gulp tasks](#gulp-tasks)
     - [default](#default)
     - [build](#build)
@@ -57,56 +57,6 @@ $: npm install -g generator-angular-lazy
 ```
 
 Now you can start using the generators described in the [structure section](#structure).
-
-## What's included?
-These are the main tools and libraries the project stack relies on.
-
-### [SystemJS](https://github.com/systemjs/systemjs)
-We're using the recently, in ECMAScript 2015, standardized module system. SystemJS builds up on these APIs to make it easier for us to modularize out code properly and to load those modules as they're needed. Since most browsers don't implement the module system natively SystemJS uses the [ES2015 Module Loader Polyfill](https://github.com/ModuleLoader/es6-module-loader) under the hood to close the gap.
-
-Since the ES2015 module loader system is farly new most of the existing JavaScript libraries didn't have the chance yet to migrate to the new syntax. AMD and CommonJS are still the most used systems. SystemJS implements adapters for those module systems so that we're not blocked when it comes to use popular libraries like AngularJS or Lodash which do not yet use the new import / export syntax.
-
-### [JSPM](https://jspm.io)
-[NPM](https://www.npmjs.com) is a great package manager but it was initially designed to be used on the server side. There is no straight forward way to load NPM packages in the browser at runtime. JSPM eases that process and also overwrites some package.json properties for certain packages where necessary, e.g. the main file.
-
-### [AngularJS](https://angularjs.org)
-If you're here then you should know what Angular is.
-
-### [UI Router](http://angular-ui.github.io/ui-router/)
-Angular's integrated router has very limited capabilities, e.g. it doesn't support nested views. UI Router gives you much more flexibility and has become the de-facto standard router for Angular applications.
-
-### [UI Router Extras](http://christopherthielen.github.io/ui-router-extras)
-UI Router Extras adds even more functionality to the router on top of UI Router. Most important, [Future States](http://christopherthielen.github.io/ui-router-extras/#/future) which enable us to describe, in an abstract way, what states our application has and where the code for those resides, without actually loading the JavaScript code itself. It is then lazy loaded at runtime when the uset accesses the state for the first time.
-
-### [ocLazyLoad](https://oclazyload.readme.io)
-By default Angular requires us to load all application code upfront before it boots the application. That works well for smaller applications. For large scale applications this introduces long loading times an impacts the user experience negatively. ocLazyLoad allows us to add modules to Angular applications at runtime.
-
-### [Angular Lazy](https://github.com/matoilic/angular-lazy)
-The Angular Lazy package is the glues UI Router Extras and ocLazyLoad together, so that we can easily lazy load our states. It also provides a component loader which makes it possible to load additional components at any time in the code.
-
-### [Angular Lazy Bundler](https://github.com/matoilic/angular-lazy-bundler)
-You will realise, that you end up with a lot of small files when you use the angular-lazy generator. To reduce the number of network requests required to load a component we want to bundle those files together where possible.
-
-### [Angular Translate](https://angular-translate.github.io/)
-If you choose to activate `i18n` while generating the application, the project will include Angular Translate to handle translations. Angular has no support for i18n and l10n, so we need to include this package.
-
-### [Karma](https://karma-runner.github.io)
-Karma is a test runner created by the Angular team, specifically to ease the testing of Angular applications. It is only a test runner and not a test framework. To actually write our tests we're going to use Jasmine.
-
-### [Jasmine](https://jasmine.github.io)
-Jasmine is the actual test framework we're using to write our tests. It's integrated into Karma through the `karma-jasmine` package.
-
-### [Protractor](https://www.protractortest.org)
-Protractor's main focus is to ease the end-to-end testing of Angular applications. Under the hood it uses [Selenium WebDriver](http://www.seleniumhq.org/projects/webdriver) which is an established tool for automated browser testing. Like with Karma, we can also use Jasmine to write our tests which protractor should run.
-
-### [SASS](http://sass-lang.com)
-Writing stylesheets in plain CSS for large applications is a pain in the ass. That's why Angular Lazy comes with SASS preconfigured as CSS preprocessor. Under the hood it uses [node-sass](https://github.com/sass/node-sass) which itself uses [libsass](http://sass-lang.com/libsass), a C implementation of SASS. We're not using the Ruby SASS implementation because it's much slower than libsass and it would require us to install Ruby next to Node.
-
-### [Babel](http://babeljs.io/)
-Not all ES2015 features are yet supported across major browsers. Babel allows us to take advantage of all new language features by transpiling then into equivalent ES5 code.
-
-### [Gulp](http://gulpjs.com)
-Angular Lazy uses Gulp for task automation and comes preconfigured with all [essential tasks](#gulp-tasks) to get started.
 
 ## Structure
 Angular Lazy follows a component based approach. Everything is a component, even the application itself. Components should be self-contained and should be easily reusable for multiple projects. Of course there will be cases where a component is very specific to a project and might not be reusable. But always have the goal of reusability in focus.
@@ -214,6 +164,23 @@ This file contains the state definition for UI Router. If you change the URL or 
 #### [name]-state-controller.js
 This file contains the controller for the newly generated state.
 
+### Directive component
+> $: yo [angular-lazy:directive](https://github.com/matoilic/generator-angular-lazy/blob/master/directive/USAGE) name
+
+```text
++src
+|  +components
+|  |  +[name]-directive
+|  |  |  i18n
+|  |  |  [name]-directive-controller.js
+|  |  |  [name]-directive-spec.js
+|  |  |  [name]-directive-test.js
+|  |  |  [name]-directive.js
+|  |  |  index.js
+```
+
+Since the [component provider](https://docs.angularjs.org/guide/component) introduced in 1.5 is restricted to elements this generator was introduced for the case we want to create a custom attribute. Attributes don't have templates nor should they influence the styling of the element they're applied on. Thus, no stylesheet or HTML template will be generated.
+
 ### General component
 > $: yo [angular-lazy:component](https://github.com/matoilic/generator-angular-lazy/blob/master/component/USAGE) name
 
@@ -222,16 +189,66 @@ This file contains the controller for the newly generated state.
 |  +components
 |  |  +[name]
 |  |  |  i18n
-|  |  |  [name].html
-|  |  |  [name].scss
-|  |  |  [name]-controller.js
-|  |  |  [name]-directive.js
-|  |  |  [name]-spec.js
-|  |  |  [name]-test.js
+|  |  |  [name]-component-controller.js
+|  |  |  [name]-component-spec.js
+|  |  |  [name]-component-test.js
+|  |  |  [name]-component.html
+|  |  |  [name]-component.js
+|  |  |  [name]-component.scss
 |  |  |  index.js
 ```
 
-By default a component corresponds to a directive within AngularJS. Accordingly, if you run the component generator it will create a directive.
+This will generate a Angular component using the [component provider](https://docs.angularjs.org/guide/component) introduced in 1.5.
+
+## What's included?
+These are the main tools and libraries the project stack relies on.
+
+### [SystemJS](https://github.com/systemjs/systemjs)
+We're using the recently, in ECMAScript 2015, standardized module system. SystemJS builds up on these APIs to make it easier for us to modularize out code properly and to load those modules as they're needed. Since most browsers don't implement the module system natively SystemJS uses the [ES2015 Module Loader Polyfill](https://github.com/ModuleLoader/es6-module-loader) under the hood to close the gap.
+
+Since the ES2015 module loader system is farly new most of the existing JavaScript libraries didn't have the chance yet to migrate to the new syntax. AMD and CommonJS are still the most used systems. SystemJS implements adapters for those module systems so that we're not blocked when it comes to use popular libraries like AngularJS or Lodash which do not yet use the new import / export syntax.
+
+### [JSPM](https://jspm.io)
+[NPM](https://www.npmjs.com) is a great package manager but it was initially designed to be used on the server side. There is no straight forward way to load NPM packages in the browser at runtime. JSPM eases that process and also overwrites some package.json properties for certain packages where necessary, e.g. the main file.
+
+### [AngularJS](https://angularjs.org)
+If you're here then you should know what Angular is.
+
+### [UI Router](http://angular-ui.github.io/ui-router/)
+Angular's integrated router has very limited capabilities, e.g. it doesn't support nested views. UI Router gives you much more flexibility and has become the de-facto standard router for Angular applications.
+
+### [UI Router Extras](http://christopherthielen.github.io/ui-router-extras)
+UI Router Extras adds even more functionality to the router on top of UI Router. Most important, [Future States](http://christopherthielen.github.io/ui-router-extras/#/future) which enable us to describe, in an abstract way, what states our application has and where the code for those resides, without actually loading the JavaScript code itself. It is then lazy loaded at runtime when the uset accesses the state for the first time.
+
+### [ocLazyLoad](https://oclazyload.readme.io)
+By default Angular requires us to load all application code upfront before it boots the application. That works well for smaller applications. For large scale applications this introduces long loading times an impacts the user experience negatively. ocLazyLoad allows us to add modules to Angular applications at runtime.
+
+### [Angular Lazy](https://github.com/matoilic/angular-lazy)
+The Angular Lazy package is the glues UI Router Extras and ocLazyLoad together, so that we can easily lazy load our states. It also provides a component loader which makes it possible to load additional components at any time in the code.
+
+### [Angular Lazy Bundler](https://github.com/matoilic/angular-lazy-bundler)
+You will realise, that you end up with a lot of small files when you use the angular-lazy generator. To reduce the number of network requests required to load a component we want to bundle those files together where possible.
+
+### [Angular Translate](https://angular-translate.github.io/)
+If you choose to activate `i18n` while generating the application, the project will include Angular Translate to handle translations. Angular has no support for i18n and l10n, so we need to include this package.
+
+### [Karma](https://karma-runner.github.io)
+Karma is a test runner created by the Angular team, specifically to ease the testing of Angular applications. It is only a test runner and not a test framework. To actually write our tests we're going to use Jasmine.
+
+### [Jasmine](https://jasmine.github.io)
+Jasmine is the actual test framework we're using to write our tests. It's integrated into Karma through the `karma-jasmine` package.
+
+### [Protractor](https://www.protractortest.org)
+Protractor's main focus is to ease the end-to-end testing of Angular applications. Under the hood it uses [Selenium WebDriver](http://www.seleniumhq.org/projects/webdriver) which is an established tool for automated browser testing. Like with Karma, we can also use Jasmine to write our tests which protractor should run.
+
+### [SASS](http://sass-lang.com)
+Writing stylesheets in plain CSS for large applications is a pain in the ass. That's why Angular Lazy comes with SASS preconfigured as CSS preprocessor. Under the hood it uses [node-sass](https://github.com/sass/node-sass) which itself uses [libsass](http://sass-lang.com/libsass), a C implementation of SASS. We're not using the Ruby SASS implementation because it's much slower than libsass and it would require us to install Ruby next to Node.
+
+### [Babel](http://babeljs.io/)
+Not all ES2015 features are yet supported across major browsers. Babel allows us to take advantage of all new language features by transpiling then into equivalent ES5 code.
+
+### [Gulp](http://gulpjs.com)
+Angular Lazy uses Gulp for task automation and comes preconfigured with all [essential tasks](#gulp-tasks) to get started.
 
 ## Gulp tasks
 
