@@ -1,6 +1,13 @@
-var assert = require('assert');
-describe('Test Generator', function () {
-    it('should test', function () {
-        assert.ok(true);
-    });
-});
+'use strict';
+/**
+ * This test process was based and inspired in the one used in:
+ * https://github.com/angular-fullstack/generator-angular-fullstack
+ */
+const path = require('path');
+
+
+/**
+ * Run tests in ./specs/manifests
+ */
+require('./specs/manifests');
+
