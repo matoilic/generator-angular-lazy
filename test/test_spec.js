@@ -1,13 +1,13 @@
+/*eslint-disable */
 'use strict';
-/**
- * This test process was based and inspired in the one used in:
- * https://github.com/angular-fullstack/generator-angular-fullstack
- */
-const path = require('path');
-
-
+/*eslint-enable */
+/* eslint-disable no-console, no-use-before-define */
 /**
  * Run tests in ./specs/manifests
  */
 require('./specs/manifests');
 
+/**
+ * Test app template
+ */
+require('./specs/app');
