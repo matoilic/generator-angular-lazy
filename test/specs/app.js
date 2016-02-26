@@ -13,12 +13,11 @@ const yeomanAssert = require('yeoman-assert');
 const yeomanTest = require('yeoman-test');
 const testUtil = require('../lib/util');
 //
-console.log(__dirname); // /test/specs
 describe('Angular Lazy - App', function () {
-    const coreFiles = require('./app-coreFiles');
-    const indexFiles = require('./app-indexFiles');
-    const mainFiles = require('./app-mainStateFiles');
-    const i18nFiles = require('./app-i18nFiles');
+    const coreFiles = require('./files/app-coreFiles');
+    const indexFiles = require('./files/app-indexFiles');
+    const mainFiles = require('./files/app-mainStateFiles');
+    const i18nFiles = require('./files/app-i18nFiles');
     let gen;
     const defaultOptions = {
         i18n: true,

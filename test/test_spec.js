@@ -11,3 +11,8 @@ require('./specs/manifests');
  * Test app template
  */
 require('./specs/app');
+
+/**
+ * Test directive template
+ */
+require('./specs/directive');
