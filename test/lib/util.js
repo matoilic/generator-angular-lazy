@@ -7,8 +7,24 @@ const recursiveReadDir = require('recursive-readdir');
 const fs = require('fs-extra');
 module.exports = {
     assertOnlyFiles: assertOnlyFiles,
-    getDirTree: getDirTree
+    getDirTree: getDirTree,
+    getFilesToTest: getFilesToTest
 };
+/**
+ * Replace name vars in files to test existence
+ * @param {Array} files     - array with files to map
+ * @param {String} name     - content of $name var to replace
+ * @param {String} prefix   - content of $prefix var to replace
+ * @returns {Array}         - return array with files to test
+ */
+function getFilesToTest(files, name, prefix) {
+    return files.map((item) => {
+        return item
+            .replace('$prefix', prefix ? '/'.concat(prefix) : '')
+            .replace(/\$name/g, '/'.concat(name || ''));
+    });
+}
+
 /**
  * Returns list of tree structure of directories names in a path
  *

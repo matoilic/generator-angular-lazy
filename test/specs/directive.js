@@ -14,8 +14,8 @@ const yeomanTest = require('yeoman-test');
 const testUtil = require('../lib/util');
 //
 describe('Angular Lazy - Directive', function () {
-    const directiveFiles = require('./files/app-directiveFiles');
-    const i18nFiles = require('./files/app-directive-i18nFiles');
+    const directiveFiles = require('./files/directiveFiles');
+    const i18nFiles = require('./files/directive-i18nFiles');
     let gen;
     const deps = [
         '../../../directive'
@@ -27,11 +27,7 @@ describe('Angular Lazy - Directive', function () {
     }
 
     function getFilesToTest(files, name) {
-        return files.map((item) => {
-            return item
-                .replace('$prefix', defaultConfig.prefix ? '/'.concat(defaultConfig.prefix) : '')
-                .replace(/\$name/g, '/'.concat(name || defaultConfig.name));
-        });
+        return testUtil.getFilesToTest(files, name || defaultConfig.name, defaultConfig.prefix);
     }
 
     function createGenerator() {
@@ -66,48 +62,42 @@ describe('Angular Lazy - Directive', function () {
             }
         };
     });
-    describe('> generate with default options', function () {
-        this.timeout(20000);
-        it('>should have correct files generated', function (done) {
-            createGenerator();
-            gen.run(function () {
-                const filesToTest = getFilesToTest(directiveFiles.concat(i18nFiles));
-                yeomanAssert.file(filesToTest);
-                testUtil.assertOnlyFiles(filesToTest, done);
-            });
+    it('>should have correct files generated with default options', function (done) {
+        createGenerator();
+        gen.run(function () {
+            const filesToTest = getFilesToTest(directiveFiles.concat(i18nFiles));
+            yeomanAssert.file(filesToTest);
+            testUtil.assertOnlyFiles(filesToTest, done);
         });
     });
-    describe('> generate with other options', function () {
-        this.timeout(20000);
-        it('>should have correct files generated when translate option set to false', function (done) {
-            defaultConfig.config['generator-angular-lazy'].i18n = false;
-            createGenerator();
-            gen.run(function () {
-                const filesToTest = getFilesToTest(directiveFiles);
-                yeomanAssert.file(filesToTest);
-                testUtil.assertOnlyFiles(filesToTest, done);
-            });
+    it('>should have correct files generated when translate option set to false', function (done) {
+        defaultConfig.config['generator-angular-lazy'].i18n = false;
+        createGenerator();
+        gen.run(function () {
+            const filesToTest = getFilesToTest(directiveFiles);
+            yeomanAssert.file(filesToTest);
+            testUtil.assertOnlyFiles(filesToTest, done);
         });
-        it('>should have correct files generated when prefix is set', function (done) {
-            defaultConfig.config['generator-angular-lazy'].i18n = false;
-            defaultConfig.prefix = 'myfeature';
-            createGenerator();
-            gen.run(function () {
-                const filesToTest = getFilesToTest(directiveFiles);
-                yeomanAssert.file(filesToTest);
-                testUtil.assertOnlyFiles(filesToTest, done);
-            });
+    });
+    it('>should have correct files generated when prefix is set', function (done) {
+        defaultConfig.config['generator-angular-lazy'].i18n = false;
+        defaultConfig.prefix = 'myfeature';
+        createGenerator();
+        gen.run(function () {
+            const filesToTest = getFilesToTest(directiveFiles);
+            yeomanAssert.file(filesToTest);
+            testUtil.assertOnlyFiles(filesToTest, done);
         });
-        it('>should have correct files generated when name dir is set in camel came', function (done) {
-            defaultConfig.config['generator-angular-lazy'].i18n = false;
-            defaultConfig.prefix = '';
-            defaultConfig.name = 'myName';
-            createGenerator();
-            gen.run(function () {
-                const filesToTest = getFilesToTest(directiveFiles, 'my-name');
-                yeomanAssert.file(filesToTest);
-                testUtil.assertOnlyFiles(filesToTest, done);
-            });
+    });
+    it('>should have correct files generated when name dir is set in camel came', function (done) {
+        defaultConfig.config['generator-angular-lazy'].i18n = false;
+        defaultConfig.prefix = '';
+        defaultConfig.name = 'myName';
+        createGenerator();
+        gen.run(function () {
+            const filesToTest = getFilesToTest(directiveFiles, 'my-name');
+            yeomanAssert.file(filesToTest);
+            testUtil.assertOnlyFiles(filesToTest, done);
         });
     });
 });

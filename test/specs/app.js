@@ -15,8 +15,8 @@ const testUtil = require('../lib/util');
 //
 describe('Angular Lazy - App', function () {
     const coreFiles = require('./files/app-coreFiles');
-    const indexFiles = require('./files/app-indexFiles');
-    const mainFiles = require('./files/app-mainStateFiles');
+    const stateFiles = require('./files/stateFiles');
+    const statei18nFiles = require('./files/state-i18nFiles');
     const i18nFiles = require('./files/app-i18nFiles');
     let gen;
     const defaultOptions = {
@@ -54,13 +54,19 @@ describe('Angular Lazy - App', function () {
             gen.run(function () {
                 const packageJson = JSON.parse(fs.readFileSync(path.resolve('package.json'), 'utf8'));
                 yeomanAssert.ok(packageJson.jspm.dependencies['angular-translate'] !== undefined);
-                yeomanAssert.file(coreFiles.concat(indexFiles).concat(i18nFiles));
+                yeomanAssert.file(coreFiles
+                    .concat(testUtil.getFilesToTest(stateFiles, 'index'))
+                    .concat(i18nFiles)
+                    .concat(testUtil.getFilesToTest(statei18nFiles, 'index')));
                 done();
             });
         });
         it('>should only have correct files generated', function (done) {
             gen.run(function () {
-                testUtil.assertOnlyFiles(coreFiles.concat(indexFiles).concat(i18nFiles), done);
+                testUtil.assertOnlyFiles(coreFiles
+                    .concat(testUtil.getFilesToTest(stateFiles, 'index'))
+                    .concat(i18nFiles)
+                    .concat(testUtil.getFilesToTest(statei18nFiles, 'index')), done);
             });
         });
         it('>should have correct default options generated', function (done) {
@@ -94,7 +100,8 @@ describe('Angular Lazy - App', function () {
             gen.run(function () {
                 const packageJson = JSON.parse(fs.readFileSync(path.resolve('package.json'), 'utf8'));
                 yeomanAssert.ok(packageJson.jspm.dependencies['angular-translate'] === undefined);
-                testUtil.assertOnlyFiles(coreFiles.concat(indexFiles), done);
+                testUtil.assertOnlyFiles(coreFiles
+                    .concat(testUtil.getFilesToTest(stateFiles, 'index')), done);
             });
         });
         it('>should include angular-ui-bootstrap when answering Yes to "Bootstrap Javascript Components"', function (done) {
@@ -126,7 +133,8 @@ describe('Angular Lazy - App', function () {
             defaultOptions.i18n = false;
             yeomanTest.mockPrompt(gen, defaultOptions);
             gen.run(function () {
-                testUtil.assertOnlyFiles(coreFiles.concat(mainFiles), done);
+                testUtil.assertOnlyFiles(coreFiles
+                    .concat(testUtil.getFilesToTest(stateFiles, 'main')), done);
             });
         });
     });
