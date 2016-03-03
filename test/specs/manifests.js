@@ -3,6 +3,8 @@
 /*eslint-enable */
 /* eslint-disable no-console, no-use-before-define, space-in-parens */
 /**
+ * Test for:
+ * Manifests files and packages install
  * Some parts of this test process was based and inspired in the one used in:
  * https://github.com/angular-fullstack/generator-angular-fullstack
  */

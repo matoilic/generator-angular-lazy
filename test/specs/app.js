@@ -3,6 +3,8 @@
 /*eslint-enable */
 /* eslint-disable no-console, no-use-before-define */
 /**
+ * Test for:
+ * angular-lazy
  * Some parts of this process was based and inspired in the one used in:
  * https://github.com/angular-fullstack/generator-angular-fullstack
  */

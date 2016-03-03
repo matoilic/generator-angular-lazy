@@ -13,11 +13,11 @@ require('./specs/manifests');
 require('./specs/app');
 
 /**
- * Test directive component
+ * Test directive and component templates
  */
-require('./specs/directive');
+require('./specs/components');
 
 /**
- * Test state component
+ * Test state template
  */
 require('./specs/state');
