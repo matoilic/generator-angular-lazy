@@ -81,7 +81,7 @@ class ApplicationGenerator extends Base {
                     {
                         type: 'confirm',
                         name: 'bootstrapJs',
-                        message: 'Do you want to include the Bootstrap JavaScript componentsconst ?',
+                        message: 'Do you want to include the Bootstrap JavaScript components?',
                         default: this.config.get('bootstrapJs')
                     },
                     {

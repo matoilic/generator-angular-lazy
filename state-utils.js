@@ -8,7 +8,7 @@ module.exports = {
             return 'application';
         }
 
-        return this.conststateToComponentName(
+        return this.stateToComponentName(
             stateName.slice(0, stateName.lastIndexOf('.'))
         );
     },
