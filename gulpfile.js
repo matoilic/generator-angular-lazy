@@ -12,6 +12,7 @@ const childProcess = require('child_process');
 const vinylPaths = require('vinyl-paths');
 const del = require('del');
 /**
+ * Tasks for test process
  * Some parts of this test process was based and inspired in the one used in:
  * https://github.com/angular-fullstack/generator-angular-fullstack
  */
