@@ -1,8 +1,8 @@
+/*eslint-disable */
 'use strict';
+/*eslint-enable */
 
 const assert = require('yeoman-assert');
-const fs = require('fs-extra');
-const path = require('path');
 const directiveFileExpectations = require('./expectations/directive');
 const directiveI18nFileExpectations = require('./expectations/directive-i18n');
 const directiveGenerator = require('./generators/directive');

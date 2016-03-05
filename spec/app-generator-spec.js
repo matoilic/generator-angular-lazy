@@ -1,4 +1,6 @@
+/*eslint-disable */
 'use strict';
+/*eslint-enable */
 
 const assert = require('yeoman-assert');
 const path = require('path');

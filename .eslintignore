@@ -1,0 +1,6 @@
+app/templates
+component/templates
+directive/templates
+node_modules
+state/templates
+tmp

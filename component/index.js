@@ -1,4 +1,6 @@
+/*eslint-disable */
 'use strict';
+/*eslint-enable */
 
 const Base = require('../base');
 const _ = require('../extended-lodash');
@@ -38,7 +40,7 @@ class ComponentGenerator extends Base {
                     this._copyFile(context.tagName, 'language', 'i18n/' + _.slugify(locale), '.js', context);
                 });
             }
-        }
+        };
     }
 
     _createContext() {

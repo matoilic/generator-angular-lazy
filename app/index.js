@@ -1,4 +1,6 @@
+/*eslint-disable */
 'use strict';
+/*eslint-enable */
 
 const Base = require('../base');
 const glob = require('glob');
@@ -87,24 +89,24 @@ class ApplicationGenerator extends Base {
                     {
                         type: 'input',
                         name: 'indexRouteName',
-                        message: "How should the default state be called?",
+                        message: 'How should the default state be called?',
                         default: this.config.get('indexRouteName')
                     }
                 ], (answers) => {
-                    answers.root = this.config.get('root') || this.options['root'];
+                    answers.root = this.config.get('root') || this.options.root;
 
                     this.setRootPath(answers.root);
 
                     this.context = _.merge(this._createContext(), answers);
 
-                    let index = stateUtils.normalizeStateName(answers.indexRouteName);
+                    const index = stateUtils.normalizeStateName(answers.indexRouteName);
                     this.context.indexUrl = stateUtils.normalizeUrl(index, index);
                     this.context.indexComponent = stateUtils.stateToComponentName(index);
 
                     done();
                 });
             }
-        }
+        };
     }
 
     get configuring() {
@@ -121,7 +123,7 @@ class ApplicationGenerator extends Base {
 
                 this.config.save();
             }
-        }
+        };
     }
 
     get writing() {
@@ -130,11 +132,11 @@ class ApplicationGenerator extends Base {
                 const templatePathLength = this.templatePath().length + 1;
 
                 glob
-                    .sync(this.templatePath('core/**/*'), {nodir: true})
+                    .sync(this.templatePath('core/**/*'), { nodir: true })
                     .map((filepath) => filepath.slice(templatePathLength))
                     .forEach((filepath) => {
                         const dirname = path.dirname(filepath).slice(5);
-                        const srcFilename =  path.basename(filepath);
+                        const srcFilename = path.basename(filepath);
                         const destFilename = srcFilename[0] === '_' ? srcFilename.slice(1) : srcFilename;
 
                         this.fs.copyTpl(
@@ -159,14 +161,14 @@ class ApplicationGenerator extends Base {
                 this.fs.copyTpl(
                     this.templatePath('i18n/default-locale-config.js'),
                     this._componentDestinationPath('application', 'config', 'default-locale.js'),
-                    {defaultLocale: this.context.defaultLocale}
+                    { defaultLocale: this.context.defaultLocale }
                 );
 
                 this.context.locales.forEach((locale) => {
                     this.fs.copyTpl(
                         this.templatePath('i18n/language.js'),
                         this._componentDestinationPath('application', 'i18n', _.slugify(locale) + '.js'),
-                        {_, locale}
+                        { _, locale }
                     );
                 });
             },
@@ -181,7 +183,7 @@ class ApplicationGenerator extends Base {
                     local: path.join(__dirname, '..', 'state')
                 });
             }
-        }
+        };
     }
 
     get install() {
@@ -210,7 +212,7 @@ class ApplicationGenerator extends Base {
                     }, { run: false });
                 }
             }
-        }
+        };
     }
 }
 

@@ -12,13 +12,15 @@ function run(name, options, runner, setup) {
                 path.join(appGenerator.testDirectory, '.yo-rc.json')
             );
 
-            setup && setup();
+            if (setup) {
+                setup();
+            }
         })
         .withArguments(['--force', name])
         .withOptions(options || {})
         .on('end', function () {
             runner();
-        })
+        });
 }
 
 module.exports = {

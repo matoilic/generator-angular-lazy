@@ -1,8 +1,9 @@
+/*eslint-disable */
 'use strict';
+/*eslint-enable */
 
 const assert = require('yeoman-assert');
 const fs = require('fs-extra');
-const path = require('path');
 const stateFileExpectations = require('./expectations/state');
 const stateI18nFileExpectations = require('./expectations/state-i18n');
 const stateGenerator = require('./generators/state');
@@ -15,7 +16,7 @@ describe('State generator', () => {
             <div>
                 <ui-view></ui-view>
             </div>
-        `)
+        `);
     };
     const mockMultiViewParent = () => {
         fs.outputFileSync(`src/components/${parentStateName}-state/${parentStateName}-state.html`, `
@@ -23,7 +24,7 @@ describe('State generator', () => {
                 <ui-view name="view1"></ui-view>
                 <div ui-view="view2"></div>
             </div>
-        `)
+        `);
     };
 
     it('generates the state structure', (done) => {

@@ -1,4 +1,6 @@
+/*eslint-disable */
 'use strict';
+/*eslint-enable */
 
 const Base = require('../base');
 const _ = require('../extended-lodash');
@@ -38,12 +40,11 @@ class StateGenerator extends Base {
                 const templateContent = fs.readFileSync(targetTemplate);
                 const views = [];
                 const viewMatcher = /(?:\sui-view="([^"]+)"|<ui-view name="([^"]+)">)/g;
-                let view;
-                let index = 0;
+                let view = viewMatcher.exec(templateContent);
 
-                while(view = viewMatcher.exec(templateContent)) {
+                while (view) {
                     views.push(view[1] || view[2]);
-                    index = view.index;
+                    view = viewMatcher.exec(templateContent);
                 }
 
                 if (views.length < 2) {
@@ -54,21 +55,21 @@ class StateGenerator extends Base {
                     return;
                 }
 
-                var done = this.async();
+                const done = this.async();
                 this.prompt(
                     [{
                         type: 'list',
                         name: 'target',
-                        message: "Which is the target ui-view?",
+                        message: 'Which is the target ui-view?',
                         choices: views
                     }],
                     (answers) => {
                         this.options.target = answers.target;
                         done();
                     }
-                )
+                );
             }
-        }
+        };
     }
 
     get writing() {
@@ -85,7 +86,7 @@ class StateGenerator extends Base {
                 this._copyFile(context.componentName, 'template', context.componentName, '.html', context);
 
                 const routesFile = this.rootedDestinationPath('src/components/application/config/states.json');
-                let routes = this.fs.readJSON(routesFile);
+                const routes = this.fs.readJSON(routesFile);
                 routes.push({
                     name: 'app.' + context.stateName,
                     url: context.url,
@@ -108,7 +109,7 @@ class StateGenerator extends Base {
                     this._copyFile(context.componentName, 'language', 'i18n/' + _.slugify(locale), '.js', context);
                 });
             }
-        }
+        };
     }
 
     _createContext() {

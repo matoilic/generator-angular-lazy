@@ -42,12 +42,14 @@
     "npm": ">=3.0.0"
   },
   "devDependencies": {
+    "eslint": "~1.10.3",
+    "eslint-config-angular-lazy": "^0.1.0",
     "fs-extra": "^0.26.5",
-    "jasmine": "^2.4.1",
-    "yeoman-assert": "^2.1.1",
-    "yeoman-test": "^1.1.0"
+    "jasmine": "~2.4.1",
+    "yeoman-assert": "~2.1.1",
+    "yeoman-test": "~1.1.0"
   },
   "scripts": {
-    "test": "jasmine"
+    "test": "eslint . && jasmine"
   }
 }

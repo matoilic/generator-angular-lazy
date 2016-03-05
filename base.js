@@ -1,4 +1,6 @@
+/*eslint-disable */
 'use strict';
+/*eslint-enable */
 
 const generators = require('yeoman-generator');
 const _ = require('./extended-lodash');

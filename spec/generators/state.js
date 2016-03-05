@@ -16,14 +16,16 @@ function run(name, options, runner, setup, prompts) {
 
             fs.outputFileSync(statesFile, '[]');
 
-            setup && setup();
+            if (setup) {
+                setup();
+            }
         })
         .withArguments(['--force', name])
         .withOptions(options || {})
         .withPrompts(prompts || {})
         .on('end', function () {
             runner();
-        })
+        });
 }
 
 module.exports = {

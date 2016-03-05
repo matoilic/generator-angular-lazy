@@ -30,14 +30,16 @@ function run(options, prompts, runner, setup) {
                 path.join(testDirectory, 'node_modules', 'generator-angular-lazy')
             );
 
-            setup && setup();
+            if (setup) {
+                setup();
+            }
         })
         .withArguments(['--force'])
         .withOptions(options || {})
         .withPrompts(_.merge({}, defaultOptions, prompts || {}))
         .on('end', function () {
             runner();
-        })
+        });
 }
 
 module.exports = {

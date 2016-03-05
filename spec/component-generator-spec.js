@@ -1,8 +1,8 @@
+/*eslint-disable */
 'use strict';
+/*eslint-enable */
 
 const assert = require('yeoman-assert');
-const fs = require('fs-extra');
-const path = require('path');
 const componentFileExpectations = require('./expectations/component');
 const componentI18nFileExpectations = require('./expectations/component-i18n');
 const componentGenerator = require('./generators/component');

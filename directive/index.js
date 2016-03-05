@@ -1,4 +1,6 @@
+/*eslint-disable */
 'use strict';
+/*eslint-enable */
 
 const Base = require('../base');
 const _ = require('../extended-lodash');
@@ -36,7 +38,7 @@ class DirectiveGenerator extends Base {
                     this._copyFile(context.componentName, 'language', 'i18n/' + _.slugify(locale), '.js', context);
                 });
             }
-        }
+        };
     }
 
     _createContext() {
