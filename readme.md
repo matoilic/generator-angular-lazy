@@ -1,5 +1,7 @@
 # Yeoman generator for AngularJS projects
 
+[![Build Status][travis-badge]][travis-badge-url]
+
 > Opinionated Yeoman generator for creating Angular applications which lazy load components as needed at runtime.
 
 ## Table of contents

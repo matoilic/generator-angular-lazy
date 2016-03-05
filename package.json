@@ -46,5 +46,8 @@
     "jasmine": "^2.4.1",
     "yeoman-assert": "^2.1.1",
     "yeoman-test": "^1.1.0"
+  },
+  "scripts": {
+    "test": "jasmine"
   }
 }
