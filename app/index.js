@@ -169,6 +169,17 @@ class ApplicationGenerator extends Base {
                         {_, locale}
                     );
                 });
+            },
+
+            indexState: function () {
+                this.composeWith('angular-lazy:state', {
+                    arguments: [this.context.indexRouteName],
+                    options: {
+                        force: true
+                    }
+                }, {
+                    local: path.join(__dirname, '..', 'state')
+                });
             }
         }
     }
@@ -200,15 +211,6 @@ class ApplicationGenerator extends Base {
                 }
             }
         }
-    }
-
-    end() {
-        this.composeWith('angular-lazy:state', {
-            arguments: [this.context.indexRouteName],
-            options: {
-                force: true
-            }
-        });
     }
 }
 

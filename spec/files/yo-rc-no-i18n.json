@@ -1,0 +1,10 @@
+{
+  "generator-angular-lazy": {
+    "appName": "Application Generator Test",
+    "i18n": false,
+    "bootstrapCss": true,
+    "bootstrapJs": true,
+    "indexRouteName": "home",
+    "root": null
+  }
+}
