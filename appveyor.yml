@@ -19,7 +19,6 @@ install:
 
 cache:
   - '%APPDATA%\npm-cache'
-  - '%APPDATA%\Roaming\bower'
 
 
 # Post-install test scripts.
