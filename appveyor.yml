@@ -9,6 +9,9 @@ environment:
     - nodejs_version: "4.3"
     - nodejs_version: "5.7"
 
+platform:
+  - x64
+
 # Install scripts. (runs after repo cloning)
 install:
   - git rev-parse HEAD
