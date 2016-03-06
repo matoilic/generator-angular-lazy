@@ -12,7 +12,6 @@ node_js:
 
 os:
   - linux
-  - windows
 
 before_install:
   - npm config set progress false

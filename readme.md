@@ -1,8 +1,9 @@
 # Yeoman generator for AngularJS projects
 
-[![Build Status](https://travis-ci.org/matoilic/generator-angular-lazy.svg?branch=master)](https://travis-ci.org/matoilic/generator-angular-lazy.svg?branch=master)
-[![Dependency Status](https://david-dm.org/matoilic/generator-angular-lazy.svg)](https://david-dm.org/matoilic/generator-angular-lazy.svg)
-[![devDependency Status](https://david-dm.org/matoilic/generator-angular-lazy/dev-status.svg)](https://david-dm.org/generator-angular-lazy#info=devDependencies)
+[![Build Status](https://travis-ci.org/matoilic/generator-angular-lazy.svg?branch=master)](https://travis-ci.org/matoilic/generator-angular-lazy)
+[![Build status](https://ci.appveyor.com/api/projects/status/p7ujysf2c73kvl96/branch/master?svg=true)](https://ci.appveyor.com/project/matoilic/generator-angular-lazy/branch/master)
+[![Dependency Status](https://david-dm.org/matoilic/generator-angular-lazy.svg)](https://david-dm.org/matoilic/generator-angular-lazy)
+[![devDependency Status](https://david-dm.org/matoilic/generator-angular-lazy/dev-status.svg)](https://david-dm.org/matoilic/generator-angular-lazy#info=devDependencies)
 
 > Opinionated Yeoman generator for creating Angular applications which lazy load components as needed at runtime.
 
