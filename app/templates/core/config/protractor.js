@@ -1,5 +1,12 @@
-const protractorBase = __dirname + '/../node_modules/protractor/';
-const webdriverVersions = require(protractorBase + 'config.json').webdriverVersions;
+const fs = require('fs');
+
+let protractorBase = `${__dirname}/../node_modules/protractor/`;
+
+if (!fs.existsSync(`${protractorBase}/selenium`)) {
+    protractorBase = `${__dirname}/../node_modules/gulp-protractor/node_modules/protractor/`;
+}
+
+const webdriverVersions = require(`${protractorBase}config.json`).webdriverVersions;
 
 const capabilities = [
     {
@@ -27,7 +34,7 @@ if (process.platform === 'win32') {
 
 module.exports.config = {
     multiCapabilities: capabilities,
-    seleniumServerJar: protractorBase + 'selenium/selenium-server-standalone-' + webdriverVersions.selenium + '.jar',
+    seleniumServerJar: `${protractorBase}selenium/selenium-server-standalone-${webdriverVersions.selenium}.jar`,
     baseUrl: 'http://localhost:8089/index.html#',
     rootElement: '#applicationContainer',
     framework: 'jasmine2',

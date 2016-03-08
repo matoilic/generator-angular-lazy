@@ -3,27 +3,26 @@
 /*eslint-enable */
 
 const connect = require('gulp-connect');
-const path = require('path');
 const protractor = require('gulp-protractor');
 
 module.exports = (gulp, config) => {
-    gulp.task('test-e2e', ['build', 'webdriver-update'], function (done) {
+    gulp.task('test-e2e', ['build', 'webdriver-update'], (done) => {
         connect.server({
             port: config.serverPortTest,
             root: ['.']
         });
 
         gulp
-            .src(path.join(config.paths.build.output + '/**/*-test.js'))
+            .src(`${config.paths.build.output}/**/*-test.js`)
             .pipe(protractor.protractor({
-                configFile: __dirname + '/../config/protractor.js'
+                configFile: `${__dirname}/../config/protractor.js`
             }))
-            .on('error', function (err) {
+            .on('error', (err) => {
                 connect.serverClose();
 
                 throw err;
             })
-            .on('end', function () {
+            .on('end', () => {
                 connect.serverClose();
 
                 done();

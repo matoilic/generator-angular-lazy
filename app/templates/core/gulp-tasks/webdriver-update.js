@@ -14,6 +14,6 @@ module.exports = (gulp) => {
             browsers.push('safari');
         }
 
-        protractor.webdriver_update({ browsers: browsers }, done);
+        protractor.webdriver_update({ browsers }, done);
     });
 };

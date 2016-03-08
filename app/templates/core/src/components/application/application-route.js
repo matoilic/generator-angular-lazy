@@ -7,8 +7,8 @@ function applicationRouteConfig($stateProvider) {
             abstract: true,
             views: {
                 page: {
-                    template: template,
-                    controller: 'ApplicationController as application'
+                    controller: 'ApplicationController as application',
+                    template
                 }
             }
         });

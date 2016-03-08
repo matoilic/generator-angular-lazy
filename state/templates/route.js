@@ -6,11 +6,11 @@ function <%= routeName %>Config($stateProvider) {
             url: '<%= url %>',
             <% if (target) { %>views: {
                 <%= target %>: {
-                    template: template,
-                    controller: '<%= controllerName %> as <%= controllerInstanceName %>'
+                    controller: '<%= controllerName %> as <%= controllerInstanceName %>',
+                    template
                 }
-            }<% } else { %>template: template,
-            controller: '<%= controllerName %> as <%= controllerInstanceName %>'<% } %>
+            }<% } else { %>controller: '<%= controllerName %> as <%= controllerInstanceName %>',
+            template<% } %>
         });
 }
 
