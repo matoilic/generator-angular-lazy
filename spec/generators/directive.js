@@ -18,7 +18,7 @@ function run(name, options, runner, setup) {
         })
         .withArguments(['--force', name])
         .withOptions(options || {})
-        .on('end', function () {
+        .on('end', () => {
             runner();
         });
 }

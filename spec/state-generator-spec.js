@@ -84,7 +84,8 @@ describe('State generator', () => {
 
     it('accepts a custom parent route', (done) => {
         stateGenerator.run(`${parentStateName}.custom`, null, () => {
-            const routeConfig = fs.readFileSync(`src/components/${parentStateName}-custom-state/${parentStateName}-custom-route.js`);
+            const routeConfig = fs
+                .readFileSync(`src/components/${parentStateName}-custom-state/${parentStateName}-custom-route.js`);
 
             expect(routeConfig).toMatch(`'app.${parentStateName}.custom'`);
 
@@ -96,7 +97,8 @@ describe('State generator', () => {
         const target = 'view2';
 
         stateGenerator.run(`${parentStateName}.custom`, null, () => {
-            const routeConfig = fs.readFileSync(`src/components/${parentStateName}-custom-state/${parentStateName}-custom-route.js`);
+            const routeConfig = fs
+                .readFileSync(`src/components/${parentStateName}-custom-state/${parentStateName}-custom-route.js`);
 
             expect(routeConfig).toMatch(`views: {\n                ${target}: {`);
 

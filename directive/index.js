@@ -15,17 +15,17 @@ class DirectiveGenerator extends Base {
 
     get writing() {
         return {
-            component: function () {
+            component() {
                 const context = this._createContext();
 
                 this._copyFile(context.componentName, 'controller', context.controllerFileName, '.js', context);
                 this._copyFile(context.componentName, 'directive', context.directiveFileName, '.js', context);
                 this._copyFile(context.componentName, 'index', 'index', '.js', context);
-                this._copyFile(context.componentName, 'spec', context.componentName + '-spec', '.js', context);
-                this._copyFile(context.componentName, 'test', context.componentName + '-test', '.js', context);
+                this._copyFile(context.componentName, 'spec', `${context.componentName}-spec`, '.js', context);
+                this._copyFile(context.componentName, 'test', `${context.componentName}-test`, '.js', context);
             },
 
-            i18n: function () {
+            i18n() {
                 if (!this.config.get('i18n')) {
                     return;
                 }
@@ -35,7 +35,7 @@ class DirectiveGenerator extends Base {
                 this._copyFile(context.componentName, 'translations', 'i18n/translations', '.js', context);
                 context.locales.forEach((locale) => {
                     context.locale = locale;
-                    this._copyFile(context.componentName, 'language', 'i18n/' + _.slugify(locale), '.js', context);
+                    this._copyFile(context.componentName, 'language', `i18n/${_.slugify(locale)}`, '.js', context);
                 });
             }
         };
@@ -43,11 +43,11 @@ class DirectiveGenerator extends Base {
 
     _createContext() {
         const baseContext = super._createContext();
-        const componentName = _.slugify(_.humanize(this.name)) + '-directive';
+        const componentName = `${_.slugify(_.humanize(this.name))}-directive`;
 
         return _.merge({
-            controllerName: _.classify(componentName) + 'Controller',
-            controllerFileName: componentName + '-controller',
+            controllerName: `${_.classify(componentName)}Controller`,
+            controllerFileName: `${componentName}-controller`,
             controllerInstanceName: _.camelize(componentName),
             directiveName: _.camelize(componentName),
             directiveFileName: componentName,

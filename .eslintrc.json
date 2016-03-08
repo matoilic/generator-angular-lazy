@@ -1,3 +1,6 @@
 {
-  "extends": "eslint-config-angular-lazy"
+  "extends": "eslint-config-angular-lazy",
+  "rules": {
+    "prefer-rest-params": 0
+  }
 }

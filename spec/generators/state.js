@@ -23,7 +23,7 @@ function run(name, options, runner, setup, prompts) {
         .withArguments(['--force', name])
         .withOptions(options || {})
         .withPrompts(prompts || {})
-        .on('end', function () {
+        .on('end', () => {
             runner();
         });
 }

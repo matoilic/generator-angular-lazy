@@ -32,7 +32,8 @@ describe('App generator', () => {
         appGenerator.run({ root }, null, () => {
             const coreFiles = appFileExpectations().map((p) => path.join(root, p));
             const i18nFiles = appI18nFileExpectations().map((p) => path.join(root, p));
-            const stateFiles = stateFileExpectations(appGenerator.defaultOptions.indexRouteName).map((p) => path.join(root, p));
+            const stateFiles = stateFileExpectations(appGenerator.defaultOptions.indexRouteName)
+                .map((p) => path.join(root, p));
 
             assert.file(coreFiles);
             assert.file(i18nFiles);

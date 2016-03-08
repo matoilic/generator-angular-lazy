@@ -37,7 +37,7 @@ class ApplicationGenerator extends Base {
 
     get prompting() {
         return {
-            app: function () {
+            app() {
                 const done = this.async();
                 const locales = this.config.get('locales') ? this.config.get('locales').join(',') : null;
 
@@ -93,11 +93,11 @@ class ApplicationGenerator extends Base {
                         default: this.config.get('indexRouteName')
                     }
                 ], (answers) => {
-                    answers.root = this.config.get('root') || this.options.root;
+                    const root = this.config.get('root') || this.options.root;
 
-                    this.setRootPath(answers.root);
+                    this.setRootPath(root);
 
-                    this.context = _.merge(this._createContext(), answers);
+                    this.context = _.merge(this._createContext(), answers, { root });
 
                     const index = stateUtils.normalizeStateName(answers.indexRouteName);
                     this.context.indexUrl = stateUtils.normalizeUrl(index, index);
@@ -111,7 +111,7 @@ class ApplicationGenerator extends Base {
 
     get configuring() {
         return {
-            save: function () {
+            save() {
                 this.config.set('appName', this.context.appName);
                 this.config.set('i18n', this.context.i18n);
                 this.config.set('locales', this.context.locales);
@@ -128,7 +128,7 @@ class ApplicationGenerator extends Base {
 
     get writing() {
         return {
-            core: function () {
+            core() {
                 const templatePathLength = this.templatePath().length + 1;
 
                 glob
@@ -147,7 +147,7 @@ class ApplicationGenerator extends Base {
                     });
             },
 
-            i18n: function () {
+            i18n() {
                 if (!this.context.i18n) {
                     return;
                 }
@@ -167,13 +167,13 @@ class ApplicationGenerator extends Base {
                 this.context.locales.forEach((locale) => {
                     this.fs.copyTpl(
                         this.templatePath('i18n/language.js'),
-                        this._componentDestinationPath('application', 'i18n', _.slugify(locale) + '.js'),
+                        this._componentDestinationPath('application', 'i18n', `${_.slugify(locale)}.js`),
                         { _, locale }
                     );
                 });
             },
 
-            indexState: function () {
+            indexState() {
                 this.composeWith('angular-lazy:state', {
                     arguments: [this.context.indexRouteName],
                     options: {
@@ -188,7 +188,7 @@ class ApplicationGenerator extends Base {
 
     get install() {
         return {
-            npm: function () {
+            npm() {
                 if (!this.options['skip-install']) {
                     this.runInstall('npm', null, {
                         cwd: this.getRootPath() || '.'
@@ -196,7 +196,7 @@ class ApplicationGenerator extends Base {
                 }
             },
 
-            jspm: function () {
+            jspm() {
                 if (!this.options['skip-install']) {
                     this.env.runLoop.add('install', (done) => {
                         this.emit('jspmInstall');

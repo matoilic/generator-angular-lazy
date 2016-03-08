@@ -5,7 +5,7 @@
 const _ = require('./extended-lodash');
 
 module.exports = {
-    determineParentComponent: function (stateName) {
+    determineParentComponent(stateName) {
         const normalizedStateName = this.normalizeStateName(stateName);
 
         if (normalizedStateName.indexOf('.') === -1) {
@@ -17,7 +17,7 @@ module.exports = {
         );
     },
 
-    normalizeStateName: function (stateName) {
+    normalizeStateName(stateName) {
         let normalizedStateName = stateName;
 
         if (normalizedStateName.indexOf('app.') === 0) {
@@ -30,13 +30,13 @@ module.exports = {
             .join('.');
     },
 
-    normalizeUrl: function (stateName, url) {
+    normalizeUrl(stateName, url) {
         const leadingSlashRequired = stateName.indexOf('.') > -1;
         const hasLeadingSlash = url[0] === '/';
         let normalizedUrl = url;
 
         if (leadingSlashRequired && !hasLeadingSlash) {
-            normalizedUrl = '/' + normalizedUrl;
+            normalizedUrl = `/${normalizedUrl}`;
         } else if (!leadingSlashRequired && hasLeadingSlash) {
             normalizedUrl = normalizedUrl.slice(1);
         }
@@ -48,7 +48,7 @@ module.exports = {
         return normalizedUrl;
     },
 
-    stateToComponentName: function (stateName) {
-        return stateName.replace(/\./g, '-') + '-state';
+    stateToComponentName(stateName) {
+        return `${stateName.replace(/\./g, '-')}-state`;
     }
 };

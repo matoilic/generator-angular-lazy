@@ -37,7 +37,7 @@ function run(options, prompts, runner, setup) {
         .withArguments(['--force'])
         .withOptions(options || {})
         .withPrompts(_.merge({}, defaultOptions, prompts || {}))
-        .on('end', function () {
+        .on('end', () => {
             runner();
         });
 }

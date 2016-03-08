@@ -29,9 +29,12 @@ class StateGenerator extends Base {
 
     get prompting() {
         return {
-            targetView: function () {
+            targetView() {
                 const targetComponentName = stateUtils.determineParentComponent(this.name);
-                const targetTemplate = this._componentDestinationPath(targetComponentName, targetComponentName + '.html');
+                const targetTemplate = this._componentDestinationPath(
+                    targetComponentName,
+                    `${targetComponentName}.html`
+                );
 
                 if (this.options.target || !fs.existsSync(targetTemplate)) {
                     return;
@@ -74,29 +77,29 @@ class StateGenerator extends Base {
 
     get writing() {
         return {
-            state: function () {
+            state() {
                 const context = this._createContext();
 
                 this._copyFile(context.componentName, 'controller', context.controllerFileName, '.js', context);
                 this._copyFile(context.componentName, 'index', 'index', '.js', context);
                 this._copyFile(context.componentName, 'route', context.routeFileName, '.js', context);
-                this._copyFile(context.componentName, 'spec', context.componentName + '-spec', '.js', context);
-                this._copyFile(context.componentName, 'test', context.componentName + '-test', '.js', context);
+                this._copyFile(context.componentName, 'spec', `${context.componentName}-spec`, '.js', context);
+                this._copyFile(context.componentName, 'test', `${context.componentName}-test`, '.js', context);
                 this._copyFile(context.componentName, 'stylesheet', context.componentName, '.scss', context);
                 this._copyFile(context.componentName, 'template', context.componentName, '.html', context);
 
                 const routesFile = this.rootedDestinationPath('src/components/application/config/states.json');
                 const routes = this.fs.readJSON(routesFile);
                 routes.push({
-                    name: 'app.' + context.stateName,
+                    name: `app.${context.stateName}`,
                     url: context.url,
                     type: 'load',
-                    src: 'components/' + context.componentName + '/index'
+                    src: `components/${context.componentName}/index`
                 });
                 this.fs.writeJSON(routesFile, routes);
             },
 
-            i18n: function () {
+            i18n() {
                 if (!this.config.get('i18n')) {
                     return;
                 }
@@ -106,7 +109,7 @@ class StateGenerator extends Base {
                 this._copyFile(context.componentName, 'translations', 'i18n/translations', '.js', context);
                 context.locales.forEach((locale) => {
                     context.locale = locale;
-                    this._copyFile(context.componentName, 'language', 'i18n/' + _.slugify(locale), '.js', context);
+                    this._copyFile(context.componentName, 'language', `i18n/${_.slugify(locale)}`, '.js', context);
                 });
             }
         };
@@ -117,7 +120,7 @@ class StateGenerator extends Base {
         const stateName = stateUtils.normalizeStateName(this.name);
         const url = stateUtils.normalizeUrl(stateName, this.options.url || stateName.split('.').pop());
         const componentName = stateUtils.stateToComponentName(stateName);
-        const routeFileName = componentName.slice(0, -6) + '-route';
+        const routeFileName = `${componentName.slice(0, -6)}-route`;
         let target = this.options.target;
 
         if (!target && stateName.indexOf('.') === -1) {
@@ -125,8 +128,8 @@ class StateGenerator extends Base {
         }
 
         return _.merge({
-            controllerName: _.classify(componentName) + 'Controller',
-            controllerFileName: componentName + '-controller',
+            controllerName: `${_.classify(componentName)}Controller`,
+            controllerFileName: `${componentName}-controller`,
             controllerInstanceName: _.camelize(componentName),
             routeName: _.camelize(routeFileName),
             templateName: componentName,
