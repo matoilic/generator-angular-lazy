@@ -272,10 +272,6 @@ Alias for [build](#build) ➔ [watch](#watch) ➔ [serve](#serve)
 
 Alias for [copy-static](#copy-static) ➔ [compile-source](#compile-source) ➔ [compile-stylesheets](#compile-stylesheets)
 
-### bundle
-
-Runs [Angular Lazy Bundler](https://github.com/matoilic/angular-lazy-bundler) and optimizes the loading process of our application in production.
-
 ### serve
 
 > $: gulp serve
@@ -316,7 +312,7 @@ Compiles our SASS stylesheets and uses [Autoprefixer](https://github.com/postcss
 
 > $: gulp bundle
 
-Uses [Angular Lazy Bundler](https://github.com/matoilic/angular-lazy-bundler) to bundle every component and 3rd-party package of our application into one file. This reduces the number of HTTP requests to load the individual parts. You can configure it further to combine multiple components which should be loaded together.
+Runs [Angular Lazy Bundler](https://github.com/matoilic/angular-lazy-bundler) and optimizes the loading process of our application in production. It bundles every component and 3rd-party package of our application into one file. This reduces the number of HTTP requests to load the individual parts. You can configure it further to combine multiple components which should be loaded together.
 
 ### htmlhint
 
