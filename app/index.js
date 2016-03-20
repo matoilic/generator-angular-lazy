@@ -1,6 +1,4 @@
-/*eslint-disable */
 'use strict';
-/*eslint-enable */
 
 const Base = require('../base');
 const glob = require('glob');

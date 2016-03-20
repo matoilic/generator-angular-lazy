@@ -1,6 +1,4 @@
-/*eslint-disable */
 'use strict';
-/*eslint-enable */
 
 const assert = require('yeoman-assert');
 const directiveFileExpectations = require('./expectations/directive');
