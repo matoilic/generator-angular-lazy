@@ -5,5 +5,5 @@ export default {
     bindToController: true,
     controller: '<%= controllerName %>',
     require: { },
-    template: template
+    template
 };
