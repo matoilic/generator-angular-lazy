@@ -55,8 +55,6 @@ describe('Overall generator', () => {
                 expect(outdated).toEqual([]);
 
                 done();
-
-                jasmine.DEFAULT_TIMEOUT_INTERVAL = originalTimeout;
             });
         });
     });
