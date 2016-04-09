@@ -47,6 +47,7 @@
     - [Missing dependencies](#missing-dependencies)
     - [Incompatible Angular modules](#incompatible-angular-modules)
     - [Protractor and Safari](#protractor-and-safari)
+- [License](#license)
 
 ## Getting started
 
