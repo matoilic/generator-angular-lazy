@@ -346,3 +346,7 @@ Another possibility is to amend the missing information in `config/system.js` as
 
 ### Protractor and Safari
 The Safari Selenium Driver cannot be installed automatically. We need to [install it manually](https://code.google.com/p/selenium/wiki/SafariDriver) before we can run any Protractor tests against it. Safari 9.0.1 has a bug where it's only possible to install the plugin in safe mode. Hold the shift key while booting to start in safe mode.
+
+## License
+
+Licensed under [BSD 3-Clause](https://github.com/matoilic/generator-angular-lazy/blob/master/license.md).
