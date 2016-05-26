@@ -36,73 +36,74 @@ class ApplicationGenerator extends Base {
     get prompting() {
         return {
             app() {
-                const done = this.async();
                 const locales = this.config.get('locales') ? this.config.get('locales').join(',') : null;
 
-                this.prompt([
-                    {
-                        type: 'input',
-                        name: 'appName',
-                        message: "What's the name of the App?",
-                        default: this.config.get('appName')
-                    },
-                    {
-                        type: 'confirm',
-                        name: 'i18n',
-                        message: 'Do you want to include angular-translate for i18n?',
-                        default: this.config.get('i18n')
-                    },
-                    {
-                        type: 'input',
-                        name: 'locales',
-                        message: 'What locales do you want to support (comma separated list)?',
-                        default: locales,
-                        when: whenI18nActive,
-                        filter: (answer) => _.uniq(
-                            answer
-                                .split(',')
-                                .map((locale) => locale.trim())
-                        )
-                    },
-                    {
-                        type: 'list',
-                        name: 'defaultLocale',
-                        message: 'Which should be the default locale?',
-                        default: this.config.get('defaultLocale'),
-                        choices: (answers) => answers.locales,
-                        when: whenI18nActive
-                    },
-                    {
-                        type: 'confirm',
-                        name: 'bootstrapCss',
-                        message: 'Do you want to include the Bootstrap CSS components?',
-                        default: this.config.get('bootstrapCss')
-                    },
-                    {
-                        type: 'confirm',
-                        name: 'bootstrapJs',
-                        message: 'Do you want to include the Bootstrap JavaScript componentsconst ?',
-                        default: this.config.get('bootstrapJs')
-                    },
-                    {
-                        type: 'input',
-                        name: 'indexRouteName',
-                        message: 'How should the default state be called?',
-                        default: this.config.get('indexRouteName')
-                    }
-                ], (answers) => {
-                    const root = this.config.get('root') || this.options.root;
+                return this
+                    .prompt([
+                        {
+                            type: 'input',
+                            name: 'appName',
+                            message: "What's the name of the App?",
+                            default: this.config.get('appName')
+                        },
+                        {
+                            type: 'confirm',
+                            name: 'i18n',
+                            message: 'Do you want to include angular-translate for i18n?',
+                            default: this.config.get('i18n')
+                        },
+                        {
+                            type: 'input',
+                            name: 'locales',
+                            message: 'What locales do you want to support (comma separated list)?',
+                            default: locales,
+                            when: whenI18nActive,
+                            filter: (answer) => _.uniq(
+                                answer
+                                    .split(',')
+                                    .map((locale) => locale.trim())
+                            )
+                        },
+                        {
+                            type: 'list',
+                            name: 'defaultLocale',
+                            message: 'Which should be the default locale?',
+                            default: this.config.get('defaultLocale'),
+                            choices: (answers) => answers.locales,
+                            when: whenI18nActive
+                        },
+                        {
+                            type: 'confirm',
+                            name: 'bootstrapCss',
+                            message: 'Do you want to include the Bootstrap CSS components?',
+                            default: this.config.get('bootstrapCss')
+                        },
+                        {
+                            type: 'confirm',
+                            name: 'bootstrapJs',
+                            message: 'Do you want to include the Bootstrap JavaScript componentsconst ?',
+                            default: this.config.get('bootstrapJs')
+                        },
+                        {
+                            type: 'input',
+                            name: 'indexRouteName',
+                            message: 'How should the default state be called?',
+                            default: this.config.get('indexRouteName')
+                        }
+                    ])
+                    .then((answers) => {
+                        const root = this.config.get('root') || this.options.root;
 
-                    this.setRootPath(root);
+                        this.setRootPath(root);
 
-                    this.context = _.merge(this._createContext(), answers, { root });
+                        this.context = _.merge(this._createContext(), answers, { root });
 
-                    const index = stateUtils.normalizeStateName(answers.indexRouteName);
-                    this.context.indexUrl = stateUtils.normalizeUrl(index, index);
-                    this.context.indexComponent = stateUtils.stateToComponentName(index);
+                        const index = stateUtils.normalizeStateName(answers.indexRouteName);
+                        this.context.indexUrl = stateUtils.normalizeUrl(index, index);
+                        this.context.indexComponent = stateUtils.stateToComponentName(index);
 
-                    done();
-                });
+                        return answers;
+                    });
             }
         };
     }

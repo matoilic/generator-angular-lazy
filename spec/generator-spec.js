@@ -12,22 +12,14 @@ jasmine.DEFAULT_TIMEOUT_INTERVAL = 1200000;
 describe('Overall generator', () => {
     it('generates code which passes all ESLint specs', (done) => {
         appGenerator.run(null, { i18n: true, bootstrapJs: true, bootstrapCss: true }, () => {
-            const outputConfig = ['ignore', 'ignore', 'pipe'];
-
-            childProcess.execSync('yo angular-lazy:component custom', {
+            const processConfig = {
                 cwd: appGenerator.testDirectory,
-                stdio: outputConfig
-            });
+                stdio: ['ignore', 'ignore', 'pipe']
+            };
 
-            childProcess.execSync('yo angular-lazy:directive custom', {
-                cwd: appGenerator.testDirectory,
-                stdio: outputConfig
-            });
-
-            childProcess.execSync('yo angular-lazy:state custom --force', {
-                cwd: appGenerator.testDirectory,
-                stdio: outputConfig
-            });
+            childProcess.execSync('yo angular-lazy:component custom', processConfig);
+            childProcess.execSync('yo angular-lazy:directive custom', processConfig);
+            childProcess.execSync('yo angular-lazy:state custom --force', processConfig);
 
             const cli = new EslintCliEngine({
                 cwd: appGenerator.testDirectory
