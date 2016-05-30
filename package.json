@@ -1,6 +1,6 @@
 {
   "name": "generator-angular-lazy",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Yeoman generator for creating Angular applications which lazy load components as needed at runtime. Based on SystemJS, JSPM, Babel and Gulp.",
   "repository": {
     "type": "git",
@@ -53,6 +53,7 @@
     "yo": "^1.8.0"
   },
   "scripts": {
+    "prepublish": "node scripts/prepublish.js",
     "test": "eslint . && jasmine"
   }
 }

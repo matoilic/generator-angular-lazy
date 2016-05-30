@@ -35,7 +35,7 @@
     "babel-eslint": "^6.0.2",<% if(bootstrapCss) { %>
     "bootstrap-sass": "^3.3.6",<% } %>
     "eslint-config-angular-lazy": "^0.1.1",
-    "generator-angular-lazy": "^0.5.2",
+    "generator-angular-lazy": "~0.6.1",
     "glob": "^7.0.3",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
