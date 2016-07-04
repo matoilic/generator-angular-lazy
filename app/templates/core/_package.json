@@ -22,7 +22,7 @@
       "angular-mocks": "github:angular/bower-angular-mocks@~1.5.0",
       "babel": "npm:babel-core@^5.8.24",
       "babel-runtime": "npm:babel-runtime@^5.8.20",
-      "clean-css": "npm:clean-css@^3.14.3",
+      "clean-css": "npm:clean-css@^3.4.13",
       "core-js": "npm:core-js@^1.1.4"
     }
   },
