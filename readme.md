@@ -76,8 +76,18 @@ If you choose to activate `i18n` while generating the application, each componen
 
 ### Application component
 
-> $: yo [angular-lazy](https://github.com/matoilic/generator-angular-lazy/blob/master/app/USAGE)
+> $: yo [angular-lazy](https://github.com/matoilic/generator-angular-lazy/blob/master/app/USAGE) [--skip-install] [--root=]
 
+#### Options
+
+| Option | Description | Default |
+| ------ | ----- | ---- |
+| --help, -h | Print the generator's options and usage |  |
+| --skip-cache | Do not remember prompt answers | false |
+| --skip-install | Do not automatically install dependencies | false |
+| --root | Use a subfolder as root directory for the project instead of the current working directory | |
+
+#### Output
 ```text
 +src
 |  +components
@@ -147,7 +157,18 @@ This file contains our application controller which is accessible for all compon
 This file contains the application state. This is only an abstract state and each other state within our application should be a direct or indirect descendant of it. This enables us to load application wide data before any of the actual states get loaded.
 
 ### State component
-> $: yo [angular-lazy:state](https://github.com/matoilic/generator-angular-lazy/blob/master/state/USAGE) name
+> $: yo [angular-lazy:state](https://github.com/matoilic/generator-angular-lazy/blob/master/state/USAGE) name [--prefix=] [--url=] [--target=]
+
+#### Options
+
+| Option | Description | Default |
+| ------ | ----- | ---- |
+| --help, -h | Print the generator's options and usage |  |
+| --prefix | Write component files to a subdirectory |  |
+| --url | Url relative to the parent state | Same as state name |
+| --target | Name of the target ui-view within the parent state |  |
+
+#### Output
 
 ```text
 +src
@@ -172,7 +193,16 @@ This file contains the state definition for UI Router. If you change the URL or 
 This file contains the controller for the newly generated state.
 
 ### Directive component
-> $: yo [angular-lazy:directive](https://github.com/matoilic/generator-angular-lazy/blob/master/directive/USAGE) name
+> $: yo [angular-lazy:directive](https://github.com/matoilic/generator-angular-lazy/blob/master/directive/USAGE) name [--prefix=]
+
+#### Options
+
+| Option | Description | Default |
+| ------ | ----- | ---- |
+| --help, -h | Print the generator's options and usage |  |
+| --prefix | Write component files to a subdirectory |  |
+
+#### Output
 
 ```text
 +src
@@ -189,7 +219,16 @@ This file contains the controller for the newly generated state.
 Since the [component provider](https://docs.angularjs.org/guide/component) introduced in 1.5 is restricted to elements this generator was introduced for the case we want to create a custom attribute. Attributes don't have templates nor should they influence the styling of the element they're applied on. Thus, no stylesheet or HTML template will be generated.
 
 ### General component
-> $: yo [angular-lazy:component](https://github.com/matoilic/generator-angular-lazy/blob/master/component/USAGE) name
+> $: yo [angular-lazy:component](https://github.com/matoilic/generator-angular-lazy/blob/master/component/USAGE) name [--prefix=]
+
+#### Options
+
+| Option | Description | Default |
+| ------ | ----- | ---- |
+| --help, -h | Print the generator's options and usage |  |
+| --prefix | Write component files to a subdirectory |  |
+
+#### Output
 
 ```text
 +src
