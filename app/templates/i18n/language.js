@@ -1,6 +1,6 @@
 function <%= _.camelize(_.slugify(locale, true)) %>($translateProvider) {
     $translateProvider.translations('<%= locale %>', {
-        foo: 'bar'
+        'application.foo': 'bar'
     });
 }
 

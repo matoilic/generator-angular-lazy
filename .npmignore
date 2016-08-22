@@ -1,0 +1,13 @@
+scripts
+spec
+tmp
+.DS_Store
+.editorconfig
+.eslintignore
+.eslintrc.json
+.git
+.gitattributes
+.gitignore
+.idea
+.travis.yml
+appveyor.yml

@@ -1,6 +1,4 @@
-/*eslint-disable */
 'use strict';
-/*eslint-enable */
 
 const babel = require('gulp-babel');
 const plumber = require('gulp-plumber');

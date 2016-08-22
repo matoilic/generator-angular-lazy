@@ -1,6 +1,4 @@
-/*eslint-disable */
 'use strict';
-/*eslint-enable */
 
 const Base = require('../base');
 const _ = require('../extended-lodash');
@@ -37,7 +35,7 @@ class StateGenerator extends Base {
                 );
 
                 if (this.options.target || !fs.existsSync(targetTemplate)) {
-                    return;
+                    return Promise.resolve();
                 }
 
                 const templateContent = fs.readFileSync(targetTemplate);
@@ -55,22 +53,23 @@ class StateGenerator extends Base {
                         this.options.target = views[0];
                     }
 
-                    return;
+                    return Promise.resolve();
                 }
 
-                const done = this.async();
-                this.prompt(
-                    [{
-                        type: 'list',
-                        name: 'target',
-                        message: 'Which is the target ui-view?',
-                        choices: views
-                    }],
-                    (answers) => {
+                return this
+                    .prompt(
+                        [{
+                            type: 'list',
+                            name: 'target',
+                            message: 'Which is the target ui-view?',
+                            choices: views
+                        }]
+                    )
+                    .then((answers) => {
                         this.options.target = answers.target;
-                        done();
-                    }
-                );
+
+                        return answers;
+                    });
             }
         };
     }

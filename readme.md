@@ -47,6 +47,7 @@
     - [Missing dependencies](#missing-dependencies)
     - [Incompatible Angular modules](#incompatible-angular-modules)
     - [Protractor and Safari](#protractor-and-safari)
+- [License](#license)
 
 ## Getting started
 
@@ -75,8 +76,18 @@ If you choose to activate `i18n` while generating the application, each componen
 
 ### Application component
 
-> $: yo [angular-lazy](https://github.com/matoilic/generator-angular-lazy/blob/master/app/USAGE)
+> $: yo [angular-lazy](https://github.com/matoilic/generator-angular-lazy/blob/master/app/USAGE) [--skip-install] [--root=]
 
+#### Options
+
+| Option | Description | Default |
+| ------ | ----- | ---- |
+| --help, -h | Print the generator's options and usage |  |
+| --skip-cache | Do not remember prompt answers | false |
+| --skip-install | Do not automatically install dependencies | false |
+| --root | Use a subfolder as root directory for the project instead of the current working directory | |
+
+#### Output
 ```text
 +src
 |  +components
@@ -146,7 +157,18 @@ This file contains our application controller which is accessible for all compon
 This file contains the application state. This is only an abstract state and each other state within our application should be a direct or indirect descendant of it. This enables us to load application wide data before any of the actual states get loaded.
 
 ### State component
-> $: yo [angular-lazy:state](https://github.com/matoilic/generator-angular-lazy/blob/master/state/USAGE) name
+> $: yo [angular-lazy:state](https://github.com/matoilic/generator-angular-lazy/blob/master/state/USAGE) name [--prefix=] [--url=] [--target=]
+
+#### Options
+
+| Option | Description | Default |
+| ------ | ----- | ---- |
+| --help, -h | Print the generator's options and usage |  |
+| --prefix | Write component files to a subdirectory |  |
+| --url | Url relative to the parent state | Same as state name |
+| --target | Name of the target ui-view within the parent state |  |
+
+#### Output
 
 ```text
 +src
@@ -171,7 +193,16 @@ This file contains the state definition for UI Router. If you change the URL or 
 This file contains the controller for the newly generated state.
 
 ### Directive component
-> $: yo [angular-lazy:directive](https://github.com/matoilic/generator-angular-lazy/blob/master/directive/USAGE) name
+> $: yo [angular-lazy:directive](https://github.com/matoilic/generator-angular-lazy/blob/master/directive/USAGE) name [--prefix=]
+
+#### Options
+
+| Option | Description | Default |
+| ------ | ----- | ---- |
+| --help, -h | Print the generator's options and usage |  |
+| --prefix | Write component files to a subdirectory |  |
+
+#### Output
 
 ```text
 +src
@@ -188,7 +219,16 @@ This file contains the controller for the newly generated state.
 Since the [component provider](https://docs.angularjs.org/guide/component) introduced in 1.5 is restricted to elements this generator was introduced for the case we want to create a custom attribute. Attributes don't have templates nor should they influence the styling of the element they're applied on. Thus, no stylesheet or HTML template will be generated.
 
 ### General component
-> $: yo [angular-lazy:component](https://github.com/matoilic/generator-angular-lazy/blob/master/component/USAGE) name
+> $: yo [angular-lazy:component](https://github.com/matoilic/generator-angular-lazy/blob/master/component/USAGE) name [--prefix=]
+
+#### Options
+
+| Option | Description | Default |
+| ------ | ----- | ---- |
+| --help, -h | Print the generator's options and usage |  |
+| --prefix | Write component files to a subdirectory |  |
+
+#### Output
 
 ```text
 +src
@@ -272,10 +312,6 @@ Alias for [build](#build) ➔ [watch](#watch) ➔ [serve](#serve)
 
 Alias for [copy-static](#copy-static) ➔ [compile-source](#compile-source) ➔ [compile-stylesheets](#compile-stylesheets)
 
-### bundle
-
-Runs [Angular Lazy Bundler](https://github.com/matoilic/angular-lazy-bundler) and optimizes the loading process of our application in production.
-
 ### serve
 
 > $: gulp serve
@@ -316,7 +352,7 @@ Compiles our SASS stylesheets and uses [Autoprefixer](https://github.com/postcss
 
 > $: gulp bundle
 
-Uses [Angular Lazy Bundler](https://github.com/matoilic/angular-lazy-bundler) to bundle every component and 3rd-party package of our application into one file. This reduces the number of HTTP requests to load the individual parts. You can configure it further to combine multiple components which should be loaded together.
+Runs [Angular Lazy Bundler](https://github.com/matoilic/angular-lazy-bundler) and optimizes the loading process of our application in production. It bundles every component and 3rd-party package of our application into one file. This reduces the number of HTTP requests to load the individual parts. You can configure it further to combine multiple components which should be loaded together.
 
 ### htmlhint
 
@@ -350,3 +386,7 @@ Another possibility is to amend the missing information in `config/system.js` as
 
 ### Protractor and Safari
 The Safari Selenium Driver cannot be installed automatically. We need to [install it manually](https://code.google.com/p/selenium/wiki/SafariDriver) before we can run any Protractor tests against it. Safari 9.0.1 has a bug where it's only possible to install the plugin in safe mode. Hold the shift key while booting to start in safe mode.
+
+## License
+
+Licensed under [BSD 3-Clause](https://github.com/matoilic/generator-angular-lazy/blob/master/license.md).

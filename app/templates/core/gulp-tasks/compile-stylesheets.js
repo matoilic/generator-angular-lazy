@@ -1,6 +1,4 @@
-/*eslint-disable */
 'use strict';
-/*eslint-enable */
 
 const autoprefixer = require('gulp-autoprefixer');
 const path = require('path');

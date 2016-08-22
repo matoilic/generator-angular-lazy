@@ -1,3 +1,5 @@
+'use strict';
+
 const browsers = ['Chrome', 'Firefox'];
 
 if (process.platform === 'win32') {
