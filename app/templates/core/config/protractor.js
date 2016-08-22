@@ -4,11 +4,11 @@ const fs = require('fs');
 
 let protractorBase = `${__dirname}/../node_modules/protractor/`;
 
-if (!fs.existsSync(`${protractorBase}/selenium`)) {
+if (!fs.existsSync(protractorBase)) {
     protractorBase = `${__dirname}/../node_modules/gulp-protractor/node_modules/protractor/`;
 }
 
-const webdriverVersions = require(`${protractorBase}config.json`).webdriverVersions;
+const webdriverVersions = require(`${protractorBase}/node_modules/webdriver-manager/config.json`).webdriverVersions;
 
 const capabilities = [
     {
