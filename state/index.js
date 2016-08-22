@@ -89,11 +89,18 @@ class StateGenerator extends Base {
 
                 const routesFile = this.rootedDestinationPath('src/components/application/config/states.json');
                 const routes = this.fs.readJSON(routesFile);
+
+                const srcPath = ['components'];
+                if (this.options.prefix) {
+                    srcPath.push(this.options.prefix);
+                }
+                srcPath.push(context.componentName, 'index');
+
                 routes.push({
                     name: `app.${context.stateName}`,
                     url: context.url,
                     type: 'load',
-                    src: `components/${context.componentName}/index`
+                    src: srcPath.join('/')
                 });
                 this.fs.writeJSON(routesFile, routes);
             },

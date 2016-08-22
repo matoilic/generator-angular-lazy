@@ -34,6 +34,17 @@ describe('State generator', () => {
         });
     });
 
+    it('updates the states configuration', (done) => {
+        stateGenerator.run('custom', null, () => {
+            const statesFile = fs.readFileSync(stateGenerator.statesFile);
+            const states = JSON.parse(statesFile.toString());
+
+            expect(states[0].name).toEqual('app.custom');
+
+            done();
+        });
+    });
+
     it('generates the state structure in a subdirectory', (done) => {
         const prefix = 'subdir';
 
@@ -41,19 +52,12 @@ describe('State generator', () => {
             const files = stateFileExpectations('custom', `${prefix}/`);
             const i18nFiles = stateI18nFileExpectations('custom', `${prefix}/`);
 
-            assert.file(files);
-            assert.file(i18nFiles);
-
-            done();
-        });
-    });
-
-    it('updates the states configuration', (done) => {
-        stateGenerator.run('custom', null, () => {
             const statesFile = fs.readFileSync(stateGenerator.statesFile);
             const states = JSON.parse(statesFile.toString());
+            expect(states[0].src).toEqual(`components/${prefix}/custom-state/index`);
 
-            expect(states[0].name).toEqual('app.custom');
+            assert.file(files);
+            assert.file(i18nFiles);
 
             done();
         });
