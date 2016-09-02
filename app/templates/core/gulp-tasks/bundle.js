@@ -5,7 +5,7 @@ const Bundler = require('angular-lazy-bundler');
 module.exports = (gulp) => {
     gulp.task('bundle', ['build'], (done) => {
         const bundler = new Bundler({
-            systemJsConfig: 'config/system.js'
+            systemJsConfig: 'build/system.js'
         });
 
         bundler
