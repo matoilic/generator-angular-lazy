@@ -26,7 +26,8 @@ module.exports = {
             './src/**/*.gif',
             './src/**/*.ico',
             './src/**/*.jpg',
-            './src/**/*.eot'
+            './src/**/*.eot',
+            './config/system.js'
         ]
     },
     serverPort: 8088,
