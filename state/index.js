@@ -57,14 +57,12 @@ class StateGenerator extends Base {
                 }
 
                 return this
-                    .prompt(
-                        [{
-                            type: 'list',
-                            name: 'target',
-                            message: 'Which is the target ui-view?',
-                            choices: views
-                        }]
-                    )
+                    .prompt([{
+                        type: 'list',
+                        name: 'target',
+                        message: 'Which is the target ui-view?',
+                        choices: views
+                    }])
                     .then((answers) => {
                         this.options.target = answers.target;
 
