@@ -8,9 +8,7 @@ const states = [
         name: 'app.index',
         url: 'index',
         type: 'load',
-        src: () => new Promise((resolve) => {
-            require.ensure(['../../index-state/index'], (require) => resolve(require('../../index-state/index')));
-        })
+        load: () => System.import('../../index-state/index')
     }
 ];
 

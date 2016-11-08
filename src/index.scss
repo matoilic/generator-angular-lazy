@@ -3,10 +3,5 @@
   "bootstrap/grid" and it's dependencies if you only want to use this for example.
 */
 @import "bootstrap";
-@import "components/application/stylesheets/application";
+@import "components/application/application";
 @import "components/index-state/index-state";
-
-body {
-  font-family: sans-serif;
-  padding: 20px;
-}

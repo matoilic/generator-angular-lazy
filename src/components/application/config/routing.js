@@ -3,7 +3,7 @@ import futureStates from './states';
 function routingConfig($locationProvider, $urlRouterProvider, $httpProvider, $futureStateProvider) {
     $futureStateProvider.stateFactory('load', ['$q', '$ocLazyLoad', 'futureState', function ($q, $ocLazyLoad, futureState) {
         return futureState
-            .src()
+            .load()
             .then(loadedModule => {
                 return $ocLazyLoad.inject(loadedModule.name || loadedModule.default.name || loadedModule);
             })
