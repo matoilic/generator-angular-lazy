@@ -23,6 +23,9 @@ install:
 cache:
   - '%APPDATA%\npm-cache'
 
+branches:
+  except:
+    - webpack-test
 
 # Post-install test scripts.
 test_script:
