@@ -1,0 +1,16 @@
+{
+  "generator-angular-lazy": {
+    "appName": "ng",
+    "i18n": true,
+    "bootstrapCss": true,
+    "bootstrapJs": true,
+    "indexRouteName": "index",
+    "locales": [
+      "de",
+      "en",
+      "it"
+    ],
+    "defaultLocale": "de",
+    "root": null
+  }
+}
