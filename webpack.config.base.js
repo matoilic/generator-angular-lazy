@@ -24,7 +24,7 @@ module.exports = {
                 test: /\.js$/,
                 loader: 'babel?compact=false',
                 exclude: [
-                    /\.spec\.js$/
+                    /-spec\.js$/
                 ]
             },
             {
