@@ -1,5 +1,3 @@
-'use strict';
-
 module.exports = (gulp, config, sync) => {
     gulp.task('watch', () => {
         gulp.watch(config.paths.stylesheets, sync.sync(['compile-stylesheets', 'reload']));

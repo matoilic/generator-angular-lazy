@@ -1,5 +1,3 @@
-'use strict';
-
 const htmlhint = require('gulp-htmlhint');
 
 module.exports = (gulp, config) => {

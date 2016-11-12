@@ -1,5 +1,3 @@
-'use strict';
-
 const connect = require('gulp-connect');
 
 module.exports = (gulp) => {

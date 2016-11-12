@@ -1,5 +1,3 @@
-'use strict';
-
 const protractor = require('gulp-protractor');
 
 module.exports = (gulp) => {

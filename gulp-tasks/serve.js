@@ -1,5 +1,3 @@
-'use strict';
-
 const connect = require('gulp-connect');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');

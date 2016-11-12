@@ -1,5 +1,3 @@
-'use strict';
-
 const autoprefixer = require('gulp-autoprefixer');
 const path = require('path');
 const plumber = require('gulp-plumber');

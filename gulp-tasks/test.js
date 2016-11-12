@@ -1,5 +1,3 @@
-'use strict';
-
 const KarmaServer = require('karma').Server;
 
 module.exports = (gulp) => {
