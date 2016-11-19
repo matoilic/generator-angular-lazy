@@ -1,8 +1,9 @@
 'use strict';
 
-const Base = require('../base');
 const _ = require('../extended-lodash');
+const Base = require('../base');
 const fs = require('fs');
+const path = require('path');
 const stateUtils = require('../state-utils');
 
 class StateGenerator extends Base {
@@ -82,25 +83,8 @@ class StateGenerator extends Base {
                 this._copyFile(context.componentName, 'route', context.routeFileName, '.js', context);
                 this._copyFile(context.componentName, 'spec', `${context.componentName}-spec`, '.js', context);
                 this._copyFile(context.componentName, 'test', `${context.componentName}-test`, '.js', context);
-                this._copyFile(context.componentName, 'stylesheet', context.componentName, '.scss', context);
+                this._copyFile(context.componentName, '_stylesheet', `_${context.componentName}`, '.scss', context);
                 this._copyFile(context.componentName, 'template', context.componentName, '.html', context);
-
-                const routesFile = this.rootedDestinationPath('src/components/application/config/states.json');
-                const routes = this.fs.readJSON(routesFile);
-
-                const srcPath = ['components'];
-                if (this.options.prefix) {
-                    srcPath.push(this.options.prefix);
-                }
-                srcPath.push(context.componentName, 'index');
-
-                routes.push({
-                    name: `app.${context.stateName}`,
-                    url: context.url,
-                    type: 'load',
-                    src: srcPath.join('/')
-                });
-                this.fs.writeJSON(routesFile, routes);
             },
 
             i18n() {
@@ -115,6 +99,53 @@ class StateGenerator extends Base {
                     context.locale = locale;
                     this._copyFile(context.componentName, 'language', `i18n/${_.slugify(locale)}`, '.js', context);
                 });
+            }
+        };
+    }
+
+    get install() {
+        return {
+            state() {
+                const context = this._createContext();
+
+                const routesFile = this.rootedDestinationPath('src/components/application/config/states.js');
+
+                const srcPath = ['..', '..', 'components'];
+                if (this.options.prefix) {
+                    srcPath.push(this.options.prefix);
+                }
+                srcPath.push(context.componentName, 'index');
+
+                const state = {
+                    name: `app.${context.stateName}`,
+                    url: context.url,
+                    src: srcPath.join('/')
+                };
+
+                const params = [
+                    path.join(
+                        path.dirname(require.resolve('jscodeshift')),
+                        'bin',
+                        'jscodeshift.sh'
+                    ),
+                    routesFile,
+                    '-s',
+                    '-t',
+                    path.join(__dirname, 'codemod.js'),
+                    `--stateName="${state.name}"`,
+                    `--stateUrl="${state.url}"`,
+                    `--stateSrc="${state.src}"`
+                ];
+
+                this.log('installing new state');
+
+                this.spawnCommandSync('node', params);
+            },
+
+            stylesheet() {
+                const context = this._createContext();
+
+                this.installStylesheet(context.componentName, `${context.componentName}.scss`);
             }
         };
     }

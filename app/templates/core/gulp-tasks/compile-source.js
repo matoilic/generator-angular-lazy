@@ -1,21 +1,15 @@
-'use strict';
+const gutil = require('gulp-util');
+const webpack = require('webpack');
+const webpackConfigProd = require('../config/webpack-production');
 
-const babel = require('gulp-babel');
-const plumber = require('gulp-plumber');
-const sourcemaps = require('gulp-sourcemaps');
+module.exports = gulp => gulp.task('compile-source', ['eslint'], (callback) => {
+    webpack(webpackConfigProd, (err, stats) => {
+        if (err) {
+            throw new gutil.PluginError('webpack', err);
+        }
 
-module.exports = (gulp, config) => {
-    gulp.task('compile-source', () => gulp
-        .src(config.paths.sources)
-        .pipe(plumber())
-        .pipe(sourcemaps.init())
-        .pipe(babel({
-            presets: [
-                'es2015',
-                'stage-2'
-            ]
-        }))
-        .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest(config.paths.build.output))
-    );
-};
+        gutil.log('[webpack]', stats.toString());
+
+        callback();
+    });
+});

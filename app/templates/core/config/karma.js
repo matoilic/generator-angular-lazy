@@ -1,9 +1,9 @@
-'use strict';
+const webpackConfig = require('./webpack-test');
 
 const browsers = ['Chrome', 'Firefox'];
 
 if (process.platform === 'win32') {
-    browsers.push('IE');
+    browsers.push('IE', 'Edge');
 } else if (process.platform === 'darwin') {
     browsers.push('Safari');
 }
@@ -15,32 +15,12 @@ module.exports = function (config) {
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: ['jspm', 'jasmine'],
+        frameworks: ['jasmine', 'source-map-support'],
 
         // list of files / patterns to load in the browser
-        files: [],
-
-        jspm: {
-            baseURL: '/base',
-            config: 'config/system.js',
-            loadFiles: [
-                'build/**/*-spec.js'
-            ],
-            serveFiles: [
-                'build/**/!(*-spec).js',
-                'build/**/*.css',
-                'build/**/*.json',
-                'build/**/*.html',
-                'jspm_packages/**/*.js',
-                'jspm_packages/**/*.css'
-            ]
-        },
-
-        proxies: {
-            '/base/components/': '/base/build/components/',
-            '/base/build/build/': '/base/build/'
-        },
-
+        files: [
+            'src/index.test.js'
+        ],
 
         // list of files to exclude
         exclude: [],
@@ -48,13 +28,13 @@ module.exports = function (config) {
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
-            'build/**/!(*-spec).js': ['coverage']
+            'src/index.test.js': ['coverage', 'webpack', 'sourcemap']
         },
 
         // test results reporter to use
         // possible values: 'dots', 'progress'
         // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-        reporters: ['progress', 'coverage'],
+        reporters: ['spec', 'coverage', 'remap-coverage'],
 
         // web server port
         port: 9876,
@@ -75,11 +55,22 @@ module.exports = function (config) {
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
-        singleRun: false,
+        singleRun: true,
 
         coverageReporter: {
-            type: 'html',
-            dir: `${__dirname}/../test-coverage`
+            type: 'in-memory'
+        },
+
+        remapCoverageReporter: {
+            'text-summary': null,
+            json: 'build/reports/coverage/coverage.json',
+            html: 'build/reports/coverage/html'
+        },
+
+        webpack: webpackConfig,
+
+        webpackMiddleware: {
+            stats: 'errors-only'
         }
     });
 };

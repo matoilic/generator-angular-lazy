@@ -1,4 +1,4 @@
-import futureStates from './states.json!';
+import futureStates from './states.js';
 
 function routingConfig($locationProvider, $urlRouterProvider, $httpProvider, $futureStateProvider) {
     futureStates.forEach((state) => $futureStateProvider.futureState(state));

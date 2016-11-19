@@ -1,5 +1,3 @@
-'use strict';
-
 const protractor = require('gulp-protractor');
 
 module.exports = (gulp) => {
@@ -7,7 +5,7 @@ module.exports = (gulp) => {
         const browsers = ['chrome'];
 
         if (process.platform === 'win32') {
-            browsers.push('ie');
+            browsers.push('ie', 'edge');
         } else if (process.platform === 'darwin') {
             browsers.push('safari');
         }

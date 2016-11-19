@@ -1,4 +1,3 @@
-import './<%= tagName %>-component.css!';
 import angular from 'angular';<% if (i18n) { %>
 import 'angular-translate';
 import translationsModule from './i18n/translations';<% } %>

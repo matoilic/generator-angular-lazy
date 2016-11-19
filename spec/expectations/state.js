@@ -5,7 +5,7 @@ module.exports = function (name, prefix) {
         `src/components/${prefix || ''}${name}-state/${name}-route.js`,
         `src/components/${prefix || ''}${name}-state/${name}-state-controller.js`,
         `src/components/${prefix || ''}${name}-state/${name}-state.html`,
-        `src/components/${prefix || ''}${name}-state/${name}-state.scss`,
+        `src/components/${prefix || ''}${name}-state/_${name}-state.scss`,
         `src/components/${prefix || ''}${name}-state/${name}-state-spec.js`,
         `src/components/${prefix || ''}${name}-state/${name}-state-test.js`
     ];

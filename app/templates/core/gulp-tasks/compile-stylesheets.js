@@ -1,5 +1,3 @@
-'use strict';
-
 const autoprefixer = require('gulp-autoprefixer');
 const path = require('path');
 const plumber = require('gulp-plumber');
@@ -14,8 +12,8 @@ module.exports = (gulp, config) => {
         .pipe(sass({
             outputStyle: 'expanded',
             includePaths: [
-                path.resolve('src')<% if (bootstrapCss) { %>,
-                path.resolve('node_modules/bootstrap-sass/assets/stylesheets')<% } %>
+                path.resolve('src'),
+                path.resolve('node_modules/bootstrap-sass/assets/stylesheets')
             ]
         }))
         .pipe(autoprefixer())

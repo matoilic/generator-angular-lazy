@@ -1,14 +1,14 @@
-'use strict';
+require('babel-core/register');
 
-const fs = require('fs');
+const path = require('path');
 
-let protractorBase = `${__dirname}/../node_modules/protractor/`;
+const webdriverPath = path.join(
+    path.dirname(require.resolve('webdriver-manager')),
+    '..',
+    '..'
+);
 
-if (!fs.existsSync(protractorBase)) {
-    protractorBase = `${__dirname}/../node_modules/gulp-protractor/node_modules/protractor/`;
-}
-
-const webdriverVersions = require(`${protractorBase}/node_modules/webdriver-manager/config.json`).webdriverVersions;
+const webdriverVersions = require(`${webdriverPath}/config.json`).webdriverVersions;
 
 const capabilities = [
     {
@@ -36,11 +36,11 @@ if (process.platform === 'win32') {
 
 module.exports.config = {
     multiCapabilities: capabilities,
-    seleniumServerJar: `${protractorBase}selenium/selenium-server-standalone-${webdriverVersions.selenium}.jar`,
+    seleniumServerJar: `${webdriverPath}/selenium/selenium-server-standalone-${webdriverVersions.selenium}.jar`,
     baseUrl: 'http://localhost:8089/index.html#',
     rootElement: '#applicationContainer',
     framework: 'jasmine2',
-    specs: ['../build/**/*-test.js'],
+    specs: ['../src/**/*-test.js'],
     maxSessions: 1,
     jasmineNodeOpts: {
         defaultTimeoutInterval: 360000

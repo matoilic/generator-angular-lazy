@@ -1,5 +1,3 @@
-'use strict';
-
 const connect = require('gulp-connect');
 const protractor = require('gulp-protractor');
 
@@ -7,7 +5,7 @@ module.exports = (gulp, config) => {
     gulp.task('test-e2e', ['build', 'webdriver-update'], (done) => {
         connect.server({
             port: config.serverPortTest,
-            root: ['.']
+            root: ['build']
         });
 
         gulp

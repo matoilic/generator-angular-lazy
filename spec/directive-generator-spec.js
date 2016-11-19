@@ -1,5 +1,3 @@
-'use strict';
-
 const assert = require('yeoman-assert');
 const directiveFileExpectations = require('./expectations/directive');
 const directiveI18nFileExpectations = require('./expectations/directive-i18n');

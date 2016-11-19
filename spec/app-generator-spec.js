@@ -1,6 +1,3 @@
-// "strict": [2, "never"]
-'use strict';
-
 const assert = require('yeoman-assert');
 const path = require('path');
 const fs = require('fs-extra');
@@ -16,10 +13,9 @@ describe('App generator', () => {
             assert.file(appI18nFileExpectations());
             assert.file(stateFileExpectations(appGenerator.defaultOptions.indexRouteName));
 
-            const statesFile = fs.readFileSync('src/components/application/config/states.json');
-            const states = JSON.parse(statesFile.toString());
+            const states = fs.readFileSync('src/components/application/config/states.js').toString();
 
-            expect(states[1].name).toEqual(`app.${appGenerator.defaultOptions.indexRouteName}`);
+            expect(states).toContain(`name: 'app.${appGenerator.defaultOptions.indexRouteName}'`);
 
             done();
         });
@@ -49,7 +45,7 @@ describe('App generator', () => {
             const packageFile = fs.readFileSync('package.json');
             const packageDefinition = JSON.parse(packageFile.toString());
 
-            expect(packageDefinition.jspm.dependencies['angular-translate']).toBeTruthy();
+            expect(packageDefinition.dependencies['angular-translate']).toBeTruthy();
 
             done();
         });
@@ -63,7 +59,7 @@ describe('App generator', () => {
             const packageFile = fs.readFileSync('package.json');
             const packageDefinition = JSON.parse(packageFile.toString());
 
-            expect(packageDefinition.jspm.dependencies['angular-translate']).not.toBeTruthy();
+            expect(packageDefinition.dependencies['angular-translate']).not.toBeTruthy();
 
             done();
         });
@@ -74,7 +70,7 @@ describe('App generator', () => {
             const packageFile = fs.readFileSync('package.json');
             const packageDefinition = JSON.parse(packageFile.toString());
 
-            expect(packageDefinition.jspm.dependencies['angular-ui-bootstrap']).toBeTruthy();
+            expect(packageDefinition.dependencies['angular-ui-bootstrap']).toBeTruthy();
 
             done();
         });
@@ -85,7 +81,7 @@ describe('App generator', () => {
             const packageFile = fs.readFileSync('package.json');
             const packageDefinition = JSON.parse(packageFile.toString());
 
-            expect(packageDefinition.jspm.dependencies['angular-ui-bootstrap']).not.toBeTruthy();
+            expect(packageDefinition.dependencies['angular-ui-bootstrap']).not.toBeTruthy();
 
             done();
         });

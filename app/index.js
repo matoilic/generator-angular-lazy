@@ -136,7 +136,7 @@ class ApplicationGenerator extends Base {
                     .forEach((filepath) => {
                         const dirname = path.dirname(filepath).slice(5);
                         const srcFilename = path.basename(filepath);
-                        const destFilename = srcFilename[0] === '_' ? srcFilename.slice(1) : srcFilename;
+                        const destFilename = this.normalizeFilename(srcFilename);
 
                         this.fs.copyTpl(
                             this.templatePath(filepath),
@@ -192,23 +192,6 @@ class ApplicationGenerator extends Base {
                     this.runInstall('npm', null, {
                         cwd: this.getRootPath() || '.'
                     });
-                }
-            },
-
-            jspm() {
-                if (!this.options['skip-install']) {
-                    this.env.runLoop.add('install', (done) => {
-                        this.emit('jspmInstall');
-                        this
-                            .spawnCommand('jspm', ['install'], {
-                                cwd: this.getRootPath() || '.',
-                                stdio: 'inherit'
-                            })
-                            .on('exit', () => {
-                                this.emit('jspmInstall:end');
-                                done();
-                            });
-                    }, { run: false });
                 }
             }
         };

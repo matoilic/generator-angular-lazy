@@ -1,8 +1,0 @@
-[
-  {
-    "name": "app",
-    "url": "/",
-    "type": "load",
-    "src": "components/application/index"
-  }
-]

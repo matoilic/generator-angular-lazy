@@ -1,7 +1,9 @@
 'use strict';
 
-const generators = require('yeoman-generator');
 const _ = require('./extended-lodash');
+const fs = require('fs');
+const generators = require('yeoman-generator');
+const path = require('path');
 
 class GeneratorBase extends generators.Base {
     getRootPath() {
@@ -44,6 +46,16 @@ class GeneratorBase extends generators.Base {
         }, this.config.getAll());
     }
 
+    normalizeFilename(filename) {
+        const fileExtension = filename.split('.').pop();
+
+        if (filename[0] === '_' && fileExtension !== 'scss') {
+            return filename.slice(1);
+        }
+
+        return filename;
+    }
+
     rootedDestinationPath() {
         const dest = Array.prototype.slice.apply(arguments);
 
@@ -67,6 +79,28 @@ class GeneratorBase extends generators.Base {
             type: String,
             required: true
         });
+    }
+
+    installStylesheet(...args) {
+        const indexStyleFile = this.rootedDestinationPath('src', 'index.scss');
+        let contents = fs.readFileSync(indexStyleFile).toString();
+        const marker = '/* components:end */';
+
+        const relative = path.relative(
+            this.rootedDestinationPath('src'),
+            this._componentDestinationPath(...args).slice(0, -5)
+        );
+
+        const importStatement = `@import "${relative.replace('\\', '/')}";`;
+
+        if (contents.indexOf(importStatement) === -1) {
+            contents = contents.replace(
+                marker,
+                `${importStatement}\n${marker}`
+            );
+        }
+
+        fs.writeFileSync(indexStyleFile, contents);
     }
 }
 

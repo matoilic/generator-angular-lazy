@@ -3,7 +3,7 @@ const fs = require('fs-extra');
 const helpers = require('yeoman-test');
 const path = require('path');
 
-const statesFile = 'src/components/application/config/states.json';
+const statesFile = 'src/components/application/config/states.js';
 
 function run(name, options, runner, setup, prompts) {
     helpers
@@ -14,7 +14,15 @@ function run(name, options, runner, setup, prompts) {
                 path.join(appGenerator.testDirectory, '.yo-rc.json')
             );
 
-            fs.outputFileSync(statesFile, '[]');
+            fs.copySync(
+                path.join(__dirname, '..', 'files', 'index.scss'),
+                path.join(appGenerator.testDirectory, 'src', 'index.scss')
+            );
+
+            fs.copySync(
+                path.join(__dirname, '..', 'files', 'states.js'),
+                path.join(appGenerator.testDirectory, 'src', 'components', 'application', 'config', 'states.js')
+            );
 
             if (setup) {
                 setup();

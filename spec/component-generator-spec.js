@@ -1,6 +1,5 @@
-'use strict';
-
 const assert = require('yeoman-assert');
+const fs = require('fs-extra');
 const componentFileExpectations = require('./expectations/component');
 const componentI18nFileExpectations = require('./expectations/component-i18n');
 const componentGenerator = require('./generators/component');
@@ -37,5 +36,16 @@ describe('Component generator', () => {
 
             done();
         }, disableI18n);
+    });
+
+    it('installs the stylesheet', (done) => {
+        componentGenerator.run('custom', null, () => {
+            const styles = fs.readFileSync('src/index.scss').toString();
+
+            expect(styles).toContain('@import "components/custom/custom-component";');
+            expect(styles).toContain('/* components:end */');
+
+            done();
+        });
     });
 });

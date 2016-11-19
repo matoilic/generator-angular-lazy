@@ -1,20 +1,17 @@
-'use strict';
-
 module.exports = {
     paths: {
         build: {
             output: 'build'
         },
         sources: ['src/**/*.js'],
-        configs: ['config/**/!(system).js', 'gulp-tasks/**/*.js', 'gulpfile.js'],
+        configs: ['config/**/*.js', 'gulp-tasks/**/*.js', 'gulpfile.js'],
         stylesheets: ['src/**/*.scss'],
         scripts: [
             'src/**/*.js',
             'gulpfile.js'
         ],
         html: [
-            'src/**/*.html',
-            'index.html'
+            'src/index.html'
         ],
         static: [
             './src/**/*.json',
@@ -26,12 +23,10 @@ module.exports = {
             './src/**/*.gif',
             './src/**/*.ico',
             './src/**/*.jpg',
-            './src/**/*.eot',
-            './config/system.js'
+            './src/**/*.eot'
         ]
     },
     serverPort: 8088,
     serverPortTest: 8089,
-    livereload: false,
-    notifications: true
+    livereload: true
 };

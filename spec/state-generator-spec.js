@@ -1,5 +1,3 @@
-'use strict';
-
 const assert = require('yeoman-assert');
 const fs = require('fs-extra');
 const stateFileExpectations = require('./expectations/state');
@@ -36,10 +34,9 @@ describe('State generator', () => {
 
     it('updates the states configuration', (done) => {
         stateGenerator.run('custom', null, () => {
-            const statesFile = fs.readFileSync(stateGenerator.statesFile);
-            const states = JSON.parse(statesFile.toString());
+            const states = fs.readFileSync(stateGenerator.statesFile).toString();
 
-            expect(states[0].name).toEqual('app.custom');
+            expect(states).toContain("name: 'app.custom'");
 
             done();
         });
@@ -52,9 +49,9 @@ describe('State generator', () => {
             const files = stateFileExpectations('custom', `${prefix}/`);
             const i18nFiles = stateI18nFileExpectations('custom', `${prefix}/`);
 
-            const statesFile = fs.readFileSync(stateGenerator.statesFile);
-            const states = JSON.parse(statesFile.toString());
-            expect(states[0].src).toEqual(`components/${prefix}/custom-state/index`);
+            const states = fs.readFileSync(stateGenerator.statesFile).toString();
+
+            expect(states).toContain(`System.import('../../components/${prefix}/custom-state/index')`);
 
             assert.file(files);
             assert.file(i18nFiles);
@@ -106,5 +103,16 @@ describe('State generator', () => {
 
             done();
         }, mockMultiViewParent, { target });
+    });
+
+    it('installs the stylesheet', (done) => {
+        stateGenerator.run('custom', null, () => {
+            const styles = fs.readFileSync('src/index.scss').toString();
+
+            expect(styles).toContain('@import "components/custom-state/custom-state";');
+            expect(styles).toContain('/* components:end */');
+
+            done();
+        });
     });
 });
