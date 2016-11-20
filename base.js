@@ -91,7 +91,7 @@ class GeneratorBase extends generators.Base {
             this._componentDestinationPath(...args).slice(0, -5)
         );
 
-        const importStatement = `@import "${relative.replace('\\', '/')}";`;
+        const importStatement = `@import "${relative.replace(/\\/g, '/')}";`;
 
         if (contents.indexOf(importStatement) === -1) {
             contents = contents.replace(
