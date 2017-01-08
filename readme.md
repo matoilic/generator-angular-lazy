@@ -69,7 +69,7 @@ Now you can start using the generators described in the [structure section](#str
 Angular Lazy follows a component based approach. Everything is a component, even the application itself. Components should be self-contained and should be easily reusable for multiple projects. Of course there will be cases where a component is very specific to a project and might not be reusable. But always have the goal of reusability in focus.
 
 ### General
-Each component has a `index.js` file which is the main access point of it. Other components should not directly reference resources than `index.js` from each other. Within there the component should expose / export all of it's public API. Other common files across all components are the `*-spec.js` and `*-test.js` files. Spec-files contain the unit tests and test-files the end-to-end tests. For larger components tests can also be split across multiple files. The Karma test runner will scan the project for all `*-spec.js` files and Protractor will load all `*-test.js` files to run the end-to-end tests.
+Each component has a `index.js` file which is the main access point of it. Components should not directly reference resources from each other, except using `index.js`. Within there the component should expose / export all of it's public API. Other common files across all components are the `*-spec.js` and `*-test.js` files. Spec-files contain the unit tests and test-files the end-to-end tests. For larger components tests can also be split across multiple files. The Karma test runner will scan the project for all `*-spec.js` files and Protractor will load all `*-test.js` files to run the end-to-end tests.
 
 #### i18n
 If you choose to activate `i18n` while generating the application, each component will have a `i18n` folder which contains it's translations.
@@ -270,7 +270,7 @@ UI Router Extras adds even more functionality to the router on top of UI Router.
 By default Angular requires us to load all application code upfront before it boots the application. That works well for smaller applications. For large scale applications this introduces long loading times an impacts the user experience negatively. ocLazyLoad allows us to add modules to Angular applications at runtime.
 
 ### [Angular Lazy](https://github.com/matoilic/angular-lazy)
-The Angular Lazy package is the glues UI Router Extras and ocLazyLoad together, so that we can easily lazy load our states. It also provides a component loader which makes it possible to load additional components at any time in the code.
+The Angular Lazy package glues UI Router Extras and ocLazyLoad together, so that we can easily lazy load our states. It also provides a component loader which makes it possible to load additional components at any time in the code.
 
 ### [Angular Lazy Bundler](https://github.com/matoilic/angular-lazy-bundler)
 You will realise, that you end up with a lot of small files when you use the angular-lazy generator. To reduce the number of network requests required to load a component we want to bundle those files together where possible.
