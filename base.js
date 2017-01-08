@@ -1,9 +1,9 @@
 'use strict';
 
-const generators = require('yeoman-generator');
+const Generator = require('yeoman-generator');
 const _ = require('./extended-lodash');
 
-class GeneratorBase extends generators.Base {
+class GeneratorBase extends Generator {
     getRootPath() {
         if (!this.hasOwnProperty('_rootPath')) {
             this._rootPath = this.config.get('root');

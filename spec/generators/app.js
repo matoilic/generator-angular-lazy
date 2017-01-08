@@ -11,8 +11,7 @@ const defaultOptions = {
     defaultLocale: 'en',
     bootstrapCss: true,
     bootstrapJs: true,
-    indexRouteName: 'home',
-    root: null
+    indexRouteName: 'home'
 };
 
 function run(options, prompts, runner, setup) {

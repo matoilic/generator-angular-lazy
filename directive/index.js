@@ -41,7 +41,7 @@ class DirectiveGenerator extends Base {
 
     _createContext() {
         const baseContext = super._createContext();
-        const componentName = `${_.slugify(_.humanize(this.name))}-directive`;
+        const componentName = `${_.slugify(_.humanize(this.options.name))}-directive`;
 
         return _.merge({
             controllerName: `${_.classify(componentName)}Controller`,
@@ -49,7 +49,7 @@ class DirectiveGenerator extends Base {
             controllerInstanceName: _.camelize(componentName),
             directiveName: _.camelize(componentName),
             directiveFileName: componentName,
-            attributeName: _.slugify(_.humanize(this.name)),
+            attributeName: _.slugify(_.humanize(this.options.name)),
             componentName
         }, baseContext);
     }

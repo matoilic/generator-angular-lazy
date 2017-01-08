@@ -28,7 +28,7 @@ class StateGenerator extends Base {
     get prompting() {
         return {
             targetView() {
-                const targetComponentName = stateUtils.determineParentComponent(this.name);
+                const targetComponentName = stateUtils.determineParentComponent(this.options.name);
                 const targetTemplate = this._componentDestinationPath(
                     targetComponentName,
                     `${targetComponentName}.html`
@@ -121,7 +121,7 @@ class StateGenerator extends Base {
 
     _createContext() {
         const baseContext = super._createContext();
-        const stateName = stateUtils.normalizeStateName(this.name);
+        const stateName = stateUtils.normalizeStateName(this.options.name);
         const url = stateUtils.normalizeUrl(stateName, this.options.url || stateName.split('.').pop());
         const componentName = stateUtils.stateToComponentName(stateName);
         const routeFileName = `${componentName.slice(0, -6)}-route`;

@@ -43,7 +43,7 @@ class ComponentGenerator extends Base {
 
     _createContext() {
         const baseContext = super._createContext();
-        const tagName = _.slugify(_.humanize(this.name));
+        const tagName = _.slugify(_.humanize(this.options.name));
 
         return _.merge({
             controllerName: `${_.classify(tagName)}ComponentController`,

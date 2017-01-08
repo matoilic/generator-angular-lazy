@@ -16,7 +16,7 @@ function run(name, options, runner, setup) {
                 setup();
             }
         })
-        .withArguments(['--force', name])
+        .withArguments([name, '--force'])
         .withOptions(options || {})
         .on('end', () => {
             runner();

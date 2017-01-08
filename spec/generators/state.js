@@ -20,7 +20,7 @@ function run(name, options, runner, setup, prompts) {
                 setup();
             }
         })
-        .withArguments(['--force', name])
+        .withArguments([name, '--force'])
         .withOptions(options || {})
         .withPrompts(prompts || {})
         .on('end', () => {

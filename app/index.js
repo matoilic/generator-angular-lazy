@@ -20,8 +20,7 @@ class ApplicationGenerator extends Base {
 
         this.option('root', {
             desc: 'Use a subfolder as root directory for the project instead of the current working directory',
-            type: String,
-            defaults: null
+            type: String
         });
 
         this.config.defaults({
@@ -118,7 +117,9 @@ class ApplicationGenerator extends Base {
                 this.config.set('indexRouteName', this.context.indexRouteName);
                 this.config.set('bootstrapCss', this.context.bootstrapCss);
                 this.config.set('bootstrapJs', this.context.bootstrapJs);
-                this.config.set('root', this.context.root);
+                if (this.context.root) {
+                    this.config.set('root', this.context.root);
+                }
 
                 this.config.save();
             }
@@ -173,13 +174,9 @@ class ApplicationGenerator extends Base {
             },
 
             indexState() {
-                this.composeWith('angular-lazy:state', {
+                this.composeWith(path.join(__dirname, '..', 'state'), {
                     arguments: [this.context.indexRouteName],
-                    options: {
-                        force: true
-                    }
-                }, {
-                    local: path.join(__dirname, '..', 'state')
+                    force: true
                 });
             }
         };
