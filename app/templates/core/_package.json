@@ -38,6 +38,7 @@
     "generator-angular-lazy": "~0.6.7",
     "glob": "^7.0.3",
     "gulp": "^3.9.0",
+    "gulp-angular-embed-templates": "^2.3.0",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-babel": "^6.1.0",
     "gulp-connect": "^5.0.0",
