@@ -1,4 +1,6 @@
-const webpackConfig = require('../webpack.config.test');
+const appConfig = require('./application');
+const path = require('path');
+const webpackConfig = require('./webpack-test');
 
 const browsers = ['Chrome', 'Firefox'];
 
@@ -19,7 +21,7 @@ module.exports = function (config) {
 
         // list of files / patterns to load in the browser
         files: [
-            'src/index.test.js'
+            appConfig.paths.appTestIndexJs
         ],
 
         // list of files to exclude
@@ -28,7 +30,7 @@ module.exports = function (config) {
         // preprocess matching files before serving them to the browser
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
         preprocessors: {
-            'src/index.test.js': ['coverage', 'webpack', 'sourcemap']
+            [appConfig.paths.appTestIndexJs]: ['coverage', 'webpack', 'sourcemap']
         },
 
         // test results reporter to use
@@ -63,8 +65,8 @@ module.exports = function (config) {
 
         remapCoverageReporter: {
             'text-summary': null,
-            json: 'build/reports/coverage/coverage.json',
-            html: 'build/reports/coverage/html'
+            json: path.join(appConfig.paths.appBuild, 'reports/coverage/coverage.json'),
+            html: path.join(appConfig.paths.appBuild, 'reports/coverage/html')
         },
 
         webpack: webpackConfig,

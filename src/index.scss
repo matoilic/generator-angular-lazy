@@ -2,6 +2,5 @@
   TODO: By default the whole bootstrap framework is imported. But you also have the possibility to only import the grid
   "bootstrap/grid" and it's dependencies if you only want to use this for example.
 */
-@import "bootstrap";
-@import "components/application/application";
-@import "components/index-state/index-state";
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";

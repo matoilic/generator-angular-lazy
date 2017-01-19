@@ -1,6 +1,6 @@
 require('babel-core/register');
 
-const fs = require('fs');
+const appConfig = require('./application');
 const path = require('path');
 
 const webdriverPath = path.join(
@@ -38,10 +38,10 @@ if (process.platform === 'win32') {
 module.exports.config = {
     multiCapabilities: capabilities,
     seleniumServerJar: `${webdriverPath}/selenium/selenium-server-standalone-${webdriverVersions.selenium}.jar`,
-    baseUrl: 'http://localhost:8089/index.html#',
+    baseUrl: `${appConfig.server.protocol}://${appConfig.server.host}:${appConfig.server.port}/#`,
     rootElement: '#applicationContainer',
     framework: 'jasmine2',
-    specs: ['../src/**/*-test.js'],
+    specs: [appConfig.paths.e2eTests],
     maxSessions: 1,
     jasmineNodeOpts: {
         defaultTimeoutInterval: 360000

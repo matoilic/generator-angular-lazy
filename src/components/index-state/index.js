@@ -1,3 +1,4 @@
+import './index-state.scss';
 import angular from 'angular';
 import 'angular-ui-router';
 import 'angular-translate';

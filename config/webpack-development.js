@@ -1,6 +1,7 @@
-const webpack = require('webpack');
-const baseConfig = require('./webpack.config.base');
 const _ = require('lodash');
+const appConfig = require('./application');
+const baseConfig = require('./webpack-base');
+const webpack = require('webpack');
 
 const config = _.merge({}, baseConfig);
 
@@ -9,7 +10,7 @@ config.output.publicPath = '/';
 
 const appEntry = config.entry.application;
 appEntry.unshift('webpack/hot/only-dev-server');
-appEntry.unshift('webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true');
+appEntry.unshift(`webpack-dev-server/client?${appConfig.server.protocol}://${appConfig.server.host}:${appConfig.server.port}`);
 
 config.plugins.push(
     new webpack.DefinePlugin({
@@ -19,12 +20,9 @@ config.plugins.push(
         }
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.LoaderOptionsPlugin({
-        minimize: false,
-        debug: true
-    })
+    new webpack.NamedModulesPlugin()
 );
 
-config.devtool = 'eval-source-map';
+config.devtool = 'cheap-module-source-map';
 
 module.exports = config;
