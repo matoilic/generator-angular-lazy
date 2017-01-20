@@ -16,9 +16,19 @@ describe('Overall generator', () => {
                 stdio: ['ignore', 'ignore', 'pipe']
             };
 
-            spawn.sync('node', [yo, 'angular-lazy:component', 'custom'], processConfig);
-            spawn.sync('node', [yo, 'angular-lazy:directive', 'custom'], processConfig);
-            spawn.sync('node', [yo, 'angular-lazy:state', 'custom', '--force'], processConfig);
+            const commands = [
+                [yo, 'angular-lazy:component', 'custom'],
+                [yo, 'angular-lazy:directive', 'custom'],
+                [yo, 'angular-lazy:state', 'custom', '--force']
+            ];
+
+            commands.forEach((command) => {
+                const result = spawn.sync('node', command, processConfig);
+
+                if (result.status !== 0) {
+                    throw new Error(`"${command.join(' ')}" failed with exit code ${result.status}`);
+                }
+            });
 
             const cli = new EslintCliEngine({
                 cwd: appGenerator.testDirectory
@@ -35,9 +45,14 @@ describe('Overall generator', () => {
 
     it('has no outdated dependencies', (done) => {
         appGenerator.run(null, { i18n: true, bootstrapJs: true, bootstrapCss: true }, () => {
-            spawn.sync('npm', ['install', '--silent', '--yes'], {
+            const params = ['install', '--silent', '--yes'];
+            const result = spawn.sync('npm', params, {
                 cwd: appGenerator.testDirectory
             });
+
+            if (result.status !== 0) {
+                throw new Error(`"npm ${params.join(' ')}" failed with exit code ${result.status}.`);
+            }
 
             npmCheck({ skipUnused: true, cwd: appGenerator.testDirectory }).then((report) => {
                 const packages = report.get('packages');
