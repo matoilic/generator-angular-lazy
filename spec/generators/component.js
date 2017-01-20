@@ -12,16 +12,11 @@ function run(name, options, runner, setup) {
                 path.join(appGenerator.testDirectory, '.yo-rc.json')
             );
 
-            fs.copySync(
-                path.join(__dirname, '..', 'files', 'index.scss'),
-                path.join(appGenerator.testDirectory, 'src', 'index.scss')
-            );
-
             if (setup) {
                 setup();
             }
         })
-        .withArguments(['--force', name])
+        .withArguments([name, '--force'])
         .withOptions(options || {})
         .on('end', () => {
             runner();

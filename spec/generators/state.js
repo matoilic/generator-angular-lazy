@@ -15,11 +15,6 @@ function run(name, options, runner, setup, prompts) {
             );
 
             fs.copySync(
-                path.join(__dirname, '..', 'files', 'index.scss'),
-                path.join(appGenerator.testDirectory, 'src', 'index.scss')
-            );
-
-            fs.copySync(
                 path.join(__dirname, '..', 'files', 'states.js'),
                 path.join(appGenerator.testDirectory, 'src', 'components', 'application', 'config', 'states.js')
             );
@@ -28,7 +23,7 @@ function run(name, options, runner, setup, prompts) {
                 setup();
             }
         })
-        .withArguments(['--force', name])
+        .withArguments([name, '--force'])
         .withOptions(options || {})
         .withPrompts(prompts || {})
         .on('end', () => {

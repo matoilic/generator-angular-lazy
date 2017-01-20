@@ -1,5 +1,5 @@
 const Jasmine = require('jasmine');
-const SpecReporter = require('jasmine-spec-reporter');
+const SpecReporter = require('jasmine-spec-reporter').SpecReporter;
 
 const runner = new Jasmine();
 runner.configureDefaultReporter({ print: () => {} });

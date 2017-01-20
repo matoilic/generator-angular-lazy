@@ -1,4 +1,4 @@
-import template from './<%= templateName %>.html!text';
+import template from './<%= templateName %>.html';
 
 function <%= routeName %>Config($stateProvider) {
     $stateProvider

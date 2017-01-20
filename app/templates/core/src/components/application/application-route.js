@@ -1,4 +1,4 @@
-import template from './application.html!text';
+import template from './application.html';
 
 function applicationRouteConfig($stateProvider) {
     $stateProvider

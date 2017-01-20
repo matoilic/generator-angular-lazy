@@ -1,13 +1,10 @@
 <% if(bootstrapCss) { %>/**
-TODO: By default the whole bootstrap framework is imported. But you also have the possibility to only import the grid
-"bootstrap/grid" and it's dependencies if you only want to use this for example.
+  TODO: By default the whole bootstrap framework is imported. But you also have the possibility to only import the grid
+  "bootstrap/grid" and it's dependencies if you only want to use this for example.
 */
-@import "bootstrap";
+$icon-font-path: "~bootstrap-sass/assets/fonts/bootstrap/";
+@import "~bootstrap-sass/assets/stylesheets/bootstrap";
 <% } %>
-/* components:begin */
-@import "components/application/application";
-/* components:end */
-
 body {
   font-family: sans-serif;
 }

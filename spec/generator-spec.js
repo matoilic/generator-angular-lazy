@@ -3,6 +3,7 @@ const childProcess = require('child_process');
 const EslintCliEngine = require('eslint').CLIEngine;
 const fs = require('fs-extra');
 const npmCheck = require('npm-check');
+const semver = require('semver');
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 1200000;
 
@@ -39,11 +40,9 @@ describe('Overall generator', () => {
 
             npmCheck({ skipUnused: true, cwd: appGenerator.testDirectory }).then((report) => {
                 const packages = report.get('packages');
-                const outdated = packages.filter((p) => p.installed !== p.latest);
+                const outdated = packages.filter((p) => semver.lt(p.installed, p.latest));
 
-                // TODO revert as soon as istanbul-instrumenter-loader > 1.0 is usable
-                // expect(outdated).toEqual([]);
-                expect(outdated[0].moduleName).toEqual('istanbul-instrumenter-loader');
+                expect(outdated).toEqual([]);
 
                 done();
             });

@@ -51,7 +51,7 @@ describe('State generator', () => {
 
             const states = fs.readFileSync(stateGenerator.statesFile).toString();
 
-            expect(states).toContain(`System.import('../../components/${prefix}/custom-state/index')`);
+            expect(states).toContain(`System.import('../../../components/${prefix}/custom-state/index')`);
 
             assert.file(files);
             assert.file(i18nFiles);
@@ -103,16 +103,5 @@ describe('State generator', () => {
 
             done();
         }, mockMultiViewParent, { target });
-    });
-
-    it('installs the stylesheet', (done) => {
-        stateGenerator.run('custom', null, () => {
-            const styles = fs.readFileSync('src/index.scss').toString();
-
-            expect(styles).toContain('@import "components/custom-state/custom-state";');
-            expect(styles).toContain('/* components:end */');
-
-            done();
-        });
     });
 });

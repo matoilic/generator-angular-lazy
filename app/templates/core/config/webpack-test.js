@@ -4,14 +4,12 @@ const baseConfig = require('./webpack-development');
 const config = _.merge({}, baseConfig);
 
 config.devtool = 'inline-source-map';
-delete config.entry.application;
-delete config.output;
 
 _.merge(config.externals, {
     jsdom: 'window'
 });
 
-config.module.rules = [
+config.module.rules.push(
     {
         enforce: 'pre',
         test: /\.js$/,
@@ -34,23 +32,7 @@ config.module.rules = [
             /-spec\.js$/,
             /-test\.js$/
         ]
-    },
-    {
-        test: /\.js$/,
-        loader: 'babel-loader',
-        options: {
-            compact: false,
-            sourceMap: 'inline'
-        }
-    },
-    {
-        test: /\.html$/,
-        loader: 'raw'
-    },
-    {
-        test: /\.json$/,
-        loader: 'json'
     }
-];
+);
 
 module.exports = config;

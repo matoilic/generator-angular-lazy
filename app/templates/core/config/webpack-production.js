@@ -1,16 +1,60 @@
-const webpack = require('webpack');
-const baseConfig = require('./webpack-base');
 const _ = require('lodash');
+const baseConfig = require('./webpack-base');
+const appConfig = require('./application');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const ManifestPlugin = require('webpack-manifest-plugin');
+const webpack = require('webpack');
 
 const config = _.merge({}, baseConfig);
 
-config.output.publicPath = '';
+config.output.filename = 'js/[name].[chunkhash:8].js';
+config.output.chunkFilename = 'js/[name].[chunkhash:8].chunk.js';
+config.output.publicPath = appConfig.publicPath;
+
+config.module.rules.pop();
+config.module.rules.pop();
+
+config.module.rules.push({
+    test: /\.css$/,
+    loader: ExtractTextPlugin.extract({
+        fallbackLoader: 'style-loader',
+        loader: [
+            {
+                loader: 'css-loader'
+            },
+            {
+                loader: 'postcss-loader',
+                query: {
+                    config: __dirname
+                }
+            }
+        ]
+    })
+});
+
+config.module.rules.push({
+    test: /\.scss$/,
+    loader: ExtractTextPlugin.extract({
+        fallbackLoader: 'style-loader',
+        loader: [
+            {
+                loader: 'css-loader'
+            },
+            {
+                loader: 'postcss-loader',
+                query: {
+                    config: __dirname
+                }
+            },
+            {
+                loader: 'sass-loader'
+            }
+        ]
+    })
+});
 
 config.plugins.push(
-    new webpack.LoaderOptionsPlugin({
-        minimize: true,
-        debug: false
-    }),
+    new ExtractTextPlugin('css/[name].[contenthash:8].css'),
     new webpack.DefinePlugin({
         __DEV__: false,
         'process.env': {
@@ -19,13 +63,19 @@ config.plugins.push(
     }),
     new webpack.optimize.UglifyJsPlugin({
         compress: {
-            warnings: false,
+            screw_ie8: true,
+            warnings: false
+        },
+        mangle: {
             screw_ie8: true
         },
         output: {
-            comments: false
-        },
-        sourceMap: true
+            comments: false,
+            screw_ie8: true
+        }
+    }),
+    new ManifestPlugin({
+        fileName: 'asset-manifest.json'
     })
 );
 

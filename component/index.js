@@ -21,7 +21,7 @@ class ComponentGenerator extends Base {
                 this._copyFile(context.tagName, 'index', 'index', '.js', context);
                 this._copyFile(context.tagName, 'spec', `${context.tagName}-component-spec`, '.js', context);
                 this._copyFile(context.tagName, 'test', `${context.tagName}-component-test`, '.js', context);
-                this._copyFile(context.tagName, '_stylesheet', `_${context.tagName}-component`, '.scss', context);
+                this._copyFile(context.tagName, 'stylesheet', `${context.tagName}-component`, '.scss', context);
                 this._copyFile(context.tagName, 'template', `${context.tagName}-component`, '.html', context);
             },
 
@@ -41,19 +41,9 @@ class ComponentGenerator extends Base {
         };
     }
 
-    get install() {
-        return {
-            stylesheet() {
-                const context = this._createContext();
-
-                this.installStylesheet(context.tagName, `${context.tagName}-component.scss`);
-            }
-        };
-    }
-
     _createContext() {
         const baseContext = super._createContext();
-        const tagName = _.slugify(_.humanize(this.name));
+        const tagName = _.slugify(_.humanize(this.options.name));
 
         return _.merge({
             controllerName: `${_.classify(tagName)}ComponentController`,

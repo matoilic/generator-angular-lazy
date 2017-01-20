@@ -1,2 +1,2 @@
-import 'babel/external-helpers';
-import 'components/application/index';
+import './index.scss';
+import './components/application/index';

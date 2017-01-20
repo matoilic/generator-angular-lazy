@@ -1,3 +1,4 @@
+import './<%= componentName %>.scss';
 import angular from 'angular';
 import 'angular-ui-router';<% if (i18n) { %>
 import 'angular-translate';
