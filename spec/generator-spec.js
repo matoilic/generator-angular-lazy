@@ -26,7 +26,9 @@ describe('Overall generator', () => {
                 const result = spawn.sync('node', command, processConfig);
 
                 if (result.status !== 0) {
-                    throw new Error(`"${command.join(' ')}" failed with exit code ${result.status}`);
+                    throw new Error(
+                        `"${command.join(' ')}" failed with exit code ${result.status}. \n${result.stderr.toString()}`
+                    );
                 }
             });
 
@@ -45,13 +47,15 @@ describe('Overall generator', () => {
 
     it('has no outdated dependencies', (done) => {
         appGenerator.run(null, { i18n: true, bootstrapJs: true, bootstrapCss: true }, () => {
-            const params = ['install', '--silent', '--yes'];
+            const params = ['install', '--yes'];
             const result = spawn.sync('npm', params, {
                 cwd: appGenerator.testDirectory
             });
 
             if (result.status !== 0) {
-                throw new Error(`"npm ${params.join(' ')}" failed with exit code ${result.status}.`);
+                throw new Error(
+                    `"npm ${params.join(' ')}" failed with exit code ${result.status}. \n${result.stderr.toString()}`
+                );
             }
 
             npmCheck({ skipUnused: true, cwd: appGenerator.testDirectory }).then((report) => {
