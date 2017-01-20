@@ -1,23 +1,24 @@
 const appGenerator = require('./generators/app');
-const childProcess = require('child_process');
 const EslintCliEngine = require('eslint').CLIEngine;
 const fs = require('fs-extra');
 const npmCheck = require('npm-check');
 const semver = require('semver');
+const spawn = require('cross-spawn');
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 1200000;
 
 describe('Overall generator', () => {
     it('generates code which passes all ESLint specs', (done) => {
         appGenerator.run(null, { i18n: true, bootstrapJs: true, bootstrapCss: true }, () => {
+            const yo = require.resolve('yo/lib/cli.js');
             const processConfig = {
                 cwd: appGenerator.testDirectory,
                 stdio: ['ignore', 'ignore', 'pipe']
             };
 
-            childProcess.execSync('yo angular-lazy:component custom', processConfig);
-            childProcess.execSync('yo angular-lazy:directive custom', processConfig);
-            childProcess.execSync('yo angular-lazy:state custom --force', processConfig);
+            spawn.sync('node', [yo, 'angular-lazy:component', 'custom'], processConfig);
+            spawn.sync('node', [yo, 'angular-lazy:directive', 'custom'], processConfig);
+            spawn.sync('node', [yo, 'angular-lazy:state', 'custom', '--force'], processConfig);
 
             const cli = new EslintCliEngine({
                 cwd: appGenerator.testDirectory
@@ -34,7 +35,7 @@ describe('Overall generator', () => {
 
     it('has no outdated dependencies', (done) => {
         appGenerator.run(null, { i18n: true, bootstrapJs: true, bootstrapCss: true }, () => {
-            childProcess.execSync('npm install --silent --yes', {
+            spawn.sync('npm', ['install', '--silent', '--yes'], {
                 cwd: appGenerator.testDirectory
             });
 
