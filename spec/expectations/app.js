@@ -2,6 +2,7 @@ module.exports = function () {
     return [
         '.babelrc',
         '.editorconfig',
+        '.eslintignore',
         '.eslintrc.json',
         '.gitattributes',
         '.gitignore',
