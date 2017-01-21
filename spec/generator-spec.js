@@ -21,7 +21,7 @@ const bootstrap = () => {
 };
 
 describe('Overall generator', () => {
-    it('generates code which passes all ESLint specs', (done) => {
+    beforeAll((done) => {
         appGenerator.run(null, { i18n: true, bootstrapJs: true, bootstrapCss: true }, () => {
             bootstrap();
 
@@ -47,63 +47,49 @@ describe('Overall generator', () => {
                 }
             });
 
-            const cli = new EslintCliEngine({
-                cwd: appGenerator.testDirectory
-            });
-
-            const report = cli.executeOnFiles(['.']);
-
-            expect(report.errorCount).toEqual(0);
-            expect(report.warningCount).toEqual(0);
-
             done();
         });
+    });
+
+    afterAll(done => fs.emptyDir(appGenerator.testDirectory, () => done()));
+
+    it('generates code which passes all ESLint specs', () => {
+        const cli = new EslintCliEngine({
+            cwd: appGenerator.testDirectory
+        });
+
+        const report = cli.executeOnFiles(['.']);
+
+        expect(report.errorCount).toEqual(0);
+        expect(report.warningCount).toEqual(0);
     });
 
     it('has no outdated dependencies', (done) => {
-        appGenerator.run(null, { i18n: true, bootstrapJs: true, bootstrapCss: true }, () => {
-            bootstrap();
+        npmCheck({ skipUnused: true, cwd: appGenerator.testDirectory }).then((report) => {
+            const packages = report.get('packages');
+            const outdated = packages.filter(p => semver.lt(p.installed, p.latest));
 
-            npmCheck({ skipUnused: true, cwd: appGenerator.testDirectory }).then((report) => {
-                const packages = report.get('packages');
-                const outdated = packages.filter(p => semver.lt(p.installed, p.latest));
-
-                expect(outdated).toEqual([]);
-
-                done();
-            });
-        });
-    });
-
-    it('starts the development server', (done) => {
-        appGenerator.run(null, { i18n: true, bootstrapJs: true, bootstrapCss: true }, () => {
-            bootstrap();
-
-            const result = spawn.sync('npm', ['start', '--', '--smoke-test'], {
-                cwd: appGenerator.testDirectory,
-                stdio: ['ignore', 'ignore', 'pipe']
-            });
-
-            expect(result.status).toBe(0);
+            expect(outdated).toEqual([]);
 
             done();
         });
     });
 
-    it('builds the application', (done) => {
-        appGenerator.run(null, { i18n: true, bootstrapJs: true, bootstrapCss: true }, () => {
-            bootstrap();
-
-            const result = spawn.sync('npm', ['run', 'build'], {
-                cwd: appGenerator.testDirectory,
-                stdio: ['ignore', 'ignore', 'pipe']
-            });
-
-            expect(result.status).toBe(0);
-
-            done();
+    it('starts the development server', () => {
+        const result = spawn.sync('npm', ['start', '--', '--smoke-test'], {
+            cwd: appGenerator.testDirectory,
+            stdio: ['ignore', 'ignore', 'pipe']
         });
+
+        expect(result.status).toBe(0);
     });
 
-    afterEach(done => fs.emptyDir(appGenerator.testDirectory, () => done()));
+    it('builds the application', () => {
+        const result = spawn.sync('npm', ['run', 'build'], {
+            cwd: appGenerator.testDirectory,
+            stdio: ['ignore', 'ignore', 'pipe']
+        });
+
+        expect(result.status).toBe(0);
+    });
 });
