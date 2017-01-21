@@ -21,6 +21,7 @@
     "glob": "^7.0.3",
     "html-webpack-plugin": "^2.26.0",
     "htmlhint": "^0.9.7",
+    "http-proxy-middleware": "^0.17.3",
     "istanbul-instrumenter-loader": "^1.2.0",
     "jasmine-core": "^2.4.0",
     "jscodeshift": "^0.3.30",

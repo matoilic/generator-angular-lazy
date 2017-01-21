@@ -9,6 +9,10 @@ module.exports = {
         host: 'localhost',
         port: 8088,
         protocol: 'http'
+        // proxy: {
+        //     '/api': 'http://example.com',
+        //     '/other-api': 'http://example.com'
+        // }
     },
     paths: {
         appBuild: resolve('build'),
