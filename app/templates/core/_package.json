@@ -17,7 +17,7 @@
     "eslint-loader": "^1.6.1",
     "extract-text-webpack-plugin": "^2.0.0-beta.4",
     "file-loader": "^0.9.0",
-    "generator-angular-lazy": "~0.6.7",
+    "generator-angular-lazy": "~0.7.0-beta.0",
     "glob": "^7.0.3",
     "html-webpack-plugin": "^2.26.0",
     "htmlhint": "^0.9.7",
