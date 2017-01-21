@@ -13,7 +13,7 @@
     "chalk": "^1.1.3",
     "css-loader": "^0.26.1",
     "eslint": "^3.13.0",
-    "eslint-config-angular-lazy": "^0.1.1",
+    "eslint-config-angular-lazy": "^0.2.1",
     "eslint-loader": "^1.6.1",
     "extract-text-webpack-plugin": "^2.0.0-beta.4",
     "file-loader": "^0.9.0",

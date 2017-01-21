@@ -1,5 +1,3 @@
-'use strict';
-
 const _ = require('./extended-lodash');
 
 module.exports = {
@@ -24,7 +22,7 @@ module.exports = {
 
         return normalizedStateName
             .split('.')
-            .map((part) => _.slugify(_.humanize(part)))
+            .map(part => _.slugify(_.humanize(part)))
             .join('.');
     },
 

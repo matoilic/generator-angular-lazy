@@ -34,7 +34,7 @@
   "devDependencies": {
     "cross-spawn": "^5.0.1",
     "eslint": "~3.14.0",
-    "eslint-config-angular-lazy": "^0.1.1",
+    "eslint-config-angular-lazy": "^0.2.1",
     "fs-extra": "^2.0.0",
     "jasmine": "~2.5.2",
     "jasmine-spec-reporter": "^3.2.0",

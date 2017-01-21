@@ -1,11 +1,9 @@
-'use strict';
-
 const _ = require('./extended-lodash');
 const Generator = require('yeoman-generator');
 
 class GeneratorBase extends Generator {
     getRootPath() {
-        if (!this.hasOwnProperty('_rootPath')) {
+        if (!this._rootPath !== undefined) {
             this._rootPath = this.config.get('root');
         }
 
@@ -23,9 +21,9 @@ class GeneratorBase extends Generator {
             dest.push(this.options.prefix);
         }
 
-        dest = dest.concat(Array.prototype.slice.apply(arguments));
+        dest = dest.concat(Array.from(arguments));
 
-        return this.rootedDestinationPath.apply(this, dest);
+        return this.rootedDestinationPath(...dest);
     }
 
     _copyFile(componentName, src, dest, extension, context) {
@@ -61,7 +59,7 @@ class GeneratorBase extends Generator {
             dest.unshift(this.getRootPath());
         }
 
-        return this.destinationPath.apply(this, dest);
+        return this.destinationPath(...dest);
     }
 
     _enablePrefix() {

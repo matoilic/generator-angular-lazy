@@ -31,7 +31,7 @@ module.exports = function (file, api, options) {
     }
 
     return searchResults
-        .forEach(node => {
+        .forEach((node) => {
             node.value.init.elements.push(
                 j.objectExpression([
                     j.property(

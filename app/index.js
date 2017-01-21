@@ -1,12 +1,10 @@
-'use strict';
-
 const Base = require('../base');
 const glob = require('glob');
 const path = require('path');
 const _ = require('../extended-lodash');
 const stateUtils = require('../state-utils');
 
-const whenI18nActive = (answers) => answers.i18n;
+const whenI18nActive = answers => answers.i18n;
 
 class ApplicationGenerator extends Base {
     constructor(args, options) {
@@ -57,10 +55,10 @@ class ApplicationGenerator extends Base {
                             message: 'What locales do you want to support (comma separated list)?',
                             default: locales,
                             when: whenI18nActive,
-                            filter: (answer) => _.uniq(
+                            filter: answer => _.uniq(
                                 answer
                                     .split(',')
-                                    .map((locale) => locale.trim())
+                                    .map(locale => locale.trim())
                             )
                         },
                         {
@@ -68,7 +66,7 @@ class ApplicationGenerator extends Base {
                             name: 'defaultLocale',
                             message: 'Which should be the default locale?',
                             default: this.config.get('defaultLocale'),
-                            choices: (answers) => answers.locales,
+                            choices: answers => answers.locales,
                             when: whenI18nActive
                         },
                         {
@@ -133,7 +131,7 @@ class ApplicationGenerator extends Base {
 
                 glob
                     .sync(this.templatePath('core/**/*'), { nodir: true })
-                    .map((filepath) => filepath.slice(templatePathLength))
+                    .map(filepath => filepath.slice(templatePathLength))
                     .forEach((filepath) => {
                         const dirname = path.dirname(filepath).slice(5);
                         const srcFilename = path.basename(filepath);

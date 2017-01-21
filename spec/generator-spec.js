@@ -64,7 +64,7 @@ describe('Overall generator', () => {
 
             npmCheck({ skipUnused: true, cwd: appGenerator.testDirectory }).then((report) => {
                 const packages = report.get('packages');
-                const outdated = packages.filter((p) => semver.lt(p.installed, p.latest));
+                const outdated = packages.filter(p => semver.lt(p.installed, p.latest));
 
                 expect(outdated).toEqual([]);
 
@@ -103,5 +103,5 @@ describe('Overall generator', () => {
         });
     });
 
-    afterEach((done) => fs.emptyDir(appGenerator.testDirectory, () => done()));
+    afterEach(done => fs.emptyDir(appGenerator.testDirectory, () => done()));
 });

@@ -1,4 +1,4 @@
-import './<%= tagName %>.scss';
+import './<%= tagName %>-component.scss';
 import angular from 'angular';<% if (i18n) { %>
 import 'angular-translate';
 import translationsModule from './i18n/translations';<% } %>

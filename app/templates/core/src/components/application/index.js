@@ -9,7 +9,7 @@ import translationsModule from './i18n/translations';
 import defaultLocaleConfig from './config/default-locale';<% } %>
 import routingConfig from './config/routing';
 import errorHandlingConfig from './config/error-handling';
-import constants from './config/constants.js';
+import constants from './config/constants';
 import ApplicationController from './application-controller';
 import applicationRoute from './application-route';
 

@@ -1,5 +1,3 @@
-'use strict';
-
 const _ = require('../extended-lodash');
 const Base = require('../base');
 const fs = require('fs');

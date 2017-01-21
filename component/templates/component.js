@@ -1,4 +1,4 @@
-import template from './<%= tagName %>-component.html!text';
+import template from './<%= tagName %>-component.html';
 
 export default {
     bindings: { },

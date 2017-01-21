@@ -9,6 +9,7 @@ const webdriverPath = path.join(
     '..'
 );
 
+// eslint-disable-next-line global-require, import/no-dynamic-require
 const webdriverVersions = require(`${webdriverPath}/config.json`).webdriverVersions;
 
 const capabilities = [
