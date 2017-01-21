@@ -48,12 +48,11 @@ module.exports = {
                 test: /\.js$/,
                 loader: 'eslint-loader',
                 enforce: 'pre',
-                include: 'src'
+                include: appConfig.paths.appSrc
             },
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                include: appConfig.paths.appSrc,
                 query: {
                     cacheDirectory: true
                 }

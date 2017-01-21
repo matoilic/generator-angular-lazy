@@ -7,6 +7,19 @@ const spawn = require('cross-spawn');
 
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 1200000;
 
+const bootstrap = () => {
+    const params = ['install', '--yes'];
+    const result = spawn.sync('npm', params, {
+        cwd: appGenerator.testDirectory
+    });
+
+    if (result.status !== 0) {
+        throw new Error(
+            `"npm ${params.join(' ')}" failed with exit code ${result.status}. \n${result.stderr.toString()}`
+        );
+    }
+};
+
 describe('Overall generator', () => {
     it('generates code which passes all ESLint specs', (done) => {
         appGenerator.run(null, { i18n: true, bootstrapJs: true, bootstrapCss: true }, () => {
@@ -47,16 +60,7 @@ describe('Overall generator', () => {
 
     it('has no outdated dependencies', (done) => {
         appGenerator.run(null, { i18n: true, bootstrapJs: true, bootstrapCss: true }, () => {
-            const params = ['install', '--yes'];
-            const result = spawn.sync('npm', params, {
-                cwd: appGenerator.testDirectory
-            });
-
-            if (result.status !== 0) {
-                throw new Error(
-                    `"npm ${params.join(' ')}" failed with exit code ${result.status}. \n${result.stderr.toString()}`
-                );
-            }
+            bootstrap();
 
             npmCheck({ skipUnused: true, cwd: appGenerator.testDirectory }).then((report) => {
                 const packages = report.get('packages');
@@ -66,6 +70,36 @@ describe('Overall generator', () => {
 
                 done();
             });
+        });
+    });
+
+    it('starts the development server', (done) => {
+        appGenerator.run(null, { i18n: true, bootstrapJs: true, bootstrapCss: true }, () => {
+            bootstrap();
+
+            const result = spawn.sync('npm', ['start', '--', '--smoke-test'], {
+                cwd: appGenerator.testDirectory,
+                stdio: ['ignore', 'ignore', 'pipe']
+            });
+
+            expect(result.status).toBe(0);
+
+            done();
+        });
+    });
+
+    it('builds the application', (done) => {
+        appGenerator.run(null, { i18n: true, bootstrapJs: true, bootstrapCss: true }, () => {
+            bootstrap();
+
+            const result = spawn.sync('npm', ['run', 'build'], {
+                cwd: appGenerator.testDirectory,
+                stdio: ['ignore', 'ignore', 'pipe']
+            });
+
+            expect(result.status).toBe(0);
+
+            done();
         });
     });
 

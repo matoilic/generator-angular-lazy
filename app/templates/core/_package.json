@@ -17,7 +17,7 @@
     "eslint-loader": "^1.6.1",
     "extract-text-webpack-plugin": "^2.0.0-beta.4",
     "file-loader": "^0.9.0",
-    "generator-angular-lazy": "~0.7.0",
+    "generator-angular-lazy": "~0.6.7",
     "glob": "^7.0.3",
     "html-webpack-plugin": "^2.26.0",
     "htmlhint": "^0.9.7",
@@ -50,7 +50,8 @@
     "webpack-manifest-plugin": "^1.1.0"
   },
   "dependencies": {
-    "angular": "~1.6.0",<% if(i18n) { %>
+    "angular": "~1.6.0",
+    "angular-lazy": "github:matoilic/angular-lazy#webpack",<% if(i18n) { %>
     "angular-translate": "~2.13.0",<% } %><% if(bootstrapJs) { %>
     "angular-ui-bootstrap": "~2.4.0",<% } %>
     "angular-ui-router": "~0.4.0",

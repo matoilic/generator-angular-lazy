@@ -6,7 +6,19 @@ const WebpackDevServer = require('webpack-dev-server');
 const webpack = require('webpack');
 const webpackConfigDev = require('../config/webpack-development');
 
-const compiler = webpack(webpackConfigDev);
+const isSmokeTest = process.argv.includes('--smoke-test');
+let handleCompile;
+if (isSmokeTest) {
+    handleCompile = (err, stats) => {
+        if (err || stats.hasErrors() || stats.hasWarnings()) {
+            process.exit(1);
+        } else {
+            process.exit(0);
+        }
+    };
+}
+
+const compiler = webpack(webpackConfigDev, handleCompile);
 let isFirstCompile = true;
 
 compiler.plugin('invalid', () => {

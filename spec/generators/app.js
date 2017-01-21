@@ -18,11 +18,6 @@ function run(options, prompts, runner, setup) {
     helpers
         .run(path.join(__dirname, '..', '..', 'app'))
         .inDir(testDirectory, () => {
-            fs.copySync(
-                path.join(__dirname, '..', 'files', 'package.json'),
-                path.join(testDirectory, 'package.json')
-            );
-
             fs.ensureDirSync(path.join(testDirectory, 'node_modules'));
             fs.ensureSymlinkSync(
                 path.join(__dirname, '..', '..'),

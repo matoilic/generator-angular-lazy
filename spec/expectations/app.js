@@ -1,5 +1,6 @@
 module.exports = function () {
     return [
+        '.babelrc',
         '.editorconfig',
         '.eslintrc.json',
         '.gitattributes',
