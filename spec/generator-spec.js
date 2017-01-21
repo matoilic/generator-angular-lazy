@@ -23,6 +23,8 @@ const bootstrap = () => {
 describe('Overall generator', () => {
     it('generates code which passes all ESLint specs', (done) => {
         appGenerator.run(null, { i18n: true, bootstrapJs: true, bootstrapCss: true }, () => {
+            bootstrap();
+
             const yo = require.resolve('yo/lib/cli.js');
             const processConfig = {
                 cwd: appGenerator.testDirectory,
