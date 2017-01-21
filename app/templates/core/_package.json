@@ -37,6 +37,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-spec-reporter": "^0.0.26",
     "karma-webpack": "^2.0.1",
+    "lodash": "~4.17.4",
     "node-sass": "^4.3.0",
     "postcss-loader": "^1.2.1",
     "protractor": "^5.0.0",
@@ -45,6 +46,7 @@
     "source-map-loader": "^0.1.5",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
+    "webdriver-manager": "^11.1.1",
     "webpack": "~2.2.0",
     "webpack-dev-server": "~2.2.0",
     "webpack-manifest-plugin": "^1.1.0"
