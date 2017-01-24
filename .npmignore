@@ -1,6 +1,6 @@
-scripts
-spec
-tmp
+/scripts
+/spec
+/tmp
 .DS_Store
 .editorconfig
 .eslintignore
